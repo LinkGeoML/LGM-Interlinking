@@ -2,21 +2,23 @@
 
 """Feature extraction and traditional classifiers for toponym interlinking.
 
-Usage:
-  exec.py [options]
-  exec.py (-h | --help)
-  exec.py --version
+Command line::
 
-Options:
-  -h --help                     show this screen.
-  --version                     show version.
-  -d <dataset-name>             relative path to the directory of the script being run of the dataset to use for
-                                experiments. [default: dataset-string-similarity.txt].
-  -e <encoding_type>            Check for similarities only for the specified encoding type. [default: latin].
+    Usage:
+      exec.py [options]
+      exec.py (-h | --help)
+      exec.py --version
 
-Arguments:
-  encoding_type             'global'
-                            'latin'
+    Options:
+        -h --help                   show this screen.
+        --version                   show version.
+        -d <dataset-name>           relative path to the directory of the script being run of the dataset to use for
+                                    experiments. [default: dataset-string-similarity.txt].
+        -e <encoding_type>          Check for similarities only for the specified encoding type. [default: latin].
+
+    Arguments:
+        encoding_type               'global'
+                                    'latin'
 """
 
 import os, sys
@@ -26,7 +28,6 @@ from kitchen.text.converters import getwriter
 import methods
 from helpers import getRelativePathtoWorking, StaticValues
 from sim_measures import LSimilarityVars
-import config
 
 
 def main(args):
