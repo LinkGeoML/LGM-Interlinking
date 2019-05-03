@@ -10,12 +10,8 @@ from featuresConstruction import Features
 
 
 class Evaluator:
-    def __init__(self, sorting=False, canonical=False, encoding=None):
-        self.canonical = canonical
-        self.sorting = sorting
-        self.encoding = encoding
-
-        self.evalClass = None
+    def __init__(self):
+        pass
 
     def hyperparamTuning(self, dataset='dataset-string-similarity.txt'):
         pt = param_tuning.ParamTuning()

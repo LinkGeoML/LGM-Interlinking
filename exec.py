@@ -12,8 +12,6 @@ Options:
   --version                     show version.
   -d <dataset-name>             relative path to the directory of the script being run of the dataset to use for
                                 experiments. [default: dataset-string-similarity.txt].
-  --canonical                   perform canonical decomposition (NFKD). Default is False.
-  --sort                        sort alphanumerically.
   -e <encoding_type>            Check for similarities only for the specified encoding type. [default: latin].
 
 Arguments:
@@ -28,6 +26,7 @@ from kitchen.text.converters import getwriter
 import methods
 from helpers import getRelativePathtoWorking, StaticValues
 from sim_measures import LSimilarityVars
+import config
 
 
 def main(args):
@@ -37,7 +36,7 @@ def main(args):
     LSimilarityVars.per_metric_optimal_values = StaticValues.MetricOptimalValues[args["-e"].lower()]
     dataset_path = [x for x in args['-d'].split(',')]
 
-    evaluator = methods.Evaluator(args['--sort'], args['--canonical'], args['-e'])
+    evaluator = methods.Evaluator()
 
     fpath_ds = getRelativePathtoWorking(dataset_path[0])
     if os.path.isfile(fpath_ds):

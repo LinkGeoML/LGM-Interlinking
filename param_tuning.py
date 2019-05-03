@@ -20,16 +20,16 @@ class ParamTuning:
         'SVM': [SVC, config.initialConfig.SVM_hyperparameters, config.initialConfig.SVM_hyperparameters_dist],
         'Decision Tree': [DecisionTreeClassifier, config.initialConfig.DecisionTree_hyperparameters,
                           config.initialConfig.DecisionTree_hyperparameters_dist],
-        # 'MLP': [MLPClassifier, config.initialConfig.MLP_hyperparameters, config.initialConfig.MLP_hyperparameters_dist],
-        # 'Random Forest': [RandomForestClassifier, config.initialConfig.RandomForest_hyperparameters,
-        #                   config.initialConfig.RandomForest_hyperparameters_dist],
-        # 'Extra-Trees': [ExtraTreesClassifier, config.initialConfig.RandomForest_hyperparameters,
-        #                 config.initialConfig.RandomForest_hyperparameters_dist],
-        # 'XGBoost': [XGBClassifier, config.initialConfig.XGBoost_hyperparameters,
-        #             config.initialConfig.XGBoost_hyperparameters_dist]
+        'MLP': [MLPClassifier, config.initialConfig.MLP_hyperparameters, config.initialConfig.MLP_hyperparameters_dist],
+        'Random Forest': [RandomForestClassifier, config.initialConfig.RandomForest_hyperparameters,
+                          config.initialConfig.RandomForest_hyperparameters_dist],
+        'Extra-Trees': [ExtraTreesClassifier, config.initialConfig.RandomForest_hyperparameters,
+                        config.initialConfig.RandomForest_hyperparameters_dist],
+        'XGBoost': [XGBClassifier, config.initialConfig.XGBoost_hyperparameters,
+                    config.initialConfig.XGBoost_hyperparameters_dist]
     }
 
-    scores = ['accuracy']  # , 'f1_macro', 'f1_micro']
+    scores = ['accuracy']
 
     def __init__(self):
         # To be used within GridSearch
