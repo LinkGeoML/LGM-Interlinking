@@ -2,12 +2,16 @@ import pandas as pd
 import numpy as np
 import config
 from itertools import chain
+import os
+import glob
 
 from helpers import StaticValues, transform
 from sim_measures import LSimilarityVars, lsimilarity_terms, score_per_term, weighted_terms
 
 
 class Features:
+    max_freq_terms = 200
+
     fields = [
         "s1",
         "s2",
@@ -37,8 +41,9 @@ class Features:
         self.clf_method = config.initialConfig.classification_method
         self.data_df = None
 
-    def load_data(self, fname):
+    def load_data(self, fname, encoding):
         self.data_df = pd.read_csv(fname, sep='\t', names=self.fields, dtype=self.dtypes, na_filter=False)
+        self._get_freqterms(encoding)
 
     def build_features(self):
         y = self.data_df['status'].str.upper().map(self.d).values
@@ -132,3 +137,21 @@ class Features:
         baseTerms, mismatchTerms, specialTerms = lsimilarity_terms(
             s1, s2, LSimilarityVars.per_metric_optimal_values[metric][w_type][0])
         return score_per_term(baseTerms, mismatchTerms, specialTerms, metric)
+
+    def _get_freqterms(self, encoding):
+        print("Resetting any previously assigned frequent terms ...")
+        LSimilarityVars.freq_ngrams['tokens'].clear()
+        LSimilarityVars.freq_ngrams['chars'].clear()
+
+        input_path = (True, os.path.join(os.getcwd(), 'input/')) \
+            if os.path.isdir(os.path.join(os.getcwd(), 'input/')) \
+            else (os.path.isdir(os.path.join(os.getcwd(), '../input/')), os.path.join(os.getcwd(), '../input/'))
+        if input_path[0]:
+            for f in glob.iglob(os.path.join(input_path[1], '*gram*{}{}.csv'.format('_', encoding))):
+                gram_type = 'tokens' if 'token' in os.path.basename(os.path.normpath(f)) else 'chars'
+
+                print("Loading frequent terms from file {} ...".format(f))
+                df = pd.read_csv(f, sep='\t', header=1, nrows=self.max_freq_terms)
+                LSimilarityVars.freq_ngrams[gram_type].update(df['term'].values.tolist())
+            print('Frequent terms loaded.')
+        else: print("Folder 'input' does not exist")

@@ -21,7 +21,8 @@ def ascii_transliteration_and_punctuation_strip(s):
     s = punctuation_regex.sub('', s)
     return s
 
-def transform(strA, strB, sorting=False, stemming=False, canonical=False, delimiter=' ', thres=0.55, only_sorting=False):
+
+def transform(strA, strB, sorting=False, canonical=False, delimiter=' ', thres=0.55, only_sorting=False):
     a = strA.decode('utf8') #.lower()
     b = strB.decode('utf8') #.lower()
 
@@ -86,56 +87,74 @@ class StaticValues:
     }
 
     methods = [
-        ["Damerau-Levenshtein", {'orig': 0.55, 'sorted': 0.60, 'orig_onlylatin': 0.4, 'sorted_onlylatin': 0.55,
-                                 'orig_latin_EU/NA': 0.45, 'sorted_latin_EU/NA': 0.55, 'orig_global': 0.55, 'sorted_global': 0.55
-                                 }],
-        ["Jaro", {'orig': 0.75, 'sorted': 0.8, 'orig_onlylatin': 0.7, 'sorted_onlylatin': 0.75,
-                  'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.75, 'orig_global': 0.75, 'sorted_global': 0.75
-                  }],
-        ["Jaro-Winkler", {'orig': 0.7, 'sorted': 0.85, 'orig_onlylatin': 0.7, 'sorted_onlylatin': 0.7,
-                          'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.7, 'orig_global': 0.7, 'sorted_global': 0.7
-                          }],
-        ["Jaro-Winkler reversed", {'orig': 0.75, 'sorted': 0.75, 'orig_onlylatin': 0.7, 'sorted_onlylatin': 0.75,
-                                   'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.75, 'orig_global': 0.75, 'sorted_global': 0.75
-                                   }],
-        ["Sorted Jaro-Winkler", {'orig': 0.7, 'sorted': 0.85, 'orig_onlylatin': 0.70, 'sorted_onlylatin': 0.7,
-                                 'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.7, 'orig_global': 0.7, 'sorted_global': 0.7
-                                 }],
-        ["Permuted Jaro-Winkler", {'orig': 0.7, 'sorted': 0.7, 'orig_onlylatin': 0.60, 'sorted_onlylatin': 0.6,
-                                   'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.55}],
-        ["Cosine N-grams", {'orig': 0.4, 'sorted': 0.7, 'orig_onlylatin': 0.35, 'sorted_onlylatin': 0.45,
-                            'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.45, 'orig_global': 0.4, 'sorted_global': 0.45
-                            }],
-        ["Jaccard N-grams", {'orig': 0.25, 'sorted': 0.35, 'orig_onlylatin': 0.30, 'sorted_onlylatin': 0.3,
-                             'orig_latin_EU/NA': 0.3, 'sorted_latin_EU/NA': 0.3, 'orig_global': 0.3, 'sorted_global': 0.3
-                             }],
-        ["Dice bigrams", {'orig': 0.5, 'sorted': 0.55, 'orig_onlylatin': 0.4, 'sorted_onlylatin': 0.45,
-                          'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.5, 'orig_global': 0.5, 'sorted_global': 0.4
-                          }],
-        ["Jaccard skipgrams", {'orig': 0.45, 'sorted': 0.55, 'orig_onlylatin': 0.4, 'sorted_onlylatin': 0.45,
-                               'orig_latin_EU/NA': 0.45, 'sorted_latin_EU/NA': 0.55, 'orig_global': 0.45, 'sorted_global': 0.45
-                               }],
-        ["Monge-Elkan", {'orig': 0.7, 'sorted': 0.85, 'orig_onlylatin': 0.7, 'sorted_onlylatin': 0.75,
-                         'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.75, 'orig_global': 0.7, 'sorted_global': 0.75
-                         }],
-        ["Soft-Jaccard", {'orig': 0.6, 'sorted': 0.7, 'orig_onlylatin': 0.55, 'sorted_onlylatin': 0.6,
-                          'orig_latin_EU/NA': 0.55, 'sorted_latin_EU/NA': 0.6, 'orig_global': 0.6, 'sorted_global': 0.6
-                          }],
-        ["Davis and De Salles", {'orig': 0.65, 'sorted': 0.7, 'orig_onlylatin': 0.6, 'sorted_onlylatin': 0.65,
-                                 'orig_latin_EU/NA': 0.65, 'sorted_latin_EU/NA': 0.65, 'orig_global': 0.65, 'sorted_global': 0.65
-                                 }],
-        ["LinkGeoML Jaro-Winkler", {'orig': 0.7, 'sorted': 0.85, 'orig_onlylatin': 0.70, 'sorted_onlylatin': 0.7,
-                                    'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.7, 'orig_global': 0.7, 'sorted_global': 0.75
-                                    }],
-        ["LinkGeoML Jaro-Winkler reversed", {'orig': 0.75, 'sorted': 0.75, 'orig_onlylatin': 0.75, 'sorted_onlylatin': 0.75,
-                                             'orig_latin_EU/NA': 0.75, 'sorted_latin_EU/NA': 0.8, 'orig_global': 0.8, 'sorted_global': 0.8
-                                             }],
-        ["LinkGeoML Similarity", {'orig': 0.4, 'sorted': 0.35, 'orig_onlylatin': 0.35, 'sorted_onlylatin': 0.35,
-                                  'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.55, 'orig_global': 0.55, 'sorted_global': 0.55
-                                  }],
-        ["Avg LinkGeoML Similarity", {'orig': 0.4, 'sorted': 0.35, 'orig_onlylatin': 0.35, 'sorted_onlylatin': 0.35,
-                                      'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.55, 'orig_global': 0.55, 'sorted_global': 0.55
-                                      }],
+        ["Damerau-Levenshtein", {
+            'orig': 0.55, 'sorted': 0.60, 'orig_onlylatin': 0.4, 'sorted_onlylatin': 0.55,
+            'orig_latin_EU/NA': 0.45, 'sorted_latin_EU/NA': 0.55, 'orig_global': 0.55, 'sorted_global': 0.55
+        }],
+        ["Jaro", {
+            'orig': 0.75, 'sorted': 0.8, 'orig_onlylatin': 0.7, 'sorted_onlylatin': 0.75,
+            'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.75, 'orig_global': 0.75, 'sorted_global': 0.75
+        }],
+        ["Jaro-Winkler", {
+            'orig': 0.7, 'sorted': 0.85, 'orig_onlylatin': 0.7, 'sorted_onlylatin': 0.7,
+            'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.7, 'orig_global': 0.7, 'sorted_global': 0.7
+        }],
+        ["Jaro-Winkler reversed", {
+            'orig': 0.75, 'sorted': 0.75, 'orig_onlylatin': 0.7, 'sorted_onlylatin': 0.75,
+            'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.75, 'orig_global': 0.75, 'sorted_global': 0.75
+        }],
+        ["Sorted Jaro-Winkler", {
+            'orig': 0.7, 'sorted': 0.85, 'orig_onlylatin': 0.70, 'sorted_onlylatin': 0.7,
+            'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.7, 'orig_global': 0.7, 'sorted_global': 0.7
+        }],
+        ["Permuted Jaro-Winkler", {
+            'orig': 0.7, 'sorted': 0.7, 'orig_onlylatin': 0.60, 'sorted_onlylatin': 0.6,
+            'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.55}],
+        ["Cosine N-grams", {
+            'orig': 0.4, 'sorted': 0.7, 'orig_onlylatin': 0.35, 'sorted_onlylatin': 0.45,
+            'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.45, 'orig_global': 0.4,
+            'sorted_global': 0.45
+        }],
+        ["Jaccard N-grams", {
+            'orig': 0.25, 'sorted': 0.35, 'orig_onlylatin': 0.30, 'sorted_onlylatin': 0.3,
+            'orig_latin_EU/NA': 0.3, 'sorted_latin_EU/NA': 0.3, 'orig_global': 0.3, 'sorted_global': 0.3
+        }],
+        ["Dice bigrams", {
+            'orig': 0.5, 'sorted': 0.55, 'orig_onlylatin': 0.4, 'sorted_onlylatin': 0.45,
+            'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.5, 'orig_global': 0.5, 'sorted_global': 0.4
+        }],
+        ["Jaccard skipgrams", {
+            'orig': 0.45, 'sorted': 0.55, 'orig_onlylatin': 0.4, 'sorted_onlylatin': 0.45,
+            'orig_latin_EU/NA': 0.45, 'sorted_latin_EU/NA': 0.55, 'orig_global': 0.45, 'sorted_global': 0.45
+        }],
+        ["Monge-Elkan", {
+            'orig': 0.7, 'sorted': 0.85, 'orig_onlylatin': 0.7, 'sorted_onlylatin': 0.75,
+            'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.75, 'orig_global': 0.7, 'sorted_global': 0.75
+        }],
+        ["Soft-Jaccard", {
+            'orig': 0.6, 'sorted': 0.7, 'orig_onlylatin': 0.55, 'sorted_onlylatin': 0.6,
+            'orig_latin_EU/NA': 0.55, 'sorted_latin_EU/NA': 0.6, 'orig_global': 0.6, 'sorted_global': 0.6
+        }],
+        ["Davis and De Salles", {
+            'orig': 0.65, 'sorted': 0.7, 'orig_onlylatin': 0.6, 'sorted_onlylatin': 0.65,
+            'orig_latin_EU/NA': 0.65, 'sorted_latin_EU/NA': 0.65, 'orig_global': 0.65, 'sorted_global': 0.65
+        }],
+        ["LinkGeoML Jaro-Winkler", {
+            'orig': 0.7, 'sorted': 0.85, 'orig_onlylatin': 0.70, 'sorted_onlylatin': 0.7,
+            'orig_latin_EU/NA': 0.7, 'sorted_latin_EU/NA': 0.7, 'orig_global': 0.7, 'sorted_global': 0.75
+        }],
+        ["LinkGeoML Jaro-Winkler reversed", {
+            'orig': 0.75, 'sorted': 0.75, 'orig_onlylatin': 0.75, 'sorted_onlylatin': 0.75,
+            'orig_latin_EU/NA': 0.75, 'sorted_latin_EU/NA': 0.8, 'orig_global': 0.8, 'sorted_global': 0.8
+        }],
+        ["LinkGeoML Similarity", {
+            'orig': 0.4, 'sorted': 0.35, 'orig_onlylatin': 0.35, 'sorted_onlylatin': 0.35,
+            'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.55, 'orig_global': 0.55, 'sorted_global': 0.55
+        }],
+        ["Avg LinkGeoML Similarity", {
+            'orig': 0.4, 'sorted': 0.35, 'orig_onlylatin': 0.35, 'sorted_onlylatin': 0.35,
+            'orig_latin_EU/NA': 0.4, 'sorted_latin_EU/NA': 0.55, 'orig_global': 0.55, 'sorted_global': 0.55
+        }],
 
         ["Jaro LinkGeoML Similarity",
          {'orig': 0.4, 'sorted': 0.35, 'orig_onlylatin': 0.35, 'sorted_onlylatin': 0.35,
@@ -276,10 +295,7 @@ class StaticValues:
         'dt': 1,
         'rf': 2,
         'nn': 3,
-        # 'ada': 10,
         'nb': 4,
-        # 'qda': 8,
-        # 'lda': 9,
         'et': 5,
         'xgboost': 6,
     }
@@ -288,8 +304,6 @@ class StaticValues:
         "Linear SVM",
         "Decision Tree", "Random Forest", "Neural Net", "Naive Bayes",
         "ExtraTreeClassifier", "XGBOOST"
-        # "QDA", "LDA",
-        # "AdaBoost", "Gaussian Process",
     ]
 
     featureColumns = [

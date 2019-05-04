@@ -37,7 +37,7 @@ def main(args):
     LSimilarityVars.per_metric_optimal_values = StaticValues.MetricOptimalValues[args["-e"].lower()]
     dataset_path = [x for x in args['-d'].split(',')]
 
-    evaluator = methods.Evaluator()
+    evaluator = methods.Evaluator(args['-e'])
 
     fpath_ds = getRelativePathtoWorking(dataset_path[0])
     if os.path.isfile(fpath_ds):

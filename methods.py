@@ -10,15 +10,15 @@ from featuresConstruction import Features
 
 
 class Evaluator:
-    def __init__(self):
-        pass
+    def __init__(self, encoding='latin'):
+        self.encoding = encoding
 
     def hyperparamTuning(self, dataset='dataset-string-similarity.txt'):
         pt = param_tuning.ParamTuning()
         f = Features()
 
         tot_time = time.time(); start_time = time.time()
-        f.load_data(getRelativePathtoWorking(config.initialConfig.test_dataset))
+        f.load_data(getRelativePathtoWorking(config.initialConfig.test_dataset), self.encoding)
         fX, y = f.build_features()
         print("Loaded train dataset and build features for {} setup; {} sec.".format(
             config.initialConfig.classification_method, time.time() - start_time))
@@ -40,7 +40,7 @@ class Evaluator:
         print("Finished training model on the dataset; {} sec.".format(time.time() - start_time))
 
         start_time = time.time()
-        f.load_data(dataset)
+        f.load_data(dataset, self.encoding)
         fX, y = f.build_features()
         print("Loaded test dataset and build features; {} sec".format(time.time() - start_time))
 
