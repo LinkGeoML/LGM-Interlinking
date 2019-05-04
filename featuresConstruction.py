@@ -143,15 +143,16 @@ class Features:
         LSimilarityVars.freq_ngrams['tokens'].clear()
         LSimilarityVars.freq_ngrams['chars'].clear()
 
-        input_path = (True, os.path.join(os.getcwd(), 'input/')) \
-            if os.path.isdir(os.path.join(os.getcwd(), 'input/')) \
-            else (os.path.isdir(os.path.join(os.getcwd(), '../input/')), os.path.join(os.getcwd(), '../input/'))
+        base_path = os.path.abspath(os.path.dirname(__file__))
+        input_path = (True, os.path.join(base_path, 'input/')) \
+            if os.path.isdir(os.path.join(base_path, 'input/')) \
+            else (os.path.isdir(os.path.join(base_path, '../input/')), os.path.join(base_path, '../input/'))
         if input_path[0]:
             for f in glob.iglob(os.path.join(input_path[1], '*gram*{}{}.csv'.format('_', encoding))):
                 gram_type = 'tokens' if 'token' in os.path.basename(os.path.normpath(f)) else 'chars'
 
                 print("Loading frequent terms from file {} ...".format(f))
-                df = pd.read_csv(f, sep='\t', header=1, nrows=self.max_freq_terms)
+                df = pd.read_csv(f, sep='\t', header=0, names=['term', 'no'], nrows=self.max_freq_terms)
                 LSimilarityVars.freq_ngrams[gram_type].update(df['term'].values.tolist())
             print('Frequent terms loaded.')
         else: print("Folder 'input' does not exist")
