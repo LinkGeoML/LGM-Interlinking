@@ -3,7 +3,7 @@ LGM-Interlinking
 
 This is the Python code used to implement and evaluate the proposed LinkGeoML models for Toponym Interlinking.
 The dataset folder contains the train datasets used for evaluation. For the test dataset, we used the one from
-the Toponym-Matching work (see :ref:`RST Setup`).
+the Toponym-Matching work (see `RST Setup`_).
 
 ..
     The **scripts** folder contains the evaluation setting used to execute the experiments and collect the results presented in the paper:
@@ -49,5 +49,4 @@ is under the MIT license.
 
 License
 -------
-LGM-Interlinking is available under the MIT License (see LICENSE.txt).
-
+LGM-Interlinking is available under the MIT License.
