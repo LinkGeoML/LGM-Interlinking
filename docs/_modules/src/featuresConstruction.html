@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>src.featuresConstruction &mdash; LGMInterlinking 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> LGMInterlinking
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../methods_class.html">LGMInterlinking methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../features.html">LGMInterlinking features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tuning.html">LGMInterlinking parameter tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../measures.html">LGMInterlinking metrics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">LGMInterlinking</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>src.featuresConstruction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for src.featuresConstruction</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Author: vkaff</span>
+<span class="c1"># E-mail: vkaffes@imis.athena-innovation.gr</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">config</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">chain</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="kn">from</span> <span class="nn">helpers</span> <span class="k">import</span> <span class="n">StaticValues</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">getBasePath</span>
+<span class="kn">from</span> <span class="nn">sim_measures</span> <span class="k">import</span> <span class="n">LSimilarityVars</span><span class="p">,</span> <span class="n">lsimilarity_terms</span><span class="p">,</span> <span class="n">score_per_term</span><span class="p">,</span> <span class="n">weighted_terms</span>
+
+
+<div class="viewcode-block" id="Features"><a class="viewcode-back" href="../../features.html#src.featuresConstruction.Features">[docs]</a><span class="k">class</span> <span class="nc">Features</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class loads data and builds the features to be used as input to various classification methods:</span>
+<span class="sd">    basic, basic_sorted or lgm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">max_freq_terms</span> <span class="o">=</span> <span class="mi">200</span>
+
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;s1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;status&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gid1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gid2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alphabet1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alphabet2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alpha2_cc1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alpha2_cc2&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">dtypes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;s1&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;s2&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s1">&#39;gid1&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="s1">&#39;gid2&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+        <span class="s1">&#39;alphabet1&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;alphabet1&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s1">&#39;alpha2_cc1&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;alpha2_cc2&#39;</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">}</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;TRUE&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;FALSE&#39;</span><span class="p">:</span> <span class="kc">False</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clf_method</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">initialConfig</span><span class="o">.</span><span class="n">classification_method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">encoding</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtypes</span><span class="p">,</span> <span class="n">na_filter</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_freqterms</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Features.build_features"><a class="viewcode-back" href="../../features.html#src.featuresConstruction.Features.build_features">[docs]</a>    <span class="k">def</span> <span class="nf">build_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build features and return its values in ndarray of floats.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        fX : ndarray</span>
+<span class="sd">            The computed features that will be used as input to ML classifiers.</span>
+<span class="sd">        y : ndarray</span>
+<span class="sd">            Binary labels {True, False} to train the classifiers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="n">fX</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;basic&#39;</span><span class="p">:</span>
+            <span class="n">fX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+                <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_compute_basic_features</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;s1&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;s2&#39;</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;basic_sorted&#39;</span><span class="p">:</span>
+            <span class="n">fX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+                <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_compute_sorted_features</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;s1&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;s2&#39;</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># lgm</span>
+            <span class="n">fX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_compute_all_features</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;s1&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;s2&#39;</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">fX</span><span class="p">,</span> <span class="n">y</span></div>
+
+    <span class="k">def</span> <span class="nf">_compute_all_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">sorting</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_features</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">status</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">({</span><span class="kc">False</span><span class="p">,</span> <span class="n">sorting</span><span class="p">}):</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">sorting</span><span class="o">=</span><span class="n">status</span><span class="p">,</span> <span class="n">canonical</span><span class="o">=</span><span class="n">status</span><span class="p">)</span>
+
+            <span class="n">sim1</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">sim8</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;jaccard&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">sim2</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;jaro&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">sim3</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;jaro_winkler&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">sim4</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;jaro_winkler&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">sim11</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;monge_elkan&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">sim7</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;cosine&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">sim9</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;strike_a_match&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">sim12</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;soft_jaccard&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">status</span><span class="p">:</span> <span class="n">sim5</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;sorted_winkler&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">sim10</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;skipgram&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">sim13</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;davies&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+                <span class="n">sim14</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;l_jaro_winkler&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+                <span class="n">sim15</span> <span class="o">=</span> <span class="n">StaticValues</span><span class="o">.</span><span class="n">algorithms</span><span class="p">[</span><span class="s1">&#39;l_jaro_winkler&#39;</span><span class="p">](</span><span class="n">a</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">status</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">sim1</span><span class="p">,</span> <span class="n">sim2</span><span class="p">,</span> <span class="n">sim3</span><span class="p">,</span> <span class="n">sim4</span><span class="p">,</span> <span class="n">sim7</span><span class="p">,</span> <span class="n">sim8</span><span class="p">,</span> <span class="n">sim9</span><span class="p">,</span> <span class="n">sim10</span><span class="p">,</span> <span class="n">sim11</span><span class="p">,</span> <span class="n">sim12</span><span class="p">,</span> <span class="n">sim13</span><span class="p">,</span> <span class="n">sim14</span><span class="p">,</span> <span class="n">sim15</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">sim1</span><span class="p">,</span> <span class="n">sim2</span><span class="p">,</span> <span class="n">sim3</span><span class="p">,</span> <span class="n">sim4</span><span class="p">,</span> <span class="n">sim5</span><span class="p">,</span> <span class="n">sim7</span><span class="p">,</span> <span class="n">sim8</span><span class="p">,</span> <span class="n">sim9</span><span class="p">,</span> <span class="n">sim10</span><span class="p">,</span> <span class="n">sim11</span><span class="p">,</span> <span class="n">sim12</span><span class="p">,</span> <span class="n">sim13</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">all_features</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">sorting</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">canonical</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="n">sim1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">)</span>
+            <span class="n">sim2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;davies&#39;</span><span class="p">)</span>
+            <span class="n">sim3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;skipgram&#39;</span><span class="p">)</span>
+            <span class="n">sim4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;soft_jaccard&#39;</span><span class="p">)</span>
+            <span class="n">sim5</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;strike_a_match&#39;</span><span class="p">)</span>
+            <span class="n">sim6</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;cosine&#39;</span><span class="p">)</span>
+            <span class="n">sim7</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;jaccard&#39;</span><span class="p">)</span>
+            <span class="n">sim8</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;monge_elkan&#39;</span><span class="p">)</span>
+            <span class="n">sim9</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;jaro_winkler&#39;</span><span class="p">)</span>
+            <span class="n">sim10</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;jaro&#39;</span><span class="p">)</span>
+            <span class="n">sim11</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;jaro_winkler_r&#39;</span><span class="p">)</span>
+            <span class="n">sim12</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;l_jaro_winkler&#39;</span><span class="p">)</span>
+            <span class="n">sim13</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;l_jaro_winkler_r&#39;</span><span class="p">)</span>
+            <span class="n">sim14</span><span class="p">,</span> <span class="n">sim15</span><span class="p">,</span> <span class="n">sim16</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_compute_lsimilarity_base_scores</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">))</span>
+
+            <span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">sim1</span><span class="p">,</span> <span class="n">sim2</span><span class="p">,</span> <span class="n">sim3</span><span class="p">,</span> <span class="n">sim4</span><span class="p">,</span> <span class="n">sim5</span><span class="p">,</span> <span class="n">sim6</span><span class="p">,</span> <span class="n">sim7</span><span class="p">,</span> <span class="n">sim8</span><span class="p">,</span> <span class="n">sim9</span><span class="p">,</span> <span class="n">sim10</span><span class="p">,</span> <span class="n">sim11</span><span class="p">,</span> <span class="n">sim12</span><span class="p">,</span> <span class="n">sim13</span><span class="p">,</span> <span class="n">sim14</span><span class="p">,</span> <span class="n">sim15</span><span class="p">,</span> <span class="n">sim16</span><span class="p">])</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">f</span>
+
+    <span class="k">def</span> <span class="nf">_compute_sorted_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_all_features</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_compute_basic_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_all_features</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_compute_lsimilarity</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">w_type</span><span class="o">=</span><span class="s1">&#39;avg&#39;</span><span class="p">):</span>
+        <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span> <span class="o">=</span> <span class="n">lsimilarity_terms</span><span class="p">(</span>
+            <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">per_metric_optimal_values</span><span class="p">[</span><span class="n">metric</span><span class="p">][</span><span class="n">w_type</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;jaro_winkler_r&#39;</span><span class="p">,</span> <span class="s1">&#39;l_jaro_winkler_r&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">weighted_terms</span><span class="p">(</span>
+                <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]],</span>
+                 <span class="s1">&#39;len&#39;</span><span class="p">:</span> <span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">],</span> <span class="s1">&#39;char_len&#39;</span><span class="p">:</span> <span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]},</span>
+                <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]],</span>
+                 <span class="s1">&#39;len&#39;</span><span class="p">:</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">],</span> <span class="s1">&#39;char_len&#39;</span><span class="p">:</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]},</span>
+                <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]],</span>
+                 <span class="s1">&#39;len&#39;</span><span class="p">:</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">],</span> <span class="s1">&#39;char_len&#39;</span><span class="p">:</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]},</span>
+                <span class="n">metric</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">w_type</span> <span class="o">==</span> <span class="s1">&#39;avg&#39;</span> <span class="k">else</span> <span class="kc">False</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">weighted_terms</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">w_type</span> <span class="o">==</span> <span class="s1">&#39;avg&#39;</span> <span class="k">else</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_compute_lsimilarity_base_scores</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">w_type</span><span class="o">=</span><span class="s1">&#39;avg&#39;</span><span class="p">):</span>
+        <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span> <span class="o">=</span> <span class="n">lsimilarity_terms</span><span class="p">(</span>
+            <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">per_metric_optimal_values</span><span class="p">[</span><span class="n">metric</span><span class="p">][</span><span class="n">w_type</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">score_per_term</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_freqterms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resetting any previously assigned frequent terms ...&quot;</span><span class="p">)</span>
+        <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">freq_ngrams</span><span class="p">[</span><span class="s1">&#39;tokens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">freq_ngrams</span><span class="p">[</span><span class="s1">&#39;chars&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="n">input_path</span> <span class="o">=</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getBasePath</span><span class="p">(),</span> <span class="s1">&#39;data/input/&#39;</span><span class="p">))</span> \
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getBasePath</span><span class="p">(),</span> <span class="s1">&#39;data/input/&#39;</span><span class="p">))</span> \
+            <span class="k">else</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getBasePath</span><span class="p">(),</span> <span class="s1">&#39;../data/input/&#39;</span><span class="p">)),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getBasePath</span><span class="p">(),</span> <span class="s1">&#39;../input/&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">input_path</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">iglob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;*gram*</span><span class="si">{}{}</span><span class="s1">.csv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="p">))):</span>
+                <span class="n">gram_type</span> <span class="o">=</span> <span class="s1">&#39;tokens&#39;</span> <span class="k">if</span> <span class="s1">&#39;token&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">f</span><span class="p">))</span> <span class="k">else</span> <span class="s1">&#39;chars&#39;</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading frequent terms from file </span><span class="si">{}</span><span class="s2"> ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;term&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">],</span> <span class="n">nrows</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_freq_terms</span><span class="p">)</span>
+                <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">freq_ngrams</span><span class="p">[</span><span class="n">gram_type</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;term&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Frequent terms loaded.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Folder &#39;input&#39; does not exist&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, vkaff, giann
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

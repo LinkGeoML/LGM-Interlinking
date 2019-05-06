@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to LGMInterlinking’s documentation! &mdash; LGMInterlinking 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LGMInterlinking methods" href="methods_class.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> LGMInterlinking
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="methods_class.html">LGMInterlinking methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">LGMInterlinking features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">LGMInterlinking parameter tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measures.html">LGMInterlinking metrics</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">LGMInterlinking</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to LGMInterlinking’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-lgminterlinking-s-documentation">
+<h1>Welcome to LGMInterlinking’s documentation!<a class="headerlink" href="#welcome-to-lgminterlinking-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="lgm-interlinking">
+<h2>LGM-Interlinking<a class="headerlink" href="#lgm-interlinking" title="Permalink to this headline">¶</a></h2>
+<p>This Python code implements and evaluates the proposed LinkGeoML models for Toponym Interlinking.
+The data folder contains the train datasets used for evaluation. For the test dataset, we used the one from
+the Toponym-Matching work (see <a class="reference internal" href="#setup-procedure">Setup procedure</a>).</p>
+<p>The source code was tested using Python 2.7 and Scikit-Learn 0.20.3 on a Linux server.</p>
+<div class="section" id="setup-procedure">
+<h3>Setup procedure<a class="headerlink" href="#setup-procedure" title="Permalink to this headline">¶</a></h3>
+<p>Download the latest version from the <a class="reference external" href="https://github.com/LinkGeoML/LGM-Interlinking.git">GitHub repository</a>, change to the main directory and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r pip_requirements.txt
+</pre></div>
+</div>
+<p>It should install all the required libraries automatically (<em>scikit-learn, numpy, pandas etc.</em>).</p>
+<p>Change to the <strong>datasets</strong> folder, download the test dataset and unzip it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/ruipds/Toponym-Matching/raw/master/dataset/dataset.zip
+wget https://github.com/ruipds/Toponym-Matching/raw/master/dataset/dataset.z01
+
+zip -FF dataset.zip  --out dataset.zip.fixed
+unzip dataset.zip.fixed
+</pre></div>
+</div>
+</div>
+<div class="section" id="acknowledgements">
+<h3>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h3>
+<p>The <em>sim_measures.py</em> file, which is used to generate the train/test datasets and to compute the string similarity measures,
+is a slightly modified version of the one used in <a class="reference external" href="https://github.com/ruipds/Toponym-Matching">Toponym-Matching</a> work and
+is under the MIT license.</p>
+</div>
+<div class="section" id="license">
+<h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
+<p>LGM-Interlinking is available under the MIT License.</p>
+<div class="toctree-wrapper compound" id="mastertoc">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="methods_class.html">LGMInterlinking methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">LGMInterlinking features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">LGMInterlinking parameter tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measures.html">LGMInterlinking metrics</a></li>
+</ul>
+</div>
+<div class="section" id="module-run">
+<span id="lgminterlinking-main"></span><h4>LGMInterlinking main<a class="headerlink" href="#module-run" title="Permalink to this headline">¶</a></h4>
+<p>Feature extraction and traditional classifiers for toponym interlinking.</p>
+<p>Command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+  <span class="n">run</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
+  <span class="n">run</span><span class="o">.</span><span class="n">py</span> <span class="p">(</span><span class="o">-</span><span class="n">h</span> <span class="o">|</span> <span class="o">--</span><span class="n">help</span><span class="p">)</span>
+  <span class="n">run</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">version</span>
+
+<span class="n">Options</span><span class="p">:</span>
+    <span class="o">-</span><span class="n">h</span> <span class="o">--</span><span class="n">help</span>                   <span class="n">show</span> <span class="n">this</span> <span class="n">screen</span><span class="o">.</span>
+    <span class="o">--</span><span class="n">version</span>                   <span class="n">show</span> <span class="n">version</span><span class="o">.</span>
+    <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">dataset</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>           <span class="n">relative</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">directory</span> <span class="n">of</span> <span class="n">the</span> <span class="n">script</span> <span class="n">being</span> <span class="n">run</span> <span class="n">of</span> <span class="n">the</span> <span class="n">dataset</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span>
+                                <span class="n">experiments</span><span class="o">.</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="n">dataset</span><span class="o">-</span><span class="n">string</span><span class="o">-</span><span class="n">similarity</span><span class="o">.</span><span class="n">txt</span><span class="p">]</span><span class="o">.</span>
+    <span class="o">-</span><span class="n">e</span> <span class="o">&lt;</span><span class="n">encoding_type</span><span class="o">&gt;</span>          <span class="n">specify</span> <span class="n">the</span> <span class="n">encoding</span> <span class="nb">type</span> <span class="n">followed</span> <span class="n">by</span> <span class="n">toponyms</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="n">latin</span><span class="p">]</span><span class="o">.</span>
+
+<span class="n">Arguments</span><span class="p">:</span>
+    <span class="n">encoding_type</span>               <span class="s1">&#39;global&#39;</span>
+                                <span class="s1">&#39;latin&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-src.config">
+<span id="lgminterlinking-configuration-file"></span><h4>LGMInterlinking configuration file<a class="headerlink" href="#module-src.config" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+<p>This documentation was last updated on May 06, 2019.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="methods_class.html" class="btn btn-neutral float-right" title="LGMInterlinking methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, vkaff, giann
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
