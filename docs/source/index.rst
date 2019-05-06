@@ -4,35 +4,33 @@
    contain the root `toctree` directive.
 
 Welcome to LGMInterlinking's documentation!
-===========================================
+*******************************************
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :name: mastertoc
+
+    methods_class
 
 LGMInterlinking main
-====================
-.. automodule:: exec
-   :members:
-
-LGMInterlinking methods
-=======================
-.. automodule:: methods
+--------------------
+.. automodule:: run
    :members:
 
 LGMInterlinking parameter tuning
 ================================
-.. automodule:: param_tuning
+.. automodule:: src.param_tuning
    :members:
 
 LGMInterlinking configuration file
 ==================================
-.. automodule:: config
+.. automodule:: src.config
    :members:
 
 LGMInterlinking similarity measures
 ===================================
-.. automodule:: sim_measures
+.. automodule:: src.sim_measures
    :members:
 
 Indices and tables
