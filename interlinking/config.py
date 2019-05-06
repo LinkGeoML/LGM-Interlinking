@@ -20,7 +20,7 @@ class initialConfig:
     # int: no of processors to use
     n_jobs = -1
 
-    test_dataset = 'datasets/dataset-string-similarity_original_1k.csv'
+    test_dataset = 'datasets/dataset-string-similarity_global_1k.csv'
     # test_dataset = 'datasets/dataset-string-similarity_latin_EU_NA_1k.txt'
     # test_dataset = 'datasets/dataset-string-similarity-100.csv'
 
