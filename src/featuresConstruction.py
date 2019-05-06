@@ -8,7 +8,7 @@ from itertools import chain
 import os
 import glob
 
-from helpers import StaticValues, transform
+from helpers import StaticValues, transform, getBasePath
 from sim_measures import LSimilarityVars, lsimilarity_terms, score_per_term, weighted_terms
 
 
@@ -149,10 +149,9 @@ class Features:
         LSimilarityVars.freq_ngrams['tokens'].clear()
         LSimilarityVars.freq_ngrams['chars'].clear()
 
-        base_path = os.path.abspath(os.path.dirname(__file__))
-        input_path = (True, os.path.join(base_path, 'input/')) \
-            if os.path.isdir(os.path.join(base_path, 'input/')) \
-            else (os.path.isdir(os.path.join(base_path, '../input/')), os.path.join(base_path, '../input/'))
+        input_path = (True, os.path.join(getBasePath(), 'data/input/')) \
+            if os.path.isdir(os.path.join(getBasePath(), 'data/input/')) \
+            else (os.path.isdir(os.path.join(getBasePath(), '../data/input/')), os.path.join(getBasePath(), '../input/'))
         if input_path[0]:
             for f in glob.iglob(os.path.join(input_path[1], '*gram*{}{}.csv'.format('_', encoding))):
                 gram_type = 'tokens' if 'token' in os.path.basename(os.path.normpath(f)) else 'chars'

@@ -27,9 +27,9 @@ import os, sys
 from docopt import docopt
 from kitchen.text.converters import getwriter
 
-import interlinking.methods
-from interlinking.helpers import getRelativePathtoWorking, StaticValues
-from interlinking.sim_measures import LSimilarityVars
+import src.methods
+from src.helpers import getRelativePathtoWorking, StaticValues
+from src.sim_measures import LSimilarityVars
 
 
 def main(args):
@@ -40,7 +40,7 @@ def main(args):
 
     fpath_ds = getRelativePathtoWorking(args['-d'])
     if os.path.isfile(fpath_ds):
-        evaluator = interlinking.methods.Evaluator(args['-e'])
+        evaluator = src.methods.Evaluator(args['-e'])
         evaluator.hyperparamTuning(fpath_ds)
     else: print("No file {0} exists!!!\n".format(fpath_ds))
 
