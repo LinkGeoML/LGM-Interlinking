@@ -22,11 +22,6 @@ LGMInterlinking main
 .. automodule:: run
    :members:
 
-LGMInterlinking parameter tuning
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. automodule:: src.param_tuning
-   :members:
-
 LGMInterlinking configuration file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. automodule:: src.config

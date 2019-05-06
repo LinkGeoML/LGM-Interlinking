@@ -1,8 +1,8 @@
 LGM-Interlinking
 ================
 
-This is the Python code used to implement and evaluate the proposed LinkGeoML models for Toponym Interlinking.
-The dataset folder contains the train datasets used for evaluation. For the test dataset, we used the one from
+This Python code implements and evaluates the proposed LinkGeoML models for Toponym Interlinking.
+The data folder contains the train datasets used for evaluation. For the test dataset, we used the one from
 the Toponym-Matching work (see `Setup procedure`_).
 
 ..
