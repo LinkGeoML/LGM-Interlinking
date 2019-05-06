@@ -6,31 +6,30 @@
 Welcome to LGMInterlinking's documentation!
 *******************************************
 
+.. include:: ../../README.rst
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
    :name: mastertoc
-
-    methods_class
+   
+   methods_class
+   features
+   tuning
+   measures
 
 LGMInterlinking main
---------------------
+^^^^^^^^^^^^^^^^^^^^
 .. automodule:: run
    :members:
 
 LGMInterlinking parameter tuning
-================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. automodule:: src.param_tuning
    :members:
 
 LGMInterlinking configuration file
-==================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. automodule:: src.config
-   :members:
-
-LGMInterlinking similarity measures
-===================================
-.. automodule:: src.sim_measures
    :members:
 
 Indices and tables
@@ -39,3 +38,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+  
+This documentation was last updated on |today|.

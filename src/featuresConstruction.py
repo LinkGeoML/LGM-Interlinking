@@ -14,7 +14,8 @@ from sim_measures import LSimilarityVars, lsimilarity_terms, score_per_term, wei
 
 class Features:
     """
-    It loads data and builds the features to be used as input to various scenarios: basic, basic_sorted or lgm
+    This class loads data and builds the features to be used as input to various classification methods:
+    basic, basic_sorted or lgm.
     """
     max_freq_terms = 200
 
@@ -52,6 +53,16 @@ class Features:
         self._get_freqterms(encoding)
 
     def build_features(self):
+        """
+        Build features and return its values in ndarray of floats.
+
+        Returns
+        -------
+        fX : ndarray
+            The computed features that will be used as input to ML classifiers.
+        y : ndarray
+            Binary labels {True, False} to train the classifiers.
+        """
         y = self.data_df['status'].str.upper().map(self.d).values
 
         fX = None
