@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Author: vkaff
+# E-mail: vkaffes@imis.athena-innovation.gr
 
 from __future__ import print_function
 import time
@@ -10,10 +12,19 @@ from featuresConstruction import Features
 
 
 class Evaluator:
+    """
+    Main class Evaluator...
+    """
     def __init__(self, encoding='latin'):
         self.encoding = encoding
 
     def hyperparamTuning(self, dataset='dataset-string-similarity.txt'):
+        """
+        The main pipeline to figure out the best ML algorithm with best hyperparameters for our problem.
+
+        :param dataset: relative path of the test dataset
+        :type dataset: str
+        """
         pt = param_tuning.ParamTuning()
         f = Features()
 

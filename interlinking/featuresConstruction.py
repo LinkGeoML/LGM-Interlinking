@@ -1,3 +1,6 @@
+# Author: vkaff
+# E-mail: vkaffes@imis.athena-innovation.gr
+
 import pandas as pd
 import numpy as np
 import config
@@ -10,6 +13,9 @@ from sim_measures import LSimilarityVars, lsimilarity_terms, score_per_term, wei
 
 
 class Features:
+    """
+    It loads data and builds the features to be used as input to various scenarios: basic, basic_sorted or lgm
+    """
     max_freq_terms = 200
 
     fields = [

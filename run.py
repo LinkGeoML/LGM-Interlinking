@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
+# Author: vkaff
+# E-mail: vkaffes@imis.athena-innovation.gr
 
 """Feature extraction and traditional classifiers for toponym interlinking.
 
 Command line::
 
     Usage:
-      exec.py [options]
-      exec.py (-h | --help)
-      exec.py --version
+      run.py [options]
+      run.py (-h | --help)
+      run.py --version
 
     Options:
         -h --help                   show this screen.
         --version                   show version.
         -d <dataset-name>           relative path to the directory of the script being run of the dataset to use for
                                     experiments. [default: dataset-string-similarity.txt].
-        -e <encoding_type>          Check for similarities only for the specified encoding type. [default: latin].
+        -e <encoding_type>          specify the encoding type followed by toponyms in datasets. [default: latin].
 
     Arguments:
         encoding_type               'global'
@@ -25,9 +27,9 @@ import os, sys
 from docopt import docopt
 from kitchen.text.converters import getwriter
 
-import methods
-from helpers import getRelativePathtoWorking, StaticValues
-from sim_measures import LSimilarityVars
+import interlinking.methods
+from interlinking.helpers import getRelativePathtoWorking, StaticValues
+from interlinking.sim_measures import LSimilarityVars
 
 
 def main(args):
@@ -35,12 +37,10 @@ def main(args):
     sys.stdout = UTF8Writer(sys.stdout)
 
     LSimilarityVars.per_metric_optimal_values = StaticValues.MetricOptimalValues[args["-e"].lower()]
-    dataset_path = [x for x in args['-d'].split(',')]
 
-    evaluator = methods.Evaluator(args['-e'])
-
-    fpath_ds = getRelativePathtoWorking(dataset_path[0])
+    fpath_ds = getRelativePathtoWorking(args['-d'])
     if os.path.isfile(fpath_ds):
+        evaluator = interlinking.methods.Evaluator(args['-e'])
         evaluator.hyperparamTuning(fpath_ds)
     else: print("No file {0} exists!!!\n".format(fpath_ds))
 

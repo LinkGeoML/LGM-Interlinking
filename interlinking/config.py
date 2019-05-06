@@ -1,3 +1,6 @@
+# Author: vkaff
+# E-mail: vkaffes@imis.athena-innovation.gr
+
 import numpy as np
 from scipy.stats import randint as sp_randint, expon, truncnorm
 
@@ -17,9 +20,9 @@ class initialConfig:
     # int: no of processors to use
     n_jobs = -1
 
-    test_dataset = './datasets/dataset-string-similarity_original_1k.csv'
-    # test_dataset = './datasets/dataset-string-similarity_latin_EU_NA_1k.txt'
-    # test_dataset = './datasets/dataset-string-similarity-100.csv'
+    test_dataset = 'datasets/dataset-string-similarity_original_1k.csv'
+    # test_dataset = 'datasets/dataset-string-similarity_latin_EU_NA_1k.txt'
+    # test_dataset = 'datasets/dataset-string-similarity-100.csv'
 
     # the classification method used: basic, basic_sorted, lgm
     classification_method = 'lgm'

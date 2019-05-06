@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+# Author: vkaff
+# E-mail: vkaffes@imis.athena-innovation.gr
 
 import os
 import re
 from text_unidecode import unidecode
+import __main__
 
 from sim_measures import damerau_levenshtein, jaccard, jaro, jaro_winkler, monge_elkan, cosine, \
     strike_a_match, soft_jaccard, sorted_winkler, permuted_winkler, skipgram, davies, l_jaro_winkler, lsimilarity, \
@@ -59,12 +62,16 @@ def sorted_nicely(l):
     return sorted(l, key=alphanum_key)
 
 
+def getBasePath():
+    return os.path.abspath(os.path.dirname(__main__.__file__))
+
+
 def getTMabsPath(ds):
     return os.path.join(os.path.abspath('../Toponym-Matching'), 'dataset', ds)
 
 
 def getRelativePathtoWorking(ds):
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)), ds)
+    return os.path.join(getBasePath(), ds)
 
 
 class StaticValues:

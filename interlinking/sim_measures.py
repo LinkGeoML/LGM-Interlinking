@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+# Author: vkaff
+# E-mail: vkaffes@imis.athena-innovation.gr
+
+"""
+This module implements the various metrics used across different scenarios, i.e., Jaro, Damerau, Jaccard, LGM-Sim, etc.
+"""
 
 import csv
 import os.path

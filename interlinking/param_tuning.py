@@ -1,3 +1,6 @@
+# Author: vkaff
+# E-mail: vkaffes@imis.athena-innovation.gr
+
 import config
 import numpy as np
 
