@@ -3,7 +3,7 @@ LGM-Interlinking
 
 This is the Python code used to implement and evaluate the proposed LinkGeoML models for Toponym Interlinking.
 The dataset folder contains the train datasets used for evaluation. For the test dataset, we used the one from
-the Toponym-Matching work (see `RST Setup`_).
+the Toponym-Matching work (see `Setup procedure`_).
 
 ..
     The **scripts** folder contains the evaluation setting used to execute the experiments and collect the results presented in the paper:
@@ -17,8 +17,6 @@ the Toponym-Matching work (see `RST Setup`_).
       - `./scripts/lgm_test_100kglobal_parameter_based.sh`: collect the effectiveness values for the **LGM** setup on the global dataset with hyper parameters obtained on the **100k global train** dataset.
 
 The source code was tested using Python 2.7 and Scikit-Learn 0.20.3 on a Linux server.
-
-.. _RST Setup:
 
 Setup procedure
 ---------------
