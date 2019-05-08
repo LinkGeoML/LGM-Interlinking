@@ -29,7 +29,7 @@ class Evaluator:
         f = Features()
 
         tot_time = time.time(); start_time = time.time()
-        f.load_data(getRelativePathtoWorking(config.initialConfig.test_dataset), self.encoding)
+        f.load_data(getRelativePathtoWorking(config.initialConfig.train_dataset), self.encoding)
         fX, y = f.build_features()
         print("Loaded train dataset and build features for {} setup; {} sec.".format(
             config.initialConfig.classification_method, time.time() - start_time))

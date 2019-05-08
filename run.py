@@ -14,22 +14,21 @@ Command line::
     Options:
         -h --help                   show this screen.
         --version                   show version.
-        -d <dataset-name>           relative path to the directory of the script being run of the dataset to use for
-                                    experiments. [default: dataset-string-similarity.txt].
-        -e <encoding_type>          specify the encoding type followed by toponyms in datasets. [default: latin].
+        -e <encoding_type>          specify the encoding type followed by toponyms in datasets. [default: global].
 
     Arguments:
-        encoding_type               'global'
-                                    'latin'
+        encoding_type               global
+                                    latin
 """
 
 import os, sys
 from docopt import docopt
 from kitchen.text.converters import getwriter
 
-import src.methods
+import src.methods as methods
 from src.helpers import getRelativePathtoWorking, StaticValues
 from src.sim_measures import LSimilarityVars
+import src.config as config
 
 
 def main(args):
@@ -38,11 +37,13 @@ def main(args):
 
     LSimilarityVars.per_metric_optimal_values = StaticValues.MetricOptimalValues[args["-e"].lower()]
 
-    fpath_ds = getRelativePathtoWorking(args['-d'])
-    if os.path.isfile(fpath_ds):
-        evaluator = src.methods.Evaluator(args['-e'])
+    fpath_ds = getRelativePathtoWorking(config.initialConfig.test_dataset)
+    if os.path.isfile(fpath_ds) and os.path.isfile(getRelativePathtoWorking(config.initialConfig.train_dataset)):
+        evaluator = methods.Evaluator(args['-e'])
         evaluator.hyperparamTuning(fpath_ds)
-    else: print("No file {0} exists!!!\n".format(fpath_ds))
+    else:
+        print("File {0} and/or {1} is not found!!!\n".format(
+            fpath_ds, getRelativePathtoWorking(config.initialConfig.train_dataset)))
 
 
 if __name__ == "__main__":

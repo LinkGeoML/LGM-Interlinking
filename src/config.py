@@ -20,9 +20,13 @@ class initialConfig:
     # int: no of processors to use
     n_jobs = -1
 
-    test_dataset = 'data/dataset-string-similarity_global_1k.csv'
-    # test_dataset = 'data/dataset-string-similarity_latin_EU_NA_1k.txt'
-    # test_dataset = 'data/dataset-string-similarity-100.csv'
+    # relative path to the train dataset.
+    train_dataset = 'data/dataset-string-similarity_global_1k.csv'
+    # train_dataset = 'data/dataset-string-similarity_latin_EU_NA_1k.txt'
+    # train_dataset = 'data/dataset-string-similarity-100.csv'
+
+    # relative path to the test dataset.
+    test_dataset = 'data/dataset-string-similarity.txt'
 
     # the classification method used: basic, basic_sorted, lgm
     classification_method = 'lgm'
