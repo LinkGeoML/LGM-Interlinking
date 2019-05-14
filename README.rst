@@ -42,7 +42,7 @@ Change to the **datasets** folder, download the test dataset and unzip it:
 Acknowledgements
 -------------------
 The *sim_measures.py* file, which is used to generate the train/test datasets and to compute the string similarity measures,
-is a slightly modified version of the one used in `Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_ work and
+is a slightly modified version of the *datasetcreator.py* file used in `Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_ work and
 is under the MIT license.
 
 License
