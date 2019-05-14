@@ -593,83 +593,11 @@ def lsimilarity_terms(str1, str2, term_split_thres):
 def score_per_term(baseTerms, mismatchTerms, specialTerms, method):
     scores = [0, 0, 0]  # base, mis, special
 
-    if method == 'damerau_levenshtein':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = damerau_levenshtein(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'davies':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = davies(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'skipgram':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = skipgram(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'soft_jaccard':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = soft_jaccard(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'strike_a_match':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = strike_a_match(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'cosine':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = cosine(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'monge_elkan':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = monge_elkan(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'jaro_winkler':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = jaro_winkler(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'jaro':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = jaro(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'jaccard':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = jaccard(u' '.join(term_a), u' '.join(term_b))
-    elif method == 'l_jaro_winkler':
-        for idx, (term_a, term_b) in enumerate(zip(
-                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
-        )):
-            if term_a or term_b:
-                scores[idx] = l_jaro_winkler(u' '.join(term_a), u' '.join(term_b))
+    for idx, (term_a, term_b) in enumerate(zip(
+            [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+            [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+    )):
+        if term_a or term_b: scores[idx] = algnms_to_func[method](u' '.join(term_a), u' '.join(term_b))
 
     return scores[0], scores[1], scores[2]
 
@@ -719,3 +647,22 @@ def lsimilarity(str1, str2, method='damerau_levenshtein', averaged=False):
 
 def avg_lsimilarity(str1, str2, method='damerau_levenshtein'):
     return lsimilarity(str1, str2, method, True)
+
+
+algnms_to_func = {
+    'damerau_levenshtein': damerau_levenshtein,
+    'davies': davies,
+    'skipgram': skipgram,
+    'permuted_winkler': permuted_winkler,
+    'sorted_winkler': sorted_winkler,
+    'soft_jaccard': soft_jaccard,
+    'strike_a_match': strike_a_match,
+    'cosine': cosine,
+    'monge_elkan': monge_elkan,
+    'jaro_winkler': jaro_winkler,
+    'jaro': jaro,
+    'jaccard': jaccard,
+    'l_jaro_winkler': l_jaro_winkler,
+    'lsimilarity': lsimilarity,
+    'avg_lsimilarity': avg_lsimilarity,
+}

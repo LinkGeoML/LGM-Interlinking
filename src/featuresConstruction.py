@@ -9,7 +9,7 @@ import os
 import glob
 
 from helpers import StaticValues, transform, getBasePath
-from sim_measures import LSimilarityVars, lsimilarity_terms, score_per_term, weighted_terms
+from sim_measures import LSimilarityVars, lsimilarity_terms, score_per_term, weighted_terms, algnms_to_func
 
 
 class Features:
@@ -82,21 +82,21 @@ class Features:
         for status in list({False, sorting}):
             a, b = transform(s1, s2, sorting=status, canonical=status)
 
-            sim1 = StaticValues.algorithms['damerau_levenshtein'](a, b)
-            sim8 = StaticValues.algorithms['jaccard'](a, b)
-            sim2 = StaticValues.algorithms['jaro'](a, b)
-            sim3 = StaticValues.algorithms['jaro_winkler'](a, b)
-            sim4 = StaticValues.algorithms['jaro_winkler'](a[::-1], b[::-1])
-            sim11 = StaticValues.algorithms['monge_elkan'](a, b)
-            sim7 = StaticValues.algorithms['cosine'](a, b)
-            sim9 = StaticValues.algorithms['strike_a_match'](a, b)
-            sim12 = StaticValues.algorithms['soft_jaccard'](a, b)
-            if not status: sim5 = StaticValues.algorithms['sorted_winkler'](a, b)
-            sim10 = StaticValues.algorithms['skipgram'](a, b)
-            sim13 = StaticValues.algorithms['davies'](a, b)
+            sim1 = algnms_to_func['damerau_levenshtein'](a, b)
+            sim8 = algnms_to_func['jaccard'](a, b)
+            sim2 = algnms_to_func['jaro'](a, b)
+            sim3 = algnms_to_func['jaro_winkler'](a, b)
+            sim4 = algnms_to_func['jaro_winkler'](a[::-1], b[::-1])
+            sim11 = algnms_to_func['monge_elkan'](a, b)
+            sim7 = algnms_to_func['cosine'](a, b)
+            sim9 = algnms_to_func['strike_a_match'](a, b)
+            sim12 = algnms_to_func['soft_jaccard'](a, b)
+            if not status: sim5 = algnms_to_func['sorted_winkler'](a, b)
+            sim10 = algnms_to_func['skipgram'](a, b)
+            sim13 = algnms_to_func['davies'](a, b)
             if status:
-                sim14 = StaticValues.algorithms['l_jaro_winkler'](a, b)
-                sim15 = StaticValues.algorithms['l_jaro_winkler'](a[::-1], b[::-1])
+                sim14 = algnms_to_func['l_jaro_winkler'](a, b)
+                sim15 = algnms_to_func['l_jaro_winkler'](a[::-1], b[::-1])
 
             if status: f.append([sim1, sim2, sim3, sim4, sim7, sim8, sim9, sim10, sim11, sim12, sim13, sim14, sim15])
             else: f.append([sim1, sim2, sim3, sim4, sim5, sim7, sim8, sim9, sim10, sim11, sim12, sim13])

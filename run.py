@@ -35,7 +35,7 @@ def main(args):
     UTF8Writer = getwriter('utf8')
     sys.stdout = UTF8Writer(sys.stdout)
 
-    LSimilarityVars.per_metric_optimal_values = StaticValues.MetricOptimalValues[args["-e"].lower()]
+    LSimilarityVars.per_metric_optimal_values = StaticValues.opt_values[args["-e"].lower()]
 
     fpath_ds = getRelativePathtoWorking(config.initialConfig.test_dataset)
     if os.path.isfile(fpath_ds) and os.path.isfile(getRelativePathtoWorking(config.initialConfig.train_dataset)):
