@@ -115,4 +115,8 @@ class initialConfig:
         'solver': ['sgd', 'adam']
     }
 
+    # number of iterations the RnadomizedSearchCV should execute
     max_iter = 250
+
+    # threshold whether to sort or not the string tokens of a toponym
+    sort_thres = 0.55

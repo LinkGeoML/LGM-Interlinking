@@ -10,6 +10,7 @@ import __main__
 from sim_measures import damerau_levenshtein, jaccard, jaro, jaro_winkler, monge_elkan, cosine, \
     strike_a_match, soft_jaccard, sorted_winkler, permuted_winkler, skipgram, davies, l_jaro_winkler, lsimilarity, \
     avg_lsimilarity, strip_accents
+import config
 
 
 punctuation_regex = re.compile(u'[‘’“”\'"!?;/⧸⁄‹›«»`ʿ,.-]')
@@ -25,7 +26,7 @@ def ascii_transliteration_and_punctuation_strip(s):
     return s
 
 
-def transform(strA, strB, sorting=False, canonical=False, delimiter=' ', thres=0.55, only_sorting=False):
+def transform(strA, strB, sorting=False, canonical=False, delimiter=' ', thres=config.initialConfig.sort_thres, only_sorting=False):
     a = strA.decode('utf8') #.lower()
     b = strB.decode('utf8') #.lower()
 
