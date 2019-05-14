@@ -65,10 +65,6 @@ def getBasePath():
     return os.path.abspath(os.path.dirname(__main__.__file__))
 
 
-def getTMabsPath(ds):
-    return os.path.join(os.path.abspath('../Toponym-Matching'), 'dataset', ds)
-
-
 def getRelativePathtoWorking(ds):
     return os.path.join(getBasePath(), ds)
 
