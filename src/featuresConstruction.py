@@ -35,7 +35,7 @@ class Features:
         's1': str, 's2': str,
         'status': str,
         'gid1': np.int32, 'gid2': np.int32,
-        'alphabet1': str, 'alphabet1': str,
+        'alphabet1': str, 'alphabet2': str,
         'alpha2_cc1': str, 'alpha2_cc2': str
     }
 
@@ -54,7 +54,7 @@ class Features:
 
     def build_features(self):
         """
-        Build features and return its values in ndarray of floats.
+        Build features and return values in ndarray of floats.
 
         Returns
         -------
@@ -73,11 +73,11 @@ class Features:
             fX = np.asarray(
                 list(map(self._compute_sorted_features, self.data_df['s1'], self.data_df['s2'])), dtype=float)
         else:  # lgm
-            fX = np.asarray(list(map(self._compute_all_features, self.data_df['s1'], self.data_df['s2'])), dtype=float)
+            fX = np.asarray(list(map(self.compute_all_features, self.data_df['s1'], self.data_df['s2'])), dtype=float)
 
         return fX, y
 
-    def _compute_all_features(self, s1, s2, sorting=True, all_features=True):
+    def compute_all_features(self, s1, s2, sorting=True, all_features=True):
         f = []
         for status in list({False, sorting}):
             a, b = transform(s1, s2, sorting=status, canonical=status)
@@ -126,10 +126,10 @@ class Features:
         return f
 
     def _compute_sorted_features(self, s1, s2):
-        return self._compute_all_features(s1, s2, True, False)
+        return self.compute_all_features(s1, s2, True, False)
 
     def _compute_basic_features(self, s1, s2):
-        return self._compute_all_features(s1, s2, False, False)
+        return self.compute_all_features(s1, s2, False, False)
 
     @staticmethod
     def _compute_lsimilarity(s1, s2, metric, w_type='avg'):

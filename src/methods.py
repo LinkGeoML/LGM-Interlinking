@@ -22,7 +22,7 @@ class Evaluator:
         """
         The main pipeline to figure out the best ML algorithm with best hyperparameters for our problem.
 
-        :param dataset: relative path of the test dataset
+        :param dataset: relative path to the test dataset
         :type dataset: str
         """
         pt = param_tuning.ParamTuning()

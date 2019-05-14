@@ -591,78 +591,87 @@ def lsimilarity_terms(str1, str2, term_split_thres):
 
 
 def score_per_term(baseTerms, mismatchTerms, specialTerms, method):
-    baseScore, misScore, specialScore = 0, 0, 0
+    scores = [0, 0, 0]  # base, mis, special
 
     if method == 'damerau_levenshtein':
-        if baseTerms['a'] or baseTerms['b']:
-            baseScore = damerau_levenshtein(' '.join(baseTerms['a']) + u'', ' '.join(baseTerms['b']) + u'')
-        if mismatchTerms['a'] or mismatchTerms['b']:
-            misScore = damerau_levenshtein(' '.join(mismatchTerms['a']) + u'', ' '.join(mismatchTerms['b']) + u'')
-        if specialTerms['a'] or specialTerms['b']:
-            specialScore = damerau_levenshtein(' '.join(specialTerms['a']) + u'', ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = damerau_levenshtein(u' '.join(term_a), u' '.join(term_b))
     elif method == 'davies':
-        baseScore, misScore, specialScore = davies(' '.join(baseTerms['a']) + u'', ' '.join(baseTerms['b']) + u''), \
-                                            davies(' '.join(mismatchTerms['a']) + u'',
-                                                   ' '.join(mismatchTerms['b']) + u''), \
-                                            davies(' '.join(specialTerms['a']) + u'', ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = davies(u' '.join(term_a), u' '.join(term_b))
     elif method == 'skipgram':
-        baseScore, misScore, specialScore = skipgram(' '.join(baseTerms['a']) + u'', ' '.join(baseTerms['b']) + u''), \
-                                            skipgram(' '.join(mismatchTerms['a']) + u'',
-                                                     ' '.join(mismatchTerms['b']) + u''), \
-                                            skipgram(' '.join(specialTerms['a']) + u'',
-                                                     ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = skipgram(u' '.join(term_a), u' '.join(term_b))
     elif method == 'soft_jaccard':
-        baseScore, misScore, specialScore = soft_jaccard(' '.join(baseTerms['a']) + u'',
-                                                         ' '.join(baseTerms['b']) + u''), \
-                                            soft_jaccard(' '.join(mismatchTerms['a']) + u'',
-                                                         ' '.join(mismatchTerms['b']) + u''), \
-                                            soft_jaccard(' '.join(specialTerms['a']) + u'',
-                                                         ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = soft_jaccard(u' '.join(term_a), u' '.join(term_b))
     elif method == 'strike_a_match':
-        baseScore, misScore, specialScore = strike_a_match(' '.join(baseTerms['a']) + u'',
-                                                           ' '.join(baseTerms['b']) + u''), \
-                                            strike_a_match(' '.join(mismatchTerms['a']) + u'',
-                                                           ' '.join(mismatchTerms['b']) + u''), \
-                                            strike_a_match(' '.join(specialTerms['a']) + u'',
-                                                           ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = strike_a_match(u' '.join(term_a), u' '.join(term_b))
     elif method == 'cosine':
-        baseScore, misScore, specialScore = cosine(' '.join(baseTerms['a']) + u'', ' '.join(baseTerms['b']) + u''), \
-                                            cosine(' '.join(mismatchTerms['a']) + u'',
-                                                   ' '.join(mismatchTerms['b']) + u''), \
-                                            cosine(' '.join(specialTerms['a']) + u'', ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = cosine(u' '.join(term_a), u' '.join(term_b))
     elif method == 'monge_elkan':
-        baseScore, misScore, specialScore = monge_elkan(' '.join(baseTerms['a']) + u'', ' '.join(baseTerms['b']) + u''), \
-                                            monge_elkan(' '.join(mismatchTerms['a']) + u'',
-                                                        ' '.join(mismatchTerms['b']) + u''), \
-                                            monge_elkan(' '.join(specialTerms['a']) + u'',
-                                                        ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = monge_elkan(u' '.join(term_a), u' '.join(term_b))
     elif method == 'jaro_winkler':
-        baseScore, misScore, specialScore = jaro_winkler(' '.join(baseTerms['a']) + u'',
-                                                         ' '.join(baseTerms['b']) + u''), \
-                                            jaro_winkler(' '.join(mismatchTerms['a']) + u'',
-                                                         ' '.join(mismatchTerms['b']) + u''), \
-                                            jaro_winkler(' '.join(specialTerms['a']) + u'',
-                                                         ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = jaro_winkler(u' '.join(term_a), u' '.join(term_b))
     elif method == 'jaro':
-        baseScore, misScore, specialScore = jaro(' '.join(baseTerms['a']) + u'', ' '.join(baseTerms['b']) + u''), \
-                                            jaro(' '.join(mismatchTerms['a']) + u'',
-                                                 ' '.join(mismatchTerms['b']) + u''), \
-                                            jaro(' '.join(specialTerms['a']) + u'', ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = jaro(u' '.join(term_a), u' '.join(term_b))
     elif method == 'jaccard':
-        baseScore, misScore, specialScore = jaccard(' '.join(baseTerms['a']) + u'', ' '.join(baseTerms['b']) + u''), \
-                                            jaccard(' '.join(mismatchTerms['a']) + u'',
-                                                    ' '.join(mismatchTerms['b']) + u''), \
-                                            jaccard(' '.join(specialTerms['a']) + u'',
-                                                    ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = jaccard(u' '.join(term_a), u' '.join(term_b))
     elif method == 'l_jaro_winkler':
-        baseScore, misScore, specialScore = l_jaro_winkler(' '.join(baseTerms['a']) + u'',
-                                                           ' '.join(baseTerms['b']) + u''), \
-                                            l_jaro_winkler(' '.join(mismatchTerms['a']) + u'',
-                                                           ' '.join(mismatchTerms['b']) + u''), \
-                                            l_jaro_winkler(' '.join(specialTerms['a']) + u'',
-                                                           ' '.join(specialTerms['b']) + u'')
+        for idx, (term_a, term_b) in enumerate(zip(
+                [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
+                [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+        )):
+            if term_a or term_b:
+                scores[idx] = l_jaro_winkler(u' '.join(term_a), u' '.join(term_b))
 
-    return baseScore, misScore, specialScore
+    return scores[0], scores[1], scores[2]
 
 
 def calibrate_weights(baseTerms, mismatchTerms, specialTerms, method, averaged=False, tmode=False):
