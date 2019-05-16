@@ -200,7 +200,7 @@
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clf_method</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">ML</span><span class="o">.</span><span class="n">classification_method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clf_method</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">classification_method</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">encoding</span><span class="p">):</span>
@@ -208,7 +208,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_get_freqterms</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Features.build"><a class="viewcode-back" href="../../features.html#src.featuresConstruction.Features.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Build features depending on the assignment of parameter :py:attr:`~src.config.ML.classification_method`</span>
+        <span class="sd">&quot;&quot;&quot;Build features depending on the assignment of parameter :py:attr:`~src.config.MLConf.classification_method`</span>
 <span class="sd">        and return values (fX, y) as ndarray of floats.</span>
 
 <span class="sd">        Returns</span>
@@ -234,7 +234,7 @@
 
 <div class="viewcode-block" id="Features.compute_features"><a class="viewcode-back" href="../../features.html#src.featuresConstruction.Features.compute_features">[docs]</a>    <span class="k">def</span> <span class="nf">compute_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">sorting</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_features</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Depending on the group assigned to parameter :py:attr:`~src.config.ML.classification_method`,</span>
+<span class="sd">        Depending on the group assigned to parameter :py:attr:`~src.config.MLConf.classification_method`,</span>
 <span class="sd">        this method builds an ndarray of the following groups of features:</span>
 
 <span class="sd">        * *basic*: various similarity measures, i.e.,</span>

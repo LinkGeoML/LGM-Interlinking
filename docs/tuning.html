@@ -203,7 +203,8 @@ cross-validated score of the estimator.</p>
 <p>This method searches over specified values and selects the classifier that
 achieves the best avg accuracy score for all evaluations. The supported search methods are:</p>
 <ul class="simple">
-<li><em>GridSearchCV</em>: Exhaustive search over specified parameter values for an estimator:</li>
+<li><em>GridSearchCV</em>: Exhaustive search over specified parameter values for supported estimators.
+The following variables are defined in <a class="reference internal" href="config.html#src.config.MLConf" title="src.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -215,9 +216,9 @@ achieves the best avg accuracy score for all evaluations. The supported search m
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li><em>RandomizedSearchCV</em>: Randomized search over continuous distribution space. <a class="reference internal" href="config.html#src.config.ML.max_iter" title="src.config.ML.max_iter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code></a>
-defines the number of parameter settings that are sampled. <a class="reference internal" href="config.html#src.config.ML.max_iter" title="src.config.ML.max_iter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code></a> trades off
-runtime vs quality of the solution.</li>
+<li><em>RandomizedSearchCV</em>: Randomized search over continuous distribution space. <a class="reference internal" href="config.html#src.config.MLConf.max_iter" title="src.config.MLConf.max_iter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code></a>
+defines the number of parameter settings that are sampled. <a class="reference internal" href="config.html#src.config.MLConf.max_iter" title="src.config.MLConf.max_iter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code></a> trades off
+runtime vs quality of the solution. The following variables are defined in <a class="reference internal" href="config.html#src.config.MLConf" title="src.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</li>
 </ul>
 <blockquote>
 <div><ul class="simple">

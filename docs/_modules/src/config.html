@@ -155,21 +155,36 @@
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">randint</span> <span class="k">as</span> <span class="n">sp_randint</span><span class="p">,</span> <span class="n">expon</span><span class="p">,</span> <span class="n">truncnorm</span>
 
 
-<div class="viewcode-block" id="ML"><a class="viewcode-back" href="../../config.html#src.config.ML">[docs]</a><span class="k">class</span> <span class="nc">ML</span><span class="p">:</span>
+<div class="viewcode-block" id="MLConf"><a class="viewcode-back" href="../../config.html#src.config.MLConf">[docs]</a><span class="k">class</span> <span class="nc">MLConf</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class initializes parameters that correspond to the machine learning part of the framework.</span>
 
-<span class="sd">    :var SVM_hyperparameters: Defines the search space for SVM.</span>
-<span class="sd">    :ivar MLP_hyperparameters: Defines the search space for MLP.</span>
-<span class="sd">    :ivar DecisionTree_hyperparameters: Defines the search space for Decision Trees.</span>
-<span class="sd">    :ivar RandomForest_hyperparameters: Defines the search space for Random Forests and Extra-Trees.</span>
-<span class="sd">    :ivar XGBoost_hyperparameters: Defines the search space for XGBoost.</span>
+<span class="sd">    These variables define the parameter grid for GridSearchCV:</span>
 
-<span class="sd">    :ivar SVM_hyperparameters_dist: Defines the search space for SVM as continuous distribution.</span>
-<span class="sd">    :ivar MLP_hyperparameters_dist: Defines the search space for MLP as continuous distribution.</span>
-<span class="sd">    :ivar DecisionTree_hyperparameters_dist: Defines the search space for Decision Trees as continuous distribution.</span>
-<span class="sd">    :ivar RandomForest_hyperparameters_dist: Defines the search space for Random Forests and Extra-Tress as continuous distribution.</span>
-<span class="sd">    :ivar XGBoost_hyperparameters_dist: Defines the search space for XGBoost as continuous distribution.</span>
+<span class="sd">    :cvar SVM_hyperparameters: Defines the search space for SVM.</span>
+<span class="sd">    :vartype SVM_hyperparameters: :obj:`list`</span>
+<span class="sd">    :cvar MLP_hyperparameters: Defines the search space for MLP.</span>
+<span class="sd">    :vartype MLP_hyperparameters: :obj:`dict`</span>
+<span class="sd">    :cvar DecisionTree_hyperparameters: Defines the search space for Decision Trees.</span>
+<span class="sd">    :vartype DecisionTree_hyperparameters: :obj:`dict`</span>
+<span class="sd">    :cvar RandomForest_hyperparameters: Defines the search space for Random Forests and Extra-Trees.</span>
+<span class="sd">    :vartype RandomForest_hyperparameters: :obj:`dict`</span>
+<span class="sd">    :cvar XGBoost_hyperparameters: Defines the search space for XGBoost.</span>
+<span class="sd">    :vartype XGBoost_hyperparameters: :obj:`dict`</span>
+
+<span class="sd">    These variables define the parameter grid for RandomizedSearchCV where continuous distributions are used for</span>
+<span class="sd">    continuous parameters (whenever this is feasible):</span>
+
+<span class="sd">    :cvar SVM_hyperparameters_dist: Defines the search space for SVM.</span>
+<span class="sd">    :vartype SVM_hyperparameters_dist: :obj:`dict`</span>
+<span class="sd">    :cvar MLP_hyperparameters_dist: Defines the search space for MLP.</span>
+<span class="sd">    :vartype MLP_hyperparameters_dist: :obj:`dict`</span>
+<span class="sd">    :cvar DecisionTree_hyperparameters_dist: Defines the search space for Decision Trees.</span>
+<span class="sd">    :vartype DecisionTree_hyperparameters_dist: :obj:`dict`</span>
+<span class="sd">    :cvar RandomForest_hyperparameters_dist: Defines the search space for Random Forests and Extra-Trees.</span>
+<span class="sd">    :vartype RandomForest_hyperparameters_dist: :obj:`dict`</span>
+<span class="sd">    :cvar XGBoost_hyperparameters_dist: Defines the search space for XGBoost.</span>
+<span class="sd">    :vartype XGBoost_hyperparameters_dist: :obj:`dict`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">kfold_parameter</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1">#: int: The number of outer folds that splits the dataset for the k-fold cross-validation.</span>
@@ -189,7 +204,7 @@
     <span class="n">classification_method</span> <span class="o">=</span> <span class="s1">&#39;lgm&#39;</span>  <span class="c1">#: str: The classification group of features to use. Values: [*basic* | *basic_sorted* | *lgm*].</span>
 
     <span class="c1"># accepted values: randomized, grid, hyperband - not yet implemented!!!</span>
-    <span class="n">hyperparams_search_method</span> <span class="o">=</span> <span class="s1">&#39;randomized&#39;</span>  <span class="c1">#: str: Search Method to use for finding best hyperparameters. Values [*randomized* | *grid*].</span>
+    <span class="n">hyperparams_search_method</span> <span class="o">=</span> <span class="s1">&#39;randomized&#39;</span>  <span class="c1">#: str: Search Method to use for finding best hyperparameters. Values: [*randomized* | *grid*].</span>
 
     <span class="c1">#: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to &#39;randomized&#39;.</span>
     <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">250</span>
