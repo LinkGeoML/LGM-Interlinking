@@ -2,7 +2,7 @@ LGM-Interlinking
 ================
 
 This Python code implements and evaluates the proposed LinkGeoML models for Toponym Interlinking.
-The *data* folder contains the train datasets used for building the classifiers and files with their extracted frequent terms.
+The *data* folder contains files for the train datasets used for building the classifiers and their extracted frequent terms.
 For evaluation, we used the dataset from
 the `Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_ work (see `Setup procedure`_).
 

@@ -9,8 +9,8 @@ class ML:
     """
     This class initializes parameters that correspond to the machine learning part of the framework.
 
-    :var SVM_hyperparameters: Defines the search space for SVM
-    :ivar MLP_hyperparameters: Defines the search space for MLP
+    :var SVM_hyperparameters: Defines the search space for SVM.
+    :ivar MLP_hyperparameters: Defines the search space for MLP.
     :ivar DecisionTree_hyperparameters: Defines the search space for Decision Trees.
     :ivar RandomForest_hyperparameters: Defines the search space for Random Forests and Extra-Trees.
     :ivar XGBoost_hyperparameters: Defines the search space for XGBoost.
