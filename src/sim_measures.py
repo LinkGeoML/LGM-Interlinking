@@ -6,7 +6,7 @@
 """
 This module implements various similarity metrics used across different scenarios. Many of these functions were
 developed by Rui Santos and Alexandre Marinho for their work in
-Toponym-Matching <https://github.com/ruipds/Toponym-Matching/blob/master/datasetcreator.py>`_.
+`Toponym-Matching <https://github.com/ruipds/Toponym-Matching/blob/master/datasetcreator.py>`_.
 """
 
 import csv
