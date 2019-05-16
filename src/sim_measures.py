@@ -4,7 +4,9 @@
 # E-mail: vkaffes@imis.athena-innovation.gr
 
 """
-This module implements the various metrics used across different scenarios, i.e., Jaro, Damerau, Jaccard, LGM-Sim, etc.
+This module implements various similarity metrics used across different scenarios. Many of these functions were
+developed by Rui Santos and Alexandre Marinho for their work in
+Toponym-Matching <https://github.com/ruipds/Toponym-Matching/blob/master/datasetcreator.py>`_.
 """
 
 import csv
@@ -260,6 +262,19 @@ def skipgrams(sequence, n, k):
 
 
 def skipgram(str1, str2):
+    """Implements Jaccard-skipgram metric.
+
+    Parameters
+    ----------
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     a1 = set(skipgrams(str1, 2, 0))
     a2 = set(skipgrams(str1, 2, 1) + skipgrams(str1, 2, 2))
     b1 = set(skipgrams(str2, 2, 0))
@@ -282,6 +297,17 @@ def strip_accents(s):
 
 
 def davies(str1, str2):
+    """Implements Davies de Salles metric.
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     a = strip_accents(str1.lower()).replace(u'-', u' ').split(' ')
     b = strip_accents(str2.lower()).replace(u'-', u' ').split(' ')
     for i in range(len(a)):
@@ -310,6 +336,17 @@ def davies(str1, str2):
 
 
 def cosine(str1, str2):
+    """Implements Cosine N-grams metric for n=[2,3].
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     str1 = " " + str1 + " "
     str2 = " " + str2 + " "
     x = list(itertools.chain.from_iterable([[str1[i:i + n] for i in range(len(str1) - (n - 1))] for n in [2, 3]]))
@@ -335,16 +372,49 @@ def cosine(str1, str2):
 
 
 def damerau_levenshtein(str1, str2):
+    """Implements Damerau-Levenshtein metric.
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     aux = pyxdameraulevenshtein.normalized_damerau_levenshtein_distance(str1, str2)
     return 1.0 - aux
 
 
 def jaro(str1, str2):
+    """Implements Jaro metric.
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     aux = jellyfish.jaro_distance(str1, str2)
     return aux
 
 
 def jaro_winkler(str1, str2):
+    """Implements Jaro-Winkler metric.
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     aux = jellyfish.jaro_winkler(str1, str2)
     return aux
 
@@ -360,11 +430,33 @@ def monge_elkan_aux(str1, str2):
 
 
 def monge_elkan(str1, str2):
+    """Implements Monge-Elkan metric.
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     return (monge_elkan_aux(str1, str2) + monge_elkan_aux(str2, str1)) / 2.0
 
 
 # http://www.catalysoft.com/articles/StrikeAMatch.html
 def strike_a_match(str1, str2):
+    """Implements Dice Bi-grams metric.
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     pairs1 = {str1[i:i + 2] for i in xrange(len(str1) - 1)}
     pairs2 = {str2[i:i + 2] for i in xrange(len(str2) - 1)}
     union = len(pairs1) + len(pairs2)
@@ -384,6 +476,17 @@ def strike_a_match(str1, str2):
 
 
 def jaccard(str1, str2):
+    """Implements Jaccard N-grams metric for n=[2,3].
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     str1 = " " + str1 + " "
     str2 = " " + str2 + " "
     a = list(itertools.chain.from_iterable([[str1[i:i + n] for i in range(len(str1) - (n - 1))] for n in [2, 3]]))
@@ -401,6 +504,17 @@ def jaccard(str1, str2):
 
 
 def soft_jaccard(str1, str2):
+    """Implements Soft-Jaccard metric.
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     a = set(str1.split(" "))
     b = set(str2.split(" "))
     intersection_length = (sum(max(jaro_winkler(i, j) for j in b) for i in a) + sum(
@@ -409,6 +523,17 @@ def soft_jaccard(str1, str2):
 
 
 def sorted_winkler(str1, str2):
+    """Implements Sorted Jaro-Winkler metric.
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     a = sorted(str1.split(" "))
     b = sorted(str2.split(" "))
     a = " ".join(a)
@@ -529,7 +654,18 @@ def _jaro_winkler(ying, yang, long_tolerance, winklerize):
     return weight
 
 
-def l_jaro_winkler(s1, s2, long_tolerance=False):
+def lgm_jaro_winkler(s1, s2, long_tolerance=False):
+    """Implements LGM Jaro-Winkler metric.
+
+    str1, str2: str
+        Input values in unicode.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1]
+
+    """
     return _jaro_winkler(s1, s2, long_tolerance, True)
 
 
@@ -662,7 +798,7 @@ algnms_to_func = {
     'jaro_winkler': jaro_winkler,
     'jaro': jaro,
     'jaccard': jaccard,
-    'l_jaro_winkler': l_jaro_winkler,
+    'l_jaro_winkler': lgm_jaro_winkler,
     'lsimilarity': lsimilarity,
     'avg_lsimilarity': avg_lsimilarity,
 }

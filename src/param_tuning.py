@@ -19,37 +19,84 @@ np.random.seed(seed_no)
 
 
 class ParamTuning:
+    """
+    This class provides all main methods for selecting, fine tuning hyperparameters, training and testing the best
+    classifier for toponym matching. The following classifiers are examined:
+
+    * Support Vector Machine (SVM)
+    * Decision Trees
+    * Multi-Layer Perceptron (MLP)
+    * Random Forest
+    * Extra-Trees
+    * eXtreme Gradient Boosting (XGBoost)
+    """
     clf_names = {
-        'SVM': [SVC, config.initialConfig.SVM_hyperparameters, config.initialConfig.SVM_hyperparameters_dist],
-        'Decision Tree': [DecisionTreeClassifier, config.initialConfig.DecisionTree_hyperparameters,
-                          config.initialConfig.DecisionTree_hyperparameters_dist],
-        'MLP': [MLPClassifier, config.initialConfig.MLP_hyperparameters, config.initialConfig.MLP_hyperparameters_dist],
-        'Random Forest': [RandomForestClassifier, config.initialConfig.RandomForest_hyperparameters,
-                          config.initialConfig.RandomForest_hyperparameters_dist],
-        'Extra-Trees': [ExtraTreesClassifier, config.initialConfig.RandomForest_hyperparameters,
-                        config.initialConfig.RandomForest_hyperparameters_dist],
-        'XGBoost': [XGBClassifier, config.initialConfig.XGBoost_hyperparameters,
-                    config.initialConfig.XGBoost_hyperparameters_dist]
+        'SVM': [SVC, config.ML.SVM_hyperparameters, config.ML.SVM_hyperparameters_dist],
+        'Decision Tree': [DecisionTreeClassifier, config.ML.DecisionTree_hyperparameters,
+                          config.ML.DecisionTree_hyperparameters_dist],
+        'MLP': [MLPClassifier, config.ML.MLP_hyperparameters, config.ML.MLP_hyperparameters_dist],
+        'Random Forest': [RandomForestClassifier, config.ML.RandomForest_hyperparameters,
+                          config.ML.RandomForest_hyperparameters_dist],
+        'Extra-Trees': [ExtraTreesClassifier, config.ML.RandomForest_hyperparameters,
+                        config.ML.RandomForest_hyperparameters_dist],
+        'XGBoost': [XGBClassifier, config.ML.XGBoost_hyperparameters,
+                    config.ML.XGBoost_hyperparameters_dist]
     }
 
     scores = ['accuracy']
 
     def __init__(self):
         # To be used within GridSearch
-        self.inner_cv = StratifiedKFold(n_splits=config.initialConfig.kfold_inner_parameter, shuffle=False,
+        self.inner_cv = StratifiedKFold(n_splits=config.ML.kfold_inner_parameter, shuffle=False,
                                         random_state=seed_no)
 
         # To be used in outer CV
-        self.outer_cv = StratifiedKFold(n_splits=config.initialConfig.kfold_parameter, shuffle=False,
+        self.outer_cv = StratifiedKFold(n_splits=config.ML.kfold_parameter, shuffle=False,
                                         random_state=seed_no)
 
-        self.kfold = config.initialConfig.kfold_parameter
-        self.n_jobs = config.initialConfig.n_jobs
+        self.kfold = config.ML.kfold_parameter
+        self.n_jobs = config.ML.n_jobs
 
-        self.search_method = config.initialConfig.hyperparams_search_method
-        self.n_iter = config.initialConfig.max_iter
+        self.search_method = config.ML.hyperparams_search_method
+        self.n_iter = config.ML.max_iter
 
     def getBestClassifier(self, X, y):
+        """Search over specified parameter values for various estimators/classifiers and choose the best one.
+
+        This method searches over specified values and selects the classifier that
+        achieves the best avg accuracy score for all evaluations. The supported search methods are:
+
+        * *GridSearchCV*: Exhaustive search over specified parameter values for an estimator:
+
+         * :attr:`~src.config.ML.MLP_hyperparameters`
+         * :attr:`~src.config.ML.RandomForests_hyperparameters`
+         * :attr:`~src.config.ML.XGBoost_hyperparameters`
+         * :attr:`~src.config.ML.SVM_hyperparameters`
+         * :attr:`~src.config.ML.DecisionTree_hyperparameters`
+
+        * *RandomizedSearchCV*: Randomized search over continuous distribution space. :attr:`~src.config.ML.max_iter`
+          defines the number of parameter settings that are sampled. :py:attr:`~src.config.ML.max_iter` trades off
+          runtime vs quality of the solution.
+
+         * :attr:`~src.config.ML.MLP_hyperparameters_dist`
+         * :attr:`~src.config.ML.RandomForests_hyperparameters_dist`
+         * :attr:`~src.config.ML.XGBoost_hyperparameters_dist`
+         * :attr:`~src.config.ML.SVM_hyperparameters_dist`
+         * :attr:`~src.config.ML.DecisionTree_hyperparameters_dist`
+
+        Parameters
+        ----------
+        X: array-like or sparse matrix, shape = [n_samples, n_features]
+            The training input samples.
+        y: array-like, shape = [n_samples] or [n_samples, n_outputs]
+            The target values, i.e. class labels.
+
+        Returns
+        -------
+        out: :obj:`dict` of {:obj:`str`: :obj:`int`, :obj:`str`: :obj:`str`}
+            It returns a dictionary with keys *accuracy*: score and *classifier*: the name in reference.
+
+        """
         hyperparams_data = {
             'KFold': {},
             'Avg': []
@@ -111,7 +158,28 @@ class ParamTuning:
 
         return best_clf
 
-    def fineTuningBestClassifier(self, X, y, best_clf):
+    def fineTuneClassifier(self, X, y, best_clf):
+        """Search over specified parameter values for an estimator/classifier.
+
+        This method searches over specified values to fine tune hyperparameters for
+        best accuracy score. The supported search methods are GridSearchCV and RandomizedSearchCV
+        as presented in :class:`getBestClassifier`.
+
+        Parameters
+        ----------
+        X: array-like or sparse matrix, shape = [n_samples, n_features]
+            The training input samples.
+        y: array-like, shape = [n_samples] or [n_samples, n_outputs]
+            The target values, i.e. class labels.
+        best_clf: :obj:`dict` of {:obj:`str`: :obj:`int`, :obj:`str`: :obj:`str`}
+            A dictionary with values for keys *accuracy*: score and *classifier*: its name.
+
+        Returns
+        -------
+        tuple of (str, dict, float)
+            It returns the estimator, the parameter setting that gave the best results on the X dataset and the mean
+            cross-validated score of the estimator.
+        """
         clf = None
         for score in self.scores:
             if self.search_method.lower() == 'grid':
@@ -140,11 +208,43 @@ class ParamTuning:
 
         return clf.best_estimator_, clf.best_params_, clf.best_score_
 
-    def trainBestClassifier(self, X_train, y_train, model):
+    def trainClassifier(self, X_train, y_train, model):
+        """Build a classifier from the training set (X_train, y_train).
+
+        Parameters
+        ----------
+        X_train: array-like or sparse matrix, shape = [n_samples, n_features]
+            The training input samples.
+        y_train: array-like, shape = [n_samples] or [n_samples, n_outputs]
+            The target values, i.e. class labels.
+        model: object
+            An instance of a classifier.
+
+        Returns
+        -------
+        object
+            It returns a trained classifier.
+        """
         model.fit(X_train, y_train)
         return model
 
-    def testBestClassifier(self, X_test, y_test, model):
+    def testClassifier(self, X_test, y_test, model):
+        """Evaluate a classifier on a testing set (X_test, y_test).
+
+        Parameters
+        ----------
+        X_test: array-like or sparse matrix, shape = [n_samples, n_features]
+            The training input samples.
+        y_test: array-like, shape = [n_samples] or [n_samples, n_outputs]
+            The target values, i.e. class labels.
+        model: object
+            A trained classifier.
+
+        Returns
+        -------
+        tuple of (float, float, float, float)
+            It returns the following achieved scores on test dataset: accuracy, precision, recall and f1.
+        """
         y_pred = model.predict(X_test)
 
         acc = accuracy_score(y_test, y_pred)

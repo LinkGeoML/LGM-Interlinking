@@ -5,42 +5,48 @@ import numpy as np
 from scipy.stats import randint as sp_randint, expon, truncnorm
 
 
-class initialConfig:
-    ## The following parameters correspond to the machine learning
-    ## part of the framework.
+class ML:
+    """
+    This class initializes parameters that correspond to the machine learning part of the framework.
 
-    # This parameter refers to the number of outer folds that
-    # are being used in order for the k-fold cross-validation
-    # to take place.
-    kfold_parameter = 5
+    :var SVM_hyperparameters: Defines the search space for SVM
+    :ivar MLP_hyperparameters: Defines the search space for MLP
+    :ivar DecisionTree_hyperparameters: Defines the search space for Decision Trees.
+    :ivar RandomForest_hyperparameters: Defines the search space for Random Forests and Extra-Trees.
+    :ivar XGBoost_hyperparameters: Defines the search space for XGBoost.
+
+    :ivar SVM_hyperparameters_dist: Defines the search space for SVM as continuous distribution.
+    :ivar MLP_hyperparameters_dist: Defines the search space for MLP as continuous distribution.
+    :ivar DecisionTree_hyperparameters_dist: Defines the search space for Decision Trees as continuous distribution.
+    :ivar RandomForest_hyperparameters_dist: Defines the search space for Random Forests and Extra-Tress as continuous distribution.
+    :ivar XGBoost_hyperparameters_dist: Defines the search space for XGBoost as continuous distribution.
+    """
+
+    kfold_parameter = 5  #: int: The number of outer folds that splits the dataset for the k-fold cross-validation.
+
+    #: int: The number of inner folds that splits the dataset for the k-fold cross-validation.
     kfold_inner_parameter = 4
 
-    # Number of parallel jobs to be initiated:
-    # -1: use all processors
-    # int: no of processors to use
-    n_jobs = -1
+    n_jobs = -1  #: int: Number of parallel jobs to be initiated. -1 means to utilize all available processors.
 
-    # relative path to the train dataset.
-    train_dataset = 'data/dataset-string-similarity_global_1k.csv'
+    train_dataset = 'data/dataset-string-similarity_global_1k.csv'  #: Relative path to the train dataset.
     # train_dataset = 'data/dataset-string-similarity_latin_EU_NA_1k.txt'
     # train_dataset = 'data/dataset-string-similarity-100.csv'
 
-    # relative path to the test dataset.
+    #: Relative path to the test dataset.
     test_dataset = 'data/dataset-string-similarity.txt'
 
-    # the classification method used: basic, basic_sorted, lgm
-    classification_method = 'lgm'
+    classification_method = 'lgm'  #: str: The classification group of features to use. Values: [*basic* | *basic_sorted* | *lgm*].
 
-    # This parameter contains a list of the various classifiers
-    # the results of which will be compared in the experiments.
-    # classifiers = ['SVM', 'Decision Tree', 'Random Forest', 'AdaBoost',
-    #                'Naive Bayes', 'MLP', 'Gaussian Process', 'Extra Trees']
+    # accepted values: randomized, grid, hyperband - not yet implemented!!!
+    hyperparams_search_method = 'randomized'  #: str: Search Method to use for finding best hyperparameters. Values [*randomized* | *grid*].
 
-    # Search Method to use for best hyperparameters: randomized, grid, hyperband - not yet implemented!!!
-    hyperparams_search_method = 'randomized'
+    #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to 'randomized'.
+    max_iter = 250
 
-    # These are the parameters that constitute the search space for GridSearchCV
-    # in our experiments.
+    sort_thres = 0.55  #: float: Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score below the assigned threshold.
+
+    # These parameters constitute the search space for GridSearchCV in our experiments.
     SVM_hyperparameters = [
         {'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],
          'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000], 'max_iter': [300]},
@@ -79,8 +85,7 @@ class initialConfig:
         'solver': ['sgd', 'adam']
     }
 
-    # These are the parameters that constitute the search space for RandomizedSearchCV
-    # in our experiments.
+    # These parameters constitute the search space for RandomizedSearchCV in our experiments.
     SVM_hyperparameters_dist = {
         'C': expon(scale=100), 'gamma': expon(scale=.1), 'kernel': ['rbf'], 'class_weight': ['balanced', None]
     }
@@ -114,9 +119,3 @@ class initialConfig:
         'max_iter': [300, 500, 1000],
         'solver': ['sgd', 'adam']
     }
-
-    # number of iterations the RnadomizedSearchCV should execute
-    max_iter = 250
-
-    # threshold whether to sort or not the string tokens of a toponym
-    sort_thres = 0.55
