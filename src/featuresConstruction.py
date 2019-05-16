@@ -50,7 +50,7 @@ class Features:
     }
 
     def __init__(self):
-        self.clf_method = config.ML.classification_method
+        self.clf_method = config.MLConf.classification_method
         self.data_df = None
 
     def load_data(self, fname, encoding):
@@ -58,7 +58,7 @@ class Features:
         self._get_freqterms(encoding)
 
     def build(self):
-        """Build features depending on the assignment of parameter :py:attr:`~src.config.ML.classification_method`
+        """Build features depending on the assignment of parameter :py:attr:`~src.config.MLConf.classification_method`
         and return values (fX, y) as ndarray of floats.
 
         Returns
@@ -84,7 +84,7 @@ class Features:
 
     def compute_features(self, s1, s2, sorting=True, all_features=True):
         """
-        Depending on the group assigned to parameter :py:attr:`~src.config.ML.classification_method`,
+        Depending on the group assigned to parameter :py:attr:`~src.config.MLConf.classification_method`,
         this method builds an ndarray of the following groups of features:
 
         * *basic*: various similarity measures, i.e.,

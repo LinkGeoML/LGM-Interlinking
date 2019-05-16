@@ -31,34 +31,34 @@ class ParamTuning:
     * eXtreme Gradient Boosting (XGBoost)
     """
     clf_names = {
-        'SVM': [SVC, config.ML.SVM_hyperparameters, config.ML.SVM_hyperparameters_dist],
-        'Decision Tree': [DecisionTreeClassifier, config.ML.DecisionTree_hyperparameters,
-                          config.ML.DecisionTree_hyperparameters_dist],
-        'MLP': [MLPClassifier, config.ML.MLP_hyperparameters, config.ML.MLP_hyperparameters_dist],
-        'Random Forest': [RandomForestClassifier, config.ML.RandomForest_hyperparameters,
-                          config.ML.RandomForest_hyperparameters_dist],
-        'Extra-Trees': [ExtraTreesClassifier, config.ML.RandomForest_hyperparameters,
-                        config.ML.RandomForest_hyperparameters_dist],
-        'XGBoost': [XGBClassifier, config.ML.XGBoost_hyperparameters,
-                    config.ML.XGBoost_hyperparameters_dist]
+        'SVM': [SVC, config.MLConf.SVM_hyperparameters, config.MLConf.SVM_hyperparameters_dist],
+        'Decision Tree': [DecisionTreeClassifier, config.MLConf.DecisionTree_hyperparameters,
+                          config.MLConf.DecisionTree_hyperparameters_dist],
+        'MLP': [MLPClassifier, config.MLConf.MLP_hyperparameters, config.MLConf.MLP_hyperparameters_dist],
+        'Random Forest': [RandomForestClassifier, config.MLConf.RandomForest_hyperparameters,
+                          config.MLConf.RandomForest_hyperparameters_dist],
+        'Extra-Trees': [ExtraTreesClassifier, config.MLConf.RandomForest_hyperparameters,
+                        config.MLConf.RandomForest_hyperparameters_dist],
+        'XGBoost': [XGBClassifier, config.MLConf.XGBoost_hyperparameters,
+                    config.MLConf.XGBoost_hyperparameters_dist]
     }
 
     scores = ['accuracy']
 
     def __init__(self):
         # To be used within GridSearch
-        self.inner_cv = StratifiedKFold(n_splits=config.ML.kfold_inner_parameter, shuffle=False,
+        self.inner_cv = StratifiedKFold(n_splits=config.MLConf.kfold_inner_parameter, shuffle=False,
                                         random_state=seed_no)
 
         # To be used in outer CV
-        self.outer_cv = StratifiedKFold(n_splits=config.ML.kfold_parameter, shuffle=False,
+        self.outer_cv = StratifiedKFold(n_splits=config.MLConf.kfold_parameter, shuffle=False,
                                         random_state=seed_no)
 
-        self.kfold = config.ML.kfold_parameter
-        self.n_jobs = config.ML.n_jobs
+        self.kfold = config.MLConf.kfold_parameter
+        self.n_jobs = config.MLConf.n_jobs
 
-        self.search_method = config.ML.hyperparams_search_method
-        self.n_iter = config.ML.max_iter
+        self.search_method = config.MLConf.hyperparams_search_method
+        self.n_iter = config.MLConf.max_iter
 
     def getBestClassifier(self, X, y):
         """Search over specified parameter values for various estimators/classifiers and choose the best one.
@@ -68,21 +68,21 @@ class ParamTuning:
 
         * *GridSearchCV*: Exhaustive search over specified parameter values for an estimator:
 
-         * :attr:`~src.config.ML.MLP_hyperparameters`
-         * :attr:`~src.config.ML.RandomForests_hyperparameters`
-         * :attr:`~src.config.ML.XGBoost_hyperparameters`
-         * :attr:`~src.config.ML.SVM_hyperparameters`
-         * :attr:`~src.config.ML.DecisionTree_hyperparameters`
+         * :attr:`~src.config.MLConf.MLP_hyperparameters`
+         * :attr:`~src.config.MLConf.RandomForests_hyperparameters`
+         * :attr:`~src.config.MLConf.XGBoost_hyperparameters`
+         * :attr:`~src.config.MLConf.SVM_hyperparameters`
+         * :attr:`~src.config.MLConf.DecisionTree_hyperparameters`
 
-        * *RandomizedSearchCV*: Randomized search over continuous distribution space. :attr:`~src.config.ML.max_iter`
-          defines the number of parameter settings that are sampled. :py:attr:`~src.config.ML.max_iter` trades off
+        * *RandomizedSearchCV*: Randomized search over continuous distribution space. :attr:`~src.config.MLConf.max_iter`
+          defines the number of parameter settings that are sampled. :py:attr:`~src.config.MLConf.max_iter` trades off
           runtime vs quality of the solution.
 
-         * :attr:`~src.config.ML.MLP_hyperparameters_dist`
-         * :attr:`~src.config.ML.RandomForests_hyperparameters_dist`
-         * :attr:`~src.config.ML.XGBoost_hyperparameters_dist`
-         * :attr:`~src.config.ML.SVM_hyperparameters_dist`
-         * :attr:`~src.config.ML.DecisionTree_hyperparameters_dist`
+         * :attr:`~src.config.MLConf.MLP_hyperparameters_dist`
+         * :attr:`~src.config.MLConf.RandomForests_hyperparameters_dist`
+         * :attr:`~src.config.MLConf.XGBoost_hyperparameters_dist`
+         * :attr:`~src.config.MLConf.SVM_hyperparameters_dist`
+         * :attr:`~src.config.MLConf.DecisionTree_hyperparameters_dist`
 
         Parameters
         ----------

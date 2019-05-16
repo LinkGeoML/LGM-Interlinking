@@ -28,10 +28,10 @@ class Evaluator:
         f = Features()
 
         tot_time = time.time(); start_time = time.time()
-        f.load_data(getRelativePathtoWorking(config.ML.train_dataset), self.encoding)
+        f.load_data(getRelativePathtoWorking(config.MLConf.train_dataset), self.encoding)
         fX, y = f.build()
         print("Loaded train dataset and build features for {} setup; {} sec.".format(
-            config.ML.classification_method, time.time() - start_time))
+            config.MLConf.classification_method, time.time() - start_time))
 
         start_time = time.time()
         # 1st phase: find out best classifier from a list of candidate ones

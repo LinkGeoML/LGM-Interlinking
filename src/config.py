@@ -5,21 +5,36 @@ import numpy as np
 from scipy.stats import randint as sp_randint, expon, truncnorm
 
 
-class ML:
+class MLConf:
     """
     This class initializes parameters that correspond to the machine learning part of the framework.
 
-    :var SVM_hyperparameters: Defines the search space for SVM.
-    :ivar MLP_hyperparameters: Defines the search space for MLP.
-    :ivar DecisionTree_hyperparameters: Defines the search space for Decision Trees.
-    :ivar RandomForest_hyperparameters: Defines the search space for Random Forests and Extra-Trees.
-    :ivar XGBoost_hyperparameters: Defines the search space for XGBoost.
+    These variables define the parameter grid for GridSearchCV:
 
-    :ivar SVM_hyperparameters_dist: Defines the search space for SVM as continuous distribution.
-    :ivar MLP_hyperparameters_dist: Defines the search space for MLP as continuous distribution.
-    :ivar DecisionTree_hyperparameters_dist: Defines the search space for Decision Trees as continuous distribution.
-    :ivar RandomForest_hyperparameters_dist: Defines the search space for Random Forests and Extra-Tress as continuous distribution.
-    :ivar XGBoost_hyperparameters_dist: Defines the search space for XGBoost as continuous distribution.
+    :cvar SVM_hyperparameters: Defines the search space for SVM.
+    :vartype SVM_hyperparameters: :obj:`list`
+    :cvar MLP_hyperparameters: Defines the search space for MLP.
+    :vartype MLP_hyperparameters: :obj:`dict`
+    :cvar DecisionTree_hyperparameters: Defines the search space for Decision Trees.
+    :vartype DecisionTree_hyperparameters: :obj:`dict`
+    :cvar RandomForest_hyperparameters: Defines the search space for Random Forests and Extra-Trees.
+    :vartype RandomForest_hyperparameters: :obj:`dict`
+    :cvar XGBoost_hyperparameters: Defines the search space for XGBoost.
+    :vartype XGBoost_hyperparameters: :obj:`dict`
+
+    These variables define the parameter grid for RandomizedSearchCV where continuous distributions are used for
+    continuous parameters (whenever this is feasible):
+
+    :cvar SVM_hyperparameters_dist: Defines the search space for SVM.
+    :vartype SVM_hyperparameters_dist: :obj:`dict`
+    :cvar MLP_hyperparameters_dist: Defines the search space for MLP.
+    :vartype MLP_hyperparameters_dist: :obj:`dict`
+    :cvar DecisionTree_hyperparameters_dist: Defines the search space for Decision Trees.
+    :vartype DecisionTree_hyperparameters_dist: :obj:`dict`
+    :cvar RandomForest_hyperparameters_dist: Defines the search space for Random Forests and Extra-Trees.
+    :vartype RandomForest_hyperparameters_dist: :obj:`dict`
+    :cvar XGBoost_hyperparameters_dist: Defines the search space for XGBoost.
+    :vartype XGBoost_hyperparameters_dist: :obj:`dict`
     """
 
     kfold_parameter = 5  #: int: The number of outer folds that splits the dataset for the k-fold cross-validation.
@@ -39,7 +54,7 @@ class ML:
     classification_method = 'lgm'  #: str: The classification group of features to use. Values: [*basic* | *basic_sorted* | *lgm*].
 
     # accepted values: randomized, grid, hyperband - not yet implemented!!!
-    hyperparams_search_method = 'randomized'  #: str: Search Method to use for finding best hyperparameters. Values [*randomized* | *grid*].
+    hyperparams_search_method = 'randomized'  #: str: Search Method to use for finding best hyperparameters. Values: [*randomized* | *grid*].
 
     #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to 'randomized'.
     max_iter = 250

@@ -37,13 +37,13 @@ def main(args):
 
     LSimilarityVars.per_metric_optimal_values = StaticValues.opt_values[args["-e"].lower()]
 
-    fpath_ds = getRelativePathtoWorking(config.ML.test_dataset)
-    if os.path.isfile(fpath_ds) and os.path.isfile(getRelativePathtoWorking(config.ML.train_dataset)):
+    fpath_ds = getRelativePathtoWorking(config.MLConf.test_dataset)
+    if os.path.isfile(fpath_ds) and os.path.isfile(getRelativePathtoWorking(config.MLConf.train_dataset)):
         seval = Evaluator(args['-e'])
         seval.hyperparamTuning(fpath_ds)
     else:
         print("File {0} and/or {1} is not found!!!\n".format(
-            fpath_ds, getRelativePathtoWorking(config.ML.train_dataset)))
+            fpath_ds, getRelativePathtoWorking(config.MLConf.train_dataset)))
 
 
 if __name__ == "__main__":
