@@ -66,7 +66,8 @@ class ParamTuning:
         This method searches over specified values and selects the classifier that
         achieves the best avg accuracy score for all evaluations. The supported search methods are:
 
-        * *GridSearchCV*: Exhaustive search over specified parameter values for an estimator:
+        * *GridSearchCV*: Exhaustive search over specified parameter values for supported estimators.
+          The following variables are defined in :func:`~src.config.MLConf` :
 
          * :attr:`~src.config.MLConf.MLP_hyperparameters`
          * :attr:`~src.config.MLConf.RandomForests_hyperparameters`
@@ -76,7 +77,7 @@ class ParamTuning:
 
         * *RandomizedSearchCV*: Randomized search over continuous distribution space. :attr:`~src.config.MLConf.max_iter`
           defines the number of parameter settings that are sampled. :py:attr:`~src.config.MLConf.max_iter` trades off
-          runtime vs quality of the solution.
+          runtime vs quality of the solution. The following variables are defined in :func:`~src.config.MLConf` :
 
          * :attr:`~src.config.MLConf.MLP_hyperparameters_dist`
          * :attr:`~src.config.MLConf.RandomForests_hyperparameters_dist`
