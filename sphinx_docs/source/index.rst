@@ -3,29 +3,31 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to LGMInterlinking's documentation!
-*******************************************
+Welcome to LGM-Interlinking's documentation!
+********************************************
 
 .. include:: ../../README.rst
 
-.. toctree::
-   :maxdepth: 2
-   :name: mastertoc
+Main
+^^^^^^^^^
    
-   methods_class
-   features
-   tuning
-   measures
-
-LGMInterlinking main
-^^^^^^^^^^^^^^^^^^^^
 .. automodule:: run
    :members:
 
-LGMInterlinking configuration file
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. automodule:: src.config
-   :members:
+API Reference
+^^^^^^^^^^^^^^
+
+View the auto-generated API documentation for information on a specific function, class, or method.
+   
+.. toctree::
+   :maxdepth: 2
+   :name: mastertoc
+
+   config
+   strategy_evaluator
+   features
+   tuning
+   measures
 
 Indices and tables
 ==================

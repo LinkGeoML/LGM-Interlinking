@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to LGMInterlinking’s documentation! &mdash; LGMInterlinking 0.1.0 documentation</title>
+  <title>Welcome to LGM-Interlinking’s documentation! &mdash; LGM-Interlinking 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="LGMInterlinking methods" href="methods_class.html" /> 
+    <link rel="next" title="config" href="config.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +49,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> LGMInterlinking
+            <a href="#" class="icon icon-home"> LGM-Interlinking
           
 
           
@@ -80,10 +80,11 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="methods_class.html">LGMInterlinking methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features.html">LGMInterlinking features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">LGMInterlinking parameter tuning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="measures.html">LGMInterlinking metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategy_evaluator.html">evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measures.html">metrics</a></li>
 </ul>
 
             
@@ -98,7 +99,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">LGMInterlinking</a>
+          <a href="#">LGM-Interlinking</a>
         
       </nav>
 
@@ -129,7 +130,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Welcome to LGMInterlinking’s documentation!</li>
+      <li>Welcome to LGM-Interlinking’s documentation!</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -146,19 +147,22 @@
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
            <div itemprop="articleBody">
             
-  <div class="section" id="welcome-to-lgminterlinking-s-documentation">
-<h1>Welcome to LGMInterlinking’s documentation!<a class="headerlink" href="#welcome-to-lgminterlinking-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="welcome-to-lgm-interlinking-s-documentation">
+<h1>Welcome to LGM-Interlinking’s documentation!<a class="headerlink" href="#welcome-to-lgm-interlinking-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="lgm-interlinking">
 <h2>LGM-Interlinking<a class="headerlink" href="#lgm-interlinking" title="Permalink to this headline">¶</a></h2>
 <p>This Python code implements and evaluates the proposed LinkGeoML models for Toponym Interlinking.
-The data folder contains the train datasets used for evaluation. For the test dataset, we used the one from
-the Toponym-Matching work (see <a class="reference internal" href="#setup-procedure">Setup procedure</a>).</p>
+The <em>data</em> folder contains the train datasets used for building the classifiers and files with their extracted frequent terms.
+For evaluation, we used the dataset from
+the <a class="reference external" href="https://github.com/ruipds/Toponym-Matching">Toponym-Matching</a> work (see <a class="reference internal" href="#setup-procedure">Setup procedure</a>).</p>
 <p>The source code was tested using Python 2.7 and Scikit-Learn 0.20.3 on a Linux server.</p>
 <div class="section" id="setup-procedure">
 <h3>Setup procedure<a class="headerlink" href="#setup-procedure" title="Permalink to this headline">¶</a></h3>
-<p>Download the latest version from the <a class="reference external" href="https://github.com/LinkGeoML/LGM-Interlinking.git">GitHub repository</a>, change to the main directory and run:</p>
+<p>Download the latest version from the <a class="reference external" href="https://github.com/LinkGeoML/LGM-Interlinking.git">GitHub repository</a>, change to the main
+directory and run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r pip_requirements.txt
 </pre></div>
 </div>
@@ -175,22 +179,14 @@ unzip dataset.zip.fixed
 <div class="section" id="acknowledgements">
 <h3>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h3>
 <p>The <em>sim_measures.py</em> file, which is used to generate the train/test datasets and to compute the string similarity measures,
-is a slightly modified version of the one used in <a class="reference external" href="https://github.com/ruipds/Toponym-Matching">Toponym-Matching</a> work and
-is under the MIT license.</p>
+is a slightly modified version of the <em>datasetcreator.py</em> file used in <a class="reference external" href="https://github.com/ruipds/Toponym-Matching">Toponym-Matching</a>
+work, which is under the MIT license.</p>
 </div>
 <div class="section" id="license">
 <h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
 <p>LGM-Interlinking is available under the MIT License.</p>
-<div class="toctree-wrapper compound" id="mastertoc">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="methods_class.html">LGMInterlinking methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features.html">LGMInterlinking features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">LGMInterlinking parameter tuning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="measures.html">LGMInterlinking metrics</a></li>
-</ul>
-</div>
 <div class="section" id="module-run">
-<span id="lgminterlinking-main"></span><h4>LGMInterlinking main<a class="headerlink" href="#module-run" title="Permalink to this headline">¶</a></h4>
+<span id="main"></span><h4>Main<a class="headerlink" href="#module-run" title="Permalink to this headline">¶</a></h4>
 <p>Feature extraction and traditional classifiers for toponym interlinking.</p>
 <p>Command line:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
@@ -201,18 +197,26 @@ is under the MIT license.</p>
 <span class="n">Options</span><span class="p">:</span>
     <span class="o">-</span><span class="n">h</span> <span class="o">--</span><span class="n">help</span>                   <span class="n">show</span> <span class="n">this</span> <span class="n">screen</span><span class="o">.</span>
     <span class="o">--</span><span class="n">version</span>                   <span class="n">show</span> <span class="n">version</span><span class="o">.</span>
-    <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">dataset</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>           <span class="n">relative</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">directory</span> <span class="n">of</span> <span class="n">the</span> <span class="n">script</span> <span class="n">being</span> <span class="n">run</span> <span class="n">of</span> <span class="n">the</span> <span class="n">dataset</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span>
-                                <span class="n">experiments</span><span class="o">.</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="n">dataset</span><span class="o">-</span><span class="n">string</span><span class="o">-</span><span class="n">similarity</span><span class="o">.</span><span class="n">txt</span><span class="p">]</span><span class="o">.</span>
-    <span class="o">-</span><span class="n">e</span> <span class="o">&lt;</span><span class="n">encoding_type</span><span class="o">&gt;</span>          <span class="n">specify</span> <span class="n">the</span> <span class="n">encoding</span> <span class="nb">type</span> <span class="n">followed</span> <span class="n">by</span> <span class="n">toponyms</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="n">latin</span><span class="p">]</span><span class="o">.</span>
+    <span class="o">-</span><span class="n">e</span> <span class="o">&lt;</span><span class="n">encoding_type</span><span class="o">&gt;</span>          <span class="n">specify</span> <span class="n">the</span> <span class="n">encoding</span> <span class="n">of</span> <span class="n">toponyms</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="k">global</span><span class="p">]</span><span class="o">.</span>
 
 <span class="n">Arguments</span><span class="p">:</span>
-    <span class="n">encoding_type</span>               <span class="s1">&#39;global&#39;</span>
-                                <span class="s1">&#39;latin&#39;</span>
+    <span class="n">encoding_type</span>               <span class="k">global</span>
+                                <span class="n">latin</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="module-src.config">
-<span id="lgminterlinking-configuration-file"></span><h4>LGMInterlinking configuration file<a class="headerlink" href="#module-src.config" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="api-reference">
+<h4>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h4>
+<p>View the auto-generated API documentation for information on a specific function, class, or method.</p>
+<div class="toctree-wrapper compound" id="mastertoc">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategy_evaluator.html">evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measures.html">metrics</a></li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -223,7 +227,7 @@ is under the MIT license.</p>
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
-<p>This documentation was last updated on May 06, 2019.</p>
+<p>This documentation was last updated on May 16, 2019.</p>
 </div>
 </div>
 
@@ -231,11 +235,15 @@ is under the MIT license.</p>
            </div>
            
           </div>
+	<a href="https://github.com/LinkGeoML/LGM-Interlinking">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="methods_class.html" class="btn btn-neutral float-right" title="LGMInterlinking methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="config.html" class="btn btn-neutral float-right" title="config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

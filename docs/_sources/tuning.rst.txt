@@ -1,5 +1,5 @@
-LGMInterlinking parameter tuning
-================================
+tuning
+======
 
     .. autoclass:: src.param_tuning.ParamTuning
        :members:

@@ -1,7 +1,7 @@
-LGMInterlinking metrics
-=======================
+metrics
+=======
 
-    .. autoclass:: src.sim_measures
+    .. automodule:: src.sim_measures
        :members:
 
 :ref:`Return Home <mastertoc>`

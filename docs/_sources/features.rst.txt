@@ -1,5 +1,5 @@
-LGMInterlinking features
-========================
+features
+========
 
     .. autoclass:: src.featuresConstruction.Features
        :members:

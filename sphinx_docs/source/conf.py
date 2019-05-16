@@ -20,7 +20,7 @@ sys.setrecursionlimit(1500)
 
 # -- Project information -----------------------------------------------------
 
-project = u'LGMInterlinking'
+project = u'LGM-Interlinking'
 copyright = u'2019, vkaff, giann'
 author = u'vkaff, giann'
 
@@ -114,7 +114,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'LGMInterlinkingdoc'
+htmlhelp_basename = 'LGM-Interlinkingdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -141,7 +141,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'LGMInterlinking.tex', u'LGMInterlinking Documentation',
+    (master_doc, 'LGM-Interlinking.tex', u'LGM-Interlinking Documentation',
      u'vkaff, giann', 'manual'),
 ]
 
@@ -151,7 +151,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'lgminterlinking', u'LGMInterlinking Documentation',
+    (master_doc, 'lgminterlinking', u'LGM-Interlinking Documentation',
      [author], 1)
 ]
 
@@ -162,8 +162,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'LGMInterlinking', u'LGMInterlinking Documentation',
-     author, 'LGMInterlinking', 'One line description of project.',
+    (master_doc, 'LGM-Interlinking', u'LGM-Interlinking Documentation',
+     author, 'LGM-Interlinking', 'One line description of project.',
      'Miscellaneous'),
 ]
 
@@ -191,4 +191,4 @@ epub_exclude_files = ['search.html']
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+intersphinx_mapping = {'https://docs.python.org/2.7/': None}

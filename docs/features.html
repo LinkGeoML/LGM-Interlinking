@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>LGMInterlinking features &mdash; LGMInterlinking 0.1.0 documentation</title>
+  <title>features &mdash; LGM-Interlinking 0.1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="LGMInterlinking parameter tuning" href="tuning.html" />
-    <link rel="prev" title="LGMInterlinking methods" href="methods_class.html" /> 
+    <link rel="next" title="tuning" href="tuning.html" />
+    <link rel="prev" title="evaluator" href="strategy_evaluator.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -50,7 +50,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> LGMInterlinking
+            <a href="index.html" class="icon icon-home"> LGM-Interlinking
           
 
           
@@ -81,10 +81,11 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="methods_class.html">LGMInterlinking methods</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">LGMInterlinking features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">LGMInterlinking parameter tuning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="measures.html">LGMInterlinking metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategy_evaluator.html">evaluator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measures.html">metrics</a></li>
 </ul>
 
             
@@ -99,7 +100,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">LGMInterlinking</a>
+          <a href="index.html">LGM-Interlinking</a>
         
       </nav>
 
@@ -130,7 +131,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>LGMInterlinking features</li>
+      <li>features</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -147,20 +148,27 @@
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
            <div itemprop="articleBody">
             
-  <div class="section" id="lgminterlinking-features">
-<h1>LGMInterlinking features<a class="headerlink" href="#lgminterlinking-features" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="features">
+<h1>features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><dl class="class">
 <dt id="src.featuresConstruction.Features">
 <em class="property">class </em><code class="descclassname">src.featuresConstruction.</code><code class="descname">Features</code><a class="reference internal" href="_modules/src/featuresConstruction.html#Features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.featuresConstruction.Features" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class loads data and builds the features to be used as input to various classification methods:
-basic, basic_sorted or lgm.</p>
+<dd><p>This class loads the dataset, frequent terms and builds features that are used as input to supported classification
+groups:</p>
+<ul class="simple">
+<li><em>basic</em>: similarity features based on basic similarity measures.</li>
+<li><em>basic_sorted</em>: similarity features based on sorted version of the basic similarity measures used in <em>basic</em> group.</li>
+<li><em>lgm</em>: similarity features based on variations of LGM-Sim similarity measures.</li>
+</ul>
 <dl class="method">
-<dt id="src.featuresConstruction.Features.build_features">
-<code class="descname">build_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/featuresConstruction.html#Features.build_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.featuresConstruction.Features.build_features" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build features and return its values in ndarray of floats.</p>
+<dt id="src.featuresConstruction.Features.build">
+<code class="descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/featuresConstruction.html#Features.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.featuresConstruction.Features.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build features depending on the assignment of parameter <a class="reference internal" href="config.html#src.config.ML.classification_method" title="src.config.ML.classification_method"><code class="xref py py-attr docutils literal notranslate"><span class="pre">classification_method</span></code></a>
+and return values (fX, y) as ndarray of floats.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -169,6 +177,51 @@ basic, basic_sorted or lgm.</p>
 <li><strong>fX</strong> (<em>ndarray</em>) – The computed features that will be used as input to ML classifiers.</li>
 <li><strong>y</strong> (<em>ndarray</em>) – Binary labels {True, False} to train the classifiers.</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.featuresConstruction.Features.compute_features">
+<code class="descname">compute_features</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>sorting=True</em>, <em>all_features=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/featuresConstruction.html#Features.compute_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.featuresConstruction.Features.compute_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on the group assigned to parameter <a class="reference internal" href="config.html#src.config.ML.classification_method" title="src.config.ML.classification_method"><code class="xref py py-attr docutils literal notranslate"><span class="pre">classification_method</span></code></a>,
+this method builds an ndarray of the following groups of features:</p>
+<ul class="simple">
+<li><em>basic</em>: various similarity measures, i.e.,
+<a class="reference internal" href="measures.html#src.sim_measures.damerau_levenshtein" title="src.sim_measures.damerau_levenshtein"><code class="xref py py-func docutils literal notranslate"><span class="pre">damerau_levenshtein()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.jaro" title="src.sim_measures.jaro"><code class="xref py py-func docutils literal notranslate"><span class="pre">jaro()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.jaro_winkler" title="src.sim_measures.jaro_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">jaro_winkler()</span></code></a> and the reversed one,
+<a class="reference internal" href="measures.html#src.sim_measures.sorted_winkler" title="src.sim_measures.sorted_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted_winkler()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.cosine" title="src.sim_measures.cosine"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.jaccard" title="src.sim_measures.jaccard"><code class="xref py py-func docutils literal notranslate"><span class="pre">jaccard()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.strike_a_match" title="src.sim_measures.strike_a_match"><code class="xref py py-func docutils literal notranslate"><span class="pre">strike_a_match()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.monge_elkan" title="src.sim_measures.monge_elkan"><code class="xref py py-func docutils literal notranslate"><span class="pre">monge_elkan()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.soft_jaccard" title="src.sim_measures.soft_jaccard"><code class="xref py py-func docutils literal notranslate"><span class="pre">soft_jaccard()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.davies" title="src.sim_measures.davies"><code class="xref py py-func docutils literal notranslate"><span class="pre">davies()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.lgm_jaro_winkler" title="src.sim_measures.lgm_jaro_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">lgm_jaro_winkler()</span></code></a> and the reversed one,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">skipgrams()</span></code>.</li>
+<li><em>basic_sorted</em>: sorted versions of similarity measures utilized in <em>basic</em> group, except for the
+<a class="reference internal" href="measures.html#src.sim_measures.sorted_winkler" title="src.sim_measures.sorted_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted_winkler()</span></code></a>.</li>
+<li><em>lgm</em>: LGM-Sim variations that integrate, as internal, the similarity measures utilized in <em>basic</em> group,
+except for the <a class="reference internal" href="measures.html#src.sim_measures.sorted_winkler" title="src.sim_measures.sorted_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted_winkler()</span></code></a>.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>s1, s2</strong> (<em>str</em>) – Input toponyms.</li>
+<li><strong>sorting</strong> (<em>bool, optional</em>) – Value of True indicate to build features for groups <em>basic</em> and <em>basic_sorted</em>, value of False only for <em>basic</em> group.</li>
+<li><strong>all_features</strong> (<em>bool, optional</em>) – Values of True or False indicate whether to build or not features for group <em>lgm</em>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">It returns a list (vector) of features.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></p>
 </td>
 </tr>
 </tbody>
@@ -185,14 +238,18 @@ basic, basic_sorted or lgm.</p>
            </div>
            
           </div>
+	<a href="https://github.com/LinkGeoML/LGM-Interlinking">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tuning.html" class="btn btn-neutral float-right" title="LGMInterlinking parameter tuning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tuning.html" class="btn btn-neutral float-right" title="tuning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="methods_class.html" class="btn btn-neutral float-left" title="LGMInterlinking methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="strategy_evaluator.html" class="btn btn-neutral float-left" title="evaluator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>LGMInterlinking metrics &mdash; LGMInterlinking 0.1.0 documentation</title>
+  <title>metrics &mdash; LGM-Interlinking 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="LGMInterlinking parameter tuning" href="tuning.html" /> 
+    <link rel="prev" title="tuning" href="tuning.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> LGMInterlinking
+            <a href="index.html" class="icon icon-home"> LGM-Interlinking
           
 
           
@@ -80,10 +80,11 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="methods_class.html">LGMInterlinking methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features.html">LGMInterlinking features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">LGMInterlinking parameter tuning</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">LGMInterlinking metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategy_evaluator.html">evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">tuning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">metrics</a></li>
 </ul>
 
             
@@ -98,7 +99,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">LGMInterlinking</a>
+          <a href="index.html">LGM-Interlinking</a>
         
       </nav>
 
@@ -129,7 +130,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>LGMInterlinking metrics</li>
+      <li>metrics</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -146,15 +147,251 @@
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
            <div itemprop="articleBody">
             
-  <div class="section" id="lgminterlinking-metrics">
-<h1>LGMInterlinking metrics<a class="headerlink" href="#lgminterlinking-metrics" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="metrics">
+<h1>metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h1>
 <blockquote>
-<div><dl class="attribute">
-<dt id="src.sim_measures">
-<code class="descclassname">src.</code><code class="descname">sim_measures</code><a class="headerlink" href="#src.sim_measures" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#src.sim_measures" title="src.sim_measures"><code class="xref py py-class docutils literal notranslate"><span class="pre">src.sim_measures</span></code></a></p>
+<div><span class="target" id="module-src.sim_measures"></span><p>This module implements various similarity metrics used across different scenarios. Many of these functions were
+developed by Rui Santos and Alexandre Marinho for their work in
+Toponym-Matching &lt;<a class="reference external" href="https://github.com/ruipds/Toponym-Matching/blob/master/datasetcreator.py">https://github.com/ruipds/Toponym-Matching/blob/master/datasetcreator.py</a>&gt;`_.</p>
+<dl class="function">
+<dt id="src.sim_measures.cosine">
+<code class="descclassname">src.sim_measures.</code><code class="descname">cosine</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#cosine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.cosine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Cosine N-grams metric for n=[2,3].</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.damerau_levenshtein">
+<code class="descclassname">src.sim_measures.</code><code class="descname">damerau_levenshtein</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#damerau_levenshtein"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.damerau_levenshtein" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Damerau-Levenshtein metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.davies">
+<code class="descclassname">src.sim_measures.</code><code class="descname">davies</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#davies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.davies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Davies de Salles metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.jaccard">
+<code class="descclassname">src.sim_measures.</code><code class="descname">jaccard</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#jaccard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.jaccard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Jaccard N-grams metric for n=[2,3].</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.jaro">
+<code class="descclassname">src.sim_measures.</code><code class="descname">jaro</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#jaro"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.jaro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Jaro metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.jaro_winkler">
+<code class="descclassname">src.sim_measures.</code><code class="descname">jaro_winkler</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#jaro_winkler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.jaro_winkler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Jaro-Winkler metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.lgm_jaro_winkler">
+<code class="descclassname">src.sim_measures.</code><code class="descname">lgm_jaro_winkler</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>long_tolerance=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_jaro_winkler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_jaro_winkler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements LGM Jaro-Winkler metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.monge_elkan">
+<code class="descclassname">src.sim_measures.</code><code class="descname">monge_elkan</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#monge_elkan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.monge_elkan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Monge-Elkan metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.skipgram">
+<code class="descclassname">src.sim_measures.</code><code class="descname">skipgram</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#skipgram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.skipgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Jaccard-skipgram metric.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.soft_jaccard">
+<code class="descclassname">src.sim_measures.</code><code class="descname">soft_jaccard</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#soft_jaccard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.soft_jaccard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Soft-Jaccard metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.sorted_winkler">
+<code class="descclassname">src.sim_measures.</code><code class="descname">sorted_winkler</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#sorted_winkler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.sorted_winkler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Sorted Jaro-Winkler metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.strike_a_match">
+<code class="descclassname">src.sim_measures.</code><code class="descname">strike_a_match</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#strike_a_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.strike_a_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Dice Bi-grams metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div></blockquote>
@@ -165,12 +402,16 @@
            </div>
            
           </div>
+	<a href="https://github.com/LinkGeoML/LGM-Interlinking">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="tuning.html" class="btn btn-neutral float-left" title="LGMInterlinking parameter tuning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tuning.html" class="btn btn-neutral float-left" title="tuning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

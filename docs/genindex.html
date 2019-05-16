@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; LGMInterlinking 0.1.0 documentation</title>
+  <title>Index &mdash; LGM-Interlinking 0.1.0 documentation</title>
   
 
   
@@ -49,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> LGMInterlinking
+            <a href="index.html" class="icon icon-home"> LGM-Interlinking
           
 
           
@@ -80,10 +80,11 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="methods_class.html">LGMInterlinking methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features.html">LGMInterlinking features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">LGMInterlinking parameter tuning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="measures.html">LGMInterlinking metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategy_evaluator.html">evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measures.html">metrics</a></li>
 </ul>
 
             
@@ -98,7 +99,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">LGMInterlinking</a>
+          <a href="index.html">LGM-Interlinking</a>
         
       </nav>
 
@@ -144,6 +145,7 @@
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
            <div itemprop="articleBody">
             
 
@@ -151,18 +153,53 @@
 
 <div class="genindex-jumpbox">
  <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
+ | <a href="#J"><strong>J</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  
 </div>
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="features.html#src.featuresConstruction.Features.build_features">build_features() (src.featuresConstruction.Features method)</a>
+      <li><a href="features.html#src.featuresConstruction.Features.build">build() (src.featuresConstruction.Features method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#src.config.ML.classification_method">classification_method (src.config.ML attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="features.html#src.featuresConstruction.Features.compute_features">compute_features() (src.featuresConstruction.Features method)</a>
+</li>
+      <li><a href="measures.html#src.sim_measures.cosine">cosine() (in module src.sim_measures)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="measures.html#src.sim_measures.damerau_levenshtein">damerau_levenshtein() (in module src.sim_measures)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="measures.html#src.sim_measures.davies">davies() (in module src.sim_measures)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -170,7 +207,7 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="methods_class.html#src.methods.Evaluator">Evaluator (class in src.methods)</a>
+      <li><a href="strategy_evaluator.html#src.strategy_eval.Evaluator">Evaluator (class in src.strategy_eval)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -181,12 +218,84 @@
       <li><a href="features.html#src.featuresConstruction.Features">Features (class in src.featuresConstruction)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="tuning.html#src.param_tuning.ParamTuning.fineTuneClassifier">fineTuneClassifier() (src.param_tuning.ParamTuning method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="tuning.html#src.param_tuning.ParamTuning.getBestClassifier">getBestClassifier() (src.param_tuning.ParamTuning method)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="methods_class.html#src.methods.Evaluator.hyperparamTuning">hyperparamTuning() (src.methods.Evaluator method)</a>
+      <li><a href="config.html#src.config.ML.hyperparams_search_method">hyperparams_search_method (src.config.ML attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="strategy_evaluator.html#src.strategy_eval.Evaluator.hyperparamTuning">hyperparamTuning() (src.strategy_eval.Evaluator method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="measures.html#src.sim_measures.jaccard">jaccard() (in module src.sim_measures)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="measures.html#src.sim_measures.jaro">jaro() (in module src.sim_measures)</a>
+</li>
+      <li><a href="measures.html#src.sim_measures.jaro_winkler">jaro_winkler() (in module src.sim_measures)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#src.config.ML.kfold_inner_parameter">kfold_inner_parameter (src.config.ML attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#src.config.ML.kfold_parameter">kfold_parameter (src.config.ML attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="measures.html#src.sim_measures.lgm_jaro_winkler">lgm_jaro_winkler() (in module src.sim_measures)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#src.config.ML.max_iter">max_iter (src.config.ML attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#src.config.ML">ML (class in src.config)</a>
+</li>
+      <li><a href="measures.html#src.sim_measures.monge_elkan">monge_elkan() (in module src.sim_measures)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#src.config.ML.n_jobs">n_jobs (src.config.ML attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -210,11 +319,37 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="measures.html#src.sim_measures">sim_measures (in module src)</a>
+      <li><a href="measures.html#src.sim_measures.skipgram">skipgram() (in module src.sim_measures)</a>
+</li>
+      <li><a href="measures.html#src.sim_measures.soft_jaccard">soft_jaccard() (in module src.sim_measures)</a>
+</li>
+      <li><a href="config.html#src.config.ML.sort_thres">sort_thres (src.config.ML attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#module-src.config">src.config (module)</a>
+      <li><a href="measures.html#src.sim_measures.sorted_winkler">sorted_winkler() (in module src.sim_measures)</a>
+</li>
+      <li><a href="config.html#module-src.config">src.config (module)</a>
+</li>
+      <li><a href="measures.html#module-src.sim_measures">src.sim_measures (module)</a>
+</li>
+      <li><a href="measures.html#src.sim_measures.strike_a_match">strike_a_match() (in module src.sim_measures)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#src.config.ML.test_dataset">test_dataset (src.config.ML attribute)</a>
+</li>
+      <li><a href="tuning.html#src.param_tuning.ParamTuning.testClassifier">testClassifier() (src.param_tuning.ParamTuning method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#src.config.ML.train_dataset">train_dataset (src.config.ML attribute)</a>
+</li>
+      <li><a href="tuning.html#src.param_tuning.ParamTuning.trainClassifier">trainClassifier() (src.param_tuning.ParamTuning method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -224,6 +359,10 @@
            </div>
            
           </div>
+	<a href="https://github.com/LinkGeoML/LGM-Interlinking">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
           <footer>
   
 
