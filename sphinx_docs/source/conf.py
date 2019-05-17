@@ -53,6 +53,10 @@ napoleon_google_docstring = False
 napoleon_use_param = False
 napoleon_use_ivar = True
 
+#  This value selects if automatically documented members are sorted alphabetical (value 'alphabetical'),
+#  by member type (value 'groupwise') or by source order (value 'bysource'). The default is alphabetical.
+autodoc_member_order = 'bysource'
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
