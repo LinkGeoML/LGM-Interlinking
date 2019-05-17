@@ -19,7 +19,8 @@ class Evaluator:
         self.encoding = encoding
 
     def hyperparamTuning(self, dataset='dataset-string-similarity.txt'):
-        """The main pipeline to figure out the best ML algorithm with best hyperparameters for our problem.
+        """A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to
+        toponym interlinking problem.
 
         :param dataset: relative path to the test dataset
         :type dataset: str

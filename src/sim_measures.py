@@ -272,8 +272,7 @@ def skipgram(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     a1 = set(skipgrams(str1, 2, 0))
     a2 = set(skipgrams(str1, 2, 1) + skipgrams(str1, 2, 2))
@@ -305,8 +304,7 @@ def davies(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     a = strip_accents(str1.lower()).replace(u'-', u' ').split(' ')
     b = strip_accents(str2.lower()).replace(u'-', u' ').split(' ')
@@ -336,7 +334,7 @@ def davies(str1, str2):
 
 
 def cosine(str1, str2):
-    """Implements Cosine N-grams metric for n=[2,3].
+    """Implements Cosine N-Grams metric for n=[2,3].
 
     str1, str2: str
         Input values in unicode.
@@ -344,8 +342,7 @@ def cosine(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     str1 = " " + str1 + " "
     str2 = " " + str2 + " "
@@ -380,8 +377,7 @@ def damerau_levenshtein(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     aux = pyxdameraulevenshtein.normalized_damerau_levenshtein_distance(str1, str2)
     return 1.0 - aux
@@ -396,8 +392,7 @@ def jaro(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     aux = jellyfish.jaro_distance(str1, str2)
     return aux
@@ -412,8 +407,7 @@ def jaro_winkler(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     aux = jellyfish.jaro_winkler(str1, str2)
     return aux
@@ -438,15 +432,14 @@ def monge_elkan(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     return (monge_elkan_aux(str1, str2) + monge_elkan_aux(str2, str1)) / 2.0
 
 
 # http://www.catalysoft.com/articles/StrikeAMatch.html
 def strike_a_match(str1, str2):
-    """Implements Dice Bi-grams metric.
+    """Implements Dice Bi-Grams metric.
 
     str1, str2: str
         Input values in unicode.
@@ -454,8 +447,7 @@ def strike_a_match(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     pairs1 = {str1[i:i + 2] for i in xrange(len(str1) - 1)}
     pairs2 = {str2[i:i + 2] for i in xrange(len(str2) - 1)}
@@ -476,7 +468,7 @@ def strike_a_match(str1, str2):
 
 
 def jaccard(str1, str2):
-    """Implements Jaccard N-grams metric for n=[2,3].
+    """Implements Jaccard N-Grams metric for n=[2,3].
 
     str1, str2: str
         Input values in unicode.
@@ -484,8 +476,7 @@ def jaccard(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     str1 = " " + str1 + " "
     str2 = " " + str2 + " "
@@ -512,8 +503,7 @@ def soft_jaccard(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     a = set(str1.split(" "))
     b = set(str2.split(" "))
@@ -531,8 +521,7 @@ def sorted_winkler(str1, str2):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     a = sorted(str1.split(" "))
     b = sorted(str2.split(" "))
@@ -663,8 +652,7 @@ def lgm_jaro_winkler(s1, s2, long_tolerance=False):
     Returns
     -------
     float
-        A similarity score normalized in range [0,1]
-
+        A similarity score normalized in range [0,1].
     """
     return _jaro_winkler(s1, s2, long_tolerance, True)
 
@@ -673,14 +661,14 @@ class LSimilarityVars:
     freq_ngrams = {'tokens': set(), 'chars': set()}
     lsimilarity_weights = []
 
-    per_metric_optimal_values = {}
+    per_metric_optValues = {}
 
 
-def termsim_split(a, b, thres):
+def termsim_split(s1, s2, thres):
     base = {'a': [], 'b': [], 'len': 0}
     mis = {'a': [], 'b': [], 'len': 0}
 
-    ls1, ls2 = a.split(), b.split()
+    ls1, ls2 = s1.split(), s2.split()
     while ls1 and ls2:
         str1, str2 = ls1[0], ls2[0]
         if jaro_winkler(str1[::-1], str2[::-1]) >= thres:
@@ -708,7 +696,23 @@ def termsim_split(a, b, thres):
     return base, mis
 
 
-def lsimilarity_terms(str1, str2, term_split_thres):
+def lgm_sim_lterms(str1, str2, split_thres):
+    """It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the
+    other toponym's tokens and identifies each token per toponym as base, mismatch or frequent one.
+
+    Parameters
+    ----------
+    str1, str2: str
+        Input values in unicode.
+    split_thres: float
+        If the similarity score is above this threshold, the compared terms are identified as base terms,
+        otherwise as mismatched ones.
+
+    Returns
+    -------
+    tuple of (list of str, list of str, list of str)
+        Three lists of terms identified as base, mismatched or frequent respectively per toponym, i.e., str1, str2.
+    """
     specialTerms = dict(a=[], b=[], len=0)
 
     specialTerms['a'] = list(set(str1.split()) & LSimilarityVars.freq_ngrams['tokens'])
@@ -721,68 +725,120 @@ def lsimilarity_terms(str1, str2, term_split_thres):
     if specialTerms['b']:
         str2 = re.sub("|".join(specialTerms['b']), ' ', str2).strip()
 
-    baseTerms, mismatchTerms = termsim_split(str1, str2, term_split_thres)
+    baseTerms, mismatchTerms = termsim_split(str1, str2, split_thres)
 
     return baseTerms, mismatchTerms, specialTerms
 
 
-def score_per_term(baseTerms, mismatchTerms, specialTerms, method):
+def score_per_term(base_t, mis_t, special_t, metric):
+    """It computes three distinct similarity scores for each list of terms.
+
+    Parameters
+    ----------
+    base_t, mismatch_t special_t: list of str
+        Lists of toponym terms identified as base, mismatch or frequent (special) respectively.
+    metric: str
+        Indicates the metric to utilize in order to calculate the similarity score by comparing individually the
+        three lists.
+    Returns
+    -------
+    tuple of (float, float, float)
+        A similarity score for every list of terms. Each score is normalized in range [0,1].
+    """
     scores = [0, 0, 0]  # base, mis, special
 
     for idx, (term_a, term_b) in enumerate(zip(
-            [baseTerms['a'], mismatchTerms['a'], specialTerms['a']],
-            [baseTerms['b'], mismatchTerms['b'], specialTerms['b']]
+            [base_t['a'], mis_t['a'], special_t['a']],
+            [base_t['b'], mis_t['b'], special_t['b']]
     )):
-        if term_a or term_b: scores[idx] = algnms_to_func[method](u' '.join(term_a), u' '.join(term_b))
+        if term_a or term_b: scores[idx] = algnms_to_func[metric](u' '.join(term_a), u' '.join(term_b))
 
     return scores[0], scores[1], scores[2]
 
 
-def calibrate_weights(baseTerms, mismatchTerms, specialTerms, method, averaged=False, tmode=False):
-    lsim_variance = 'avg' if averaged else 'simple'
-    weights = LSimilarityVars.lsimilarity_weights[:] if tmode else LSimilarityVars.per_metric_optimal_values[method][lsim_variance][1][:]
+def recalculated_weights(base_t, mis_t, special_t, metric, avg=False, tmode=False):
+    lsim_variance = 'avg' if avg else 'simple'
+    weights = LSimilarityVars.lsimilarity_weights[:] if tmode \
+        else LSimilarityVars.per_metric_optValues[metric][lsim_variance][1][:]
 
-    if baseTerms['len'] == 0:
-        weights[1] += weights[0] * (float(mismatchTerms['len']) / (mismatchTerms['len'] + specialTerms['len']))
-        weights[2] += weights[0] * (1 - float(mismatchTerms['len']) / (mismatchTerms['len'] + specialTerms['len']))
+    if base_t['len'] == 0:
+        weights[1] += weights[0] * (float(mis_t['len']) / (mis_t['len'] + special_t['len']))
+        weights[2] += weights[0] * (1 - float(mis_t['len']) / (mis_t['len'] + special_t['len']))
         weights[0] = 0
-    if mismatchTerms['len'] == 0:
-        weights[0] += weights[1] * (float(baseTerms['len']) / (baseTerms['len'] + specialTerms['len']))
-        weights[2] += weights[1] * (1 - float(baseTerms['len']) / (baseTerms['len'] + specialTerms['len']))
+    if mis_t['len'] == 0:
+        weights[0] += weights[1] * (float(base_t['len']) / (base_t['len'] + special_t['len']))
+        weights[2] += weights[1] * (1 - float(base_t['len']) / (base_t['len'] + special_t['len']))
         weights[1] = 0
-    if specialTerms['len'] == 0:
-        weights[0] += weights[2] * (float(baseTerms['len']) / (baseTerms['len'] + mismatchTerms['len']))
-        weights[1] += weights[2] * (1 - float(baseTerms['len']) / (baseTerms['len'] + mismatchTerms['len']))
+    if special_t['len'] == 0:
+        weights[0] += weights[2] * (float(base_t['len']) / (base_t['len'] + mis_t['len']))
+        weights[1] += weights[2] * (1 - float(base_t['len']) / (base_t['len'] + mis_t['len']))
         weights[2] = 0
 
-    if averaged:
-        weights[0] = weights[0] * baseTerms['char_len'] / 2
-        weights[1] = weights[1] * mismatchTerms['char_len'] / 2
-        weights[2] = weights[2] * specialTerms['char_len'] / 2
+    if avg:
+        weights[0] = weights[0] * base_t['char_len'] / 2
+        weights[1] = weights[1] * mis_t['char_len'] / 2
+        weights[2] = weights[2] * special_t['char_len'] / 2
     denominator = weights[0] + weights[1] + weights[2]
 
     return [w / denominator for w in weights]
 
 
-def weighted_terms(baseTerms, mismatchTerms, specialTerms, method, averaged, test_mode=False):
-    baseTerms_val, mismatchTerms_val, specialTerms_val = score_per_term(baseTerms, mismatchTerms, specialTerms, method)
-    lweights = calibrate_weights(baseTerms, mismatchTerms, specialTerms, method, averaged, tmode=test_mode)
+def weighted_sim(base_t, mis_t, special_t, metric, avg, test_mode=False):
+    """Re-calculates the significance weights for each list of terms taking into account their lengths.
+
+    Parameters
+    ----------
+    base_t, mis_t, special_t: list of str
+        Lists of toponym terms identified as base, mismatch or frequent (special) respectively.
+    metric: str
+        Indicates the metric to utilize in order to calculate the similarity score by comparing individually the
+        three lists.
+    avg: bool
+        If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
+        each term list' score is of equal significance to the final score.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1].
+    """
+    baseTerms_val, mismatchTerms_val, specialTerms_val = score_per_term(base_t, mis_t, special_t, metric)
+    lweights = recalculated_weights(base_t, mis_t, special_t, metric, avg, tmode=test_mode)
 
     return baseTerms_val * lweights[0] + mismatchTerms_val * lweights[1] + specialTerms_val * lweights[2]
 
 
-def lsimilarity(str1, str2, method='damerau_levenshtein', averaged=False):
-    lsim_variance = 'avg' if averaged else 'simple'
-    split_thres = LSimilarityVars.per_metric_optimal_values[method][lsim_variance][0]
+def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
+    """Implements LGM-Sim metric.
 
-    baseTerms, mismatchTerms, specialTerms = lsimilarity_terms(str1, str2, split_thres)
-    thres = weighted_terms(baseTerms, mismatchTerms, specialTerms, method, averaged)
+    Parameters
+    ----------
+    str1, str2: str
+        Input values in unicode.
+    metric: str, optional
+        Similarity metric used as internal one. It is used to split toponyms in three distinct lists, i.e., base,
+        mismatch and frequent terms. Defalut metric is :func:`~src.sim_measures.damerau_levenshtein`
+        ('damerau_levenshtein').
+    avg: bool, optional
+        If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
+        each term list' score is of equal significance to the final score. Default value is False.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1].
+    """
+    lsim_variance = 'avg' if avg else 'simple'
+    split_thres = LSimilarityVars.per_metric_optValues[metric][lsim_variance][0]
+
+    baseTerms, mismatchTerms, specialTerms = lgm_sim_lterms(str1, str2, split_thres)
+    thres = weighted_sim(baseTerms, mismatchTerms, specialTerms, metric, avg)
 
     return thres
 
 
-def avg_lsimilarity(str1, str2, method='damerau_levenshtein'):
-    return lsimilarity(str1, str2, method, True)
+def avg_lgm_sim(str1, str2, metric='damerau_levenshtein'):
+    return lgm_sim(str1, str2, metric, True)
 
 
 algnms_to_func = {
@@ -799,6 +855,6 @@ algnms_to_func = {
     'jaro': jaro,
     'jaccard': jaccard,
     'l_jaro_winkler': lgm_jaro_winkler,
-    'lsimilarity': lsimilarity,
-    'avg_lsimilarity': avg_lsimilarity,
+    'lsimilarity': lgm_sim,
+    'avg_lsimilarity': avg_lgm_sim,
 }

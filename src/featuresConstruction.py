@@ -10,7 +10,7 @@ import os
 import glob
 
 from helpers import transform, getBasePath
-from sim_measures import LSimilarityVars, lsimilarity_terms, score_per_term, weighted_terms, algnms_to_func
+from sim_measures import LSimilarityVars, lgm_sim_lterms, score_per_term, weighted_sim, algnms_to_func
 
 
 class Features:
@@ -174,11 +174,11 @@ class Features:
 
     @staticmethod
     def _compute_lsimilarity(s1, s2, metric, w_type='avg'):
-        baseTerms, mismatchTerms, specialTerms = lsimilarity_terms(
-            s1, s2, LSimilarityVars.per_metric_optimal_values[metric][w_type][0])
+        baseTerms, mismatchTerms, specialTerms = lgm_sim_lterms(
+            s1, s2, LSimilarityVars.per_metric_optValues[metric][w_type][0])
 
         if metric in ['jaro_winkler_r', 'l_jaro_winkler_r']:
-            return weighted_terms(
+            return weighted_sim(
                 {'a': [x[::-1] for x in baseTerms['a']], 'b': [x[::-1] for x in baseTerms['b']],
                  'len': baseTerms['len'], 'char_len': baseTerms['char_len']},
                 {'a': [x[::-1] for x in mismatchTerms['a']], 'b': [x[::-1] for x in mismatchTerms['b']],
@@ -188,13 +188,12 @@ class Features:
                 metric[:-2], True if w_type == 'avg' else False
             )
         else:
-            return weighted_terms(baseTerms, mismatchTerms, specialTerms, metric, True if w_type == 'avg' else False)
+            return weighted_sim(baseTerms, mismatchTerms, specialTerms, metric, True if w_type == 'avg' else False)
 
     @staticmethod
     def _compute_lsimilarity_base_scores(s1, s2, metric, w_type='avg'):
-        baseTerms, mismatchTerms, specialTerms = lsimilarity_terms(
-            s1, s2, LSimilarityVars.per_metric_optimal_values[metric][w_type][0])
-        return score_per_term(baseTerms, mismatchTerms, specialTerms, metric)
+        base_t, mis_t, special_t = lgm_sim_lterms(s1, s2, LSimilarityVars.per_metric_optValues[metric][w_type][0])
+        return score_per_term(base_t, mis_t, special_t, metric)
 
     def _get_freqterms(self, encoding):
         print("Resetting any previously assigned frequent terms ...")
