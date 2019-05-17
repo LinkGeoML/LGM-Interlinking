@@ -422,8 +422,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">a1</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">skipgrams</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
     <span class="n">a2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">skipgrams</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">skipgrams</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -455,8 +454,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">strip_accents</span><span class="p">(</span><span class="n">str1</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">strip_accents</span><span class="p">(</span><span class="n">str2</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
@@ -486,7 +484,7 @@
 
 
 <div class="viewcode-block" id="cosine"><a class="viewcode-back" href="../../measures.html#src.sim_measures.cosine">[docs]</a><span class="k">def</span> <span class="nf">cosine</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Implements Cosine N-grams metric for n=[2,3].</span>
+    <span class="sd">&quot;&quot;&quot;Implements Cosine N-Grams metric for n=[2,3].</span>
 
 <span class="sd">    str1, str2: str</span>
 <span class="sd">        Input values in unicode.</span>
@@ -494,8 +492,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">str1</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">str1</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
     <span class="n">str2</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">str2</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
@@ -530,8 +527,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">aux</span> <span class="o">=</span> <span class="n">pyxdameraulevenshtein</span><span class="o">.</span><span class="n">normalized_damerau_levenshtein_distance</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">)</span>
     <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">aux</span></div>
@@ -546,8 +542,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">aux</span> <span class="o">=</span> <span class="n">jellyfish</span><span class="o">.</span><span class="n">jaro_distance</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">aux</span></div>
@@ -562,8 +557,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">aux</span> <span class="o">=</span> <span class="n">jellyfish</span><span class="o">.</span><span class="n">jaro_winkler</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">aux</span></div>
@@ -588,15 +582,14 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">monge_elkan_aux</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">)</span> <span class="o">+</span> <span class="n">monge_elkan_aux</span><span class="p">(</span><span class="n">str2</span><span class="p">,</span> <span class="n">str1</span><span class="p">))</span> <span class="o">/</span> <span class="mf">2.0</span></div>
 
 
 <span class="c1"># http://www.catalysoft.com/articles/StrikeAMatch.html</span>
 <div class="viewcode-block" id="strike_a_match"><a class="viewcode-back" href="../../measures.html#src.sim_measures.strike_a_match">[docs]</a><span class="k">def</span> <span class="nf">strike_a_match</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Implements Dice Bi-grams metric.</span>
+    <span class="sd">&quot;&quot;&quot;Implements Dice Bi-Grams metric.</span>
 
 <span class="sd">    str1, str2: str</span>
 <span class="sd">        Input values in unicode.</span>
@@ -604,8 +597,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pairs1</span> <span class="o">=</span> <span class="p">{</span><span class="n">str1</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">str1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)}</span>
     <span class="n">pairs2</span> <span class="o">=</span> <span class="p">{</span><span class="n">str2</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)}</span>
@@ -626,7 +618,7 @@
 
 
 <div class="viewcode-block" id="jaccard"><a class="viewcode-back" href="../../measures.html#src.sim_measures.jaccard">[docs]</a><span class="k">def</span> <span class="nf">jaccard</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Implements Jaccard N-grams metric for n=[2,3].</span>
+    <span class="sd">&quot;&quot;&quot;Implements Jaccard N-Grams metric for n=[2,3].</span>
 
 <span class="sd">    str1, str2: str</span>
 <span class="sd">        Input values in unicode.</span>
@@ -634,8 +626,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">str1</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">str1</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
     <span class="n">str2</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">str2</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
@@ -662,8 +653,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">a</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">str1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">))</span>
     <span class="n">b</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">str2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">))</span>
@@ -681,8 +671,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">str1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">))</span>
     <span class="n">b</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">str2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">))</span>
@@ -813,8 +802,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        A similarity score normalized in range [0,1]</span>
-
+<span class="sd">        A similarity score normalized in range [0,1].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_jaro_winkler</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">long_tolerance</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
 
@@ -823,14 +811,14 @@
     <span class="n">freq_ngrams</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tokens&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span> <span class="s1">&#39;chars&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">()}</span>
     <span class="n">lsimilarity_weights</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="n">per_metric_optimal_values</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">per_metric_optValues</span> <span class="o">=</span> <span class="p">{}</span>
 
 
-<span class="k">def</span> <span class="nf">termsim_split</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">thres</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">termsim_split</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">thres</span><span class="p">):</span>
     <span class="n">base</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;len&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
     <span class="n">mis</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;len&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 
-    <span class="n">ls1</span><span class="p">,</span> <span class="n">ls2</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">ls1</span><span class="p">,</span> <span class="n">ls2</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">s2</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">ls1</span> <span class="ow">and</span> <span class="n">ls2</span><span class="p">:</span>
         <span class="n">str1</span><span class="p">,</span> <span class="n">str2</span> <span class="o">=</span> <span class="n">ls1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ls2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">jaro_winkler</span><span class="p">(</span><span class="n">str1</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">str2</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">thres</span><span class="p">:</span>
@@ -858,7 +846,23 @@
     <span class="k">return</span> <span class="n">base</span><span class="p">,</span> <span class="n">mis</span>
 
 
-<span class="k">def</span> <span class="nf">lsimilarity_terms</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">term_split_thres</span><span class="p">):</span>
+<div class="viewcode-block" id="lgm_sim_lterms"><a class="viewcode-back" href="../../measures.html#src.sim_measures.lgm_sim_lterms">[docs]</a><span class="k">def</span> <span class="nf">lgm_sim_lterms</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">split_thres</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the</span>
+<span class="sd">    other toponym&#39;s tokens and identifies each token per toponym as base, mismatch or frequent one.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    str1, str2: str</span>
+<span class="sd">        Input values in unicode.</span>
+<span class="sd">    split_thres: float</span>
+<span class="sd">        If the similarity score is above this threshold, the compared terms are identified as base terms,</span>
+<span class="sd">        otherwise as mismatched ones.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of (list of str, list of str, list of str)</span>
+<span class="sd">        Three lists of terms identified as base, mismatched or frequent respectively per toponym, i.e., str1, str2.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">specialTerms</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">[],</span> <span class="n">b</span><span class="o">=</span><span class="p">[],</span> <span class="nb">len</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">str1</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&amp;</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">freq_ngrams</span><span class="p">[</span><span class="s1">&#39;tokens&#39;</span><span class="p">])</span>
@@ -871,68 +875,120 @@
     <span class="k">if</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]:</span>
         <span class="n">str2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]),</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">str2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-    <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span> <span class="o">=</span> <span class="n">termsim_split</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">term_split_thres</span><span class="p">)</span>
+    <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span> <span class="o">=</span> <span class="n">termsim_split</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">split_thres</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span>
+    <span class="k">return</span> <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span></div>
 
 
-<span class="k">def</span> <span class="nf">score_per_term</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+<div class="viewcode-block" id="score_per_term"><a class="viewcode-back" href="../../measures.html#src.sim_measures.score_per_term">[docs]</a><span class="k">def</span> <span class="nf">score_per_term</span><span class="p">(</span><span class="n">base_t</span><span class="p">,</span> <span class="n">mis_t</span><span class="p">,</span> <span class="n">special_t</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;It computes three distinct similarity scores for each list of terms.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_t, mismatch_t special_t: list of str</span>
+<span class="sd">        Lists of toponym terms identified as base, mismatch or frequent (special) respectively.</span>
+<span class="sd">    metric: str</span>
+<span class="sd">        Indicates the metric to utilize in order to calculate the similarity score by comparing individually the</span>
+<span class="sd">        three lists.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of (float, float, float)</span>
+<span class="sd">        A similarity score for every list of terms. Each score is normalized in range [0,1].</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># base, mis, special</span>
 
     <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">term_a</span><span class="p">,</span> <span class="n">term_b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]],</span>
-            <span class="p">[</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]]</span>
+            <span class="p">[</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">special_t</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">special_t</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]]</span>
     <span class="p">)):</span>
-        <span class="k">if</span> <span class="n">term_a</span> <span class="ow">or</span> <span class="n">term_b</span><span class="p">:</span> <span class="n">scores</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">algnms_to_func</span><span class="p">[</span><span class="n">method</span><span class="p">](</span><span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">term_a</span><span class="p">),</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">term_b</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">term_a</span> <span class="ow">or</span> <span class="n">term_b</span><span class="p">:</span> <span class="n">scores</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">algnms_to_func</span><span class="p">[</span><span class="n">metric</span><span class="p">](</span><span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">term_a</span><span class="p">),</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">term_b</span><span class="p">))</span>
 
-    <span class="k">return</span> <span class="n">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></div>
 
 
-<span class="k">def</span> <span class="nf">calibrate_weights</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">averaged</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tmode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="n">lsim_variance</span> <span class="o">=</span> <span class="s1">&#39;avg&#39;</span> <span class="k">if</span> <span class="n">averaged</span> <span class="k">else</span> <span class="s1">&#39;simple&#39;</span>
-    <span class="n">weights</span> <span class="o">=</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">lsimilarity_weights</span><span class="p">[:]</span> <span class="k">if</span> <span class="n">tmode</span> <span class="k">else</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">per_metric_optimal_values</span><span class="p">[</span><span class="n">method</span><span class="p">][</span><span class="n">lsim_variance</span><span class="p">][</span><span class="mi">1</span><span class="p">][:]</span>
+<span class="k">def</span> <span class="nf">recalculated_weights</span><span class="p">(</span><span class="n">base_t</span><span class="p">,</span> <span class="n">mis_t</span><span class="p">,</span> <span class="n">special_t</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">avg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tmode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">lsim_variance</span> <span class="o">=</span> <span class="s1">&#39;avg&#39;</span> <span class="k">if</span> <span class="n">avg</span> <span class="k">else</span> <span class="s1">&#39;simple&#39;</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">lsimilarity_weights</span><span class="p">[:]</span> <span class="k">if</span> <span class="n">tmode</span> \
+        <span class="k">else</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">per_metric_optValues</span><span class="p">[</span><span class="n">metric</span><span class="p">][</span><span class="n">lsim_variance</span><span class="p">][</span><span class="mi">1</span><span class="p">][:]</span>
 
-    <span class="k">if</span> <span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
-        <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">special_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">special_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
         <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">if</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
-        <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">special_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">special_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
         <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">if</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
-        <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">special_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]))</span>
         <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">if</span> <span class="n">averaged</span><span class="p">:</span>
-        <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">baseTerms</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">mismatchTerms</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">avg</span><span class="p">:</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">base_t</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">mis_t</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">special_t</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
     <span class="n">denominator</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="p">[</span><span class="n">w</span> <span class="o">/</span> <span class="n">denominator</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">weighted_terms</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">averaged</span><span class="p">,</span> <span class="n">test_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="n">baseTerms_val</span><span class="p">,</span> <span class="n">mismatchTerms_val</span><span class="p">,</span> <span class="n">specialTerms_val</span> <span class="o">=</span> <span class="n">score_per_term</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
-    <span class="n">lweights</span> <span class="o">=</span> <span class="n">calibrate_weights</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">averaged</span><span class="p">,</span> <span class="n">tmode</span><span class="o">=</span><span class="n">test_mode</span><span class="p">)</span>
+<div class="viewcode-block" id="weighted_sim"><a class="viewcode-back" href="../../measures.html#src.sim_measures.weighted_sim">[docs]</a><span class="k">def</span> <span class="nf">weighted_sim</span><span class="p">(</span><span class="n">base_t</span><span class="p">,</span> <span class="n">mis_t</span><span class="p">,</span> <span class="n">special_t</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">test_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Re-calculates the significance weights for each list of terms taking into account their lengths.</span>
 
-    <span class="k">return</span> <span class="n">baseTerms_val</span> <span class="o">*</span> <span class="n">lweights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">mismatchTerms_val</span> <span class="o">*</span> <span class="n">lweights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">specialTerms_val</span> <span class="o">*</span> <span class="n">lweights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_t, mis_t, special_t: list of str</span>
+<span class="sd">        Lists of toponym terms identified as base, mismatch or frequent (special) respectively.</span>
+<span class="sd">    metric: str</span>
+<span class="sd">        Indicates the metric to utilize in order to calculate the similarity score by comparing individually the</span>
+<span class="sd">        three lists.</span>
+<span class="sd">    avg: bool</span>
+<span class="sd">        If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise</span>
+<span class="sd">        each term list&#39; score is of equal significance to the final score.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        A similarity score normalized in range [0,1].</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">baseTerms_val</span><span class="p">,</span> <span class="n">mismatchTerms_val</span><span class="p">,</span> <span class="n">specialTerms_val</span> <span class="o">=</span> <span class="n">score_per_term</span><span class="p">(</span><span class="n">base_t</span><span class="p">,</span> <span class="n">mis_t</span><span class="p">,</span> <span class="n">special_t</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+    <span class="n">lweights</span> <span class="o">=</span> <span class="n">recalculated_weights</span><span class="p">(</span><span class="n">base_t</span><span class="p">,</span> <span class="n">mis_t</span><span class="p">,</span> <span class="n">special_t</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">tmode</span><span class="o">=</span><span class="n">test_mode</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">baseTerms_val</span> <span class="o">*</span> <span class="n">lweights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">mismatchTerms_val</span> <span class="o">*</span> <span class="n">lweights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">specialTerms_val</span> <span class="o">*</span> <span class="n">lweights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></div>
 
 
-<span class="k">def</span> <span class="nf">lsimilarity</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">,</span> <span class="n">averaged</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="n">lsim_variance</span> <span class="o">=</span> <span class="s1">&#39;avg&#39;</span> <span class="k">if</span> <span class="n">averaged</span> <span class="k">else</span> <span class="s1">&#39;simple&#39;</span>
-    <span class="n">split_thres</span> <span class="o">=</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">per_metric_optimal_values</span><span class="p">[</span><span class="n">method</span><span class="p">][</span><span class="n">lsim_variance</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<div class="viewcode-block" id="lgm_sim"><a class="viewcode-back" href="../../measures.html#src.sim_measures.lgm_sim">[docs]</a><span class="k">def</span> <span class="nf">lgm_sim</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">,</span> <span class="n">avg</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implements LGM-Sim metric.</span>
 
-    <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span> <span class="o">=</span> <span class="n">lsimilarity_terms</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">split_thres</span><span class="p">)</span>
-    <span class="n">thres</span> <span class="o">=</span> <span class="n">weighted_terms</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">averaged</span><span class="p">)</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    str1, str2: str</span>
+<span class="sd">        Input values in unicode.</span>
+<span class="sd">    metric: str, optional</span>
+<span class="sd">        Similarity metric used as internal one. It is used to split toponyms in three distinct lists, i.e., base,</span>
+<span class="sd">        mismatch and frequent terms. Defalut metric is :func:`~src.sim_measures.damerau_levenshtein`</span>
+<span class="sd">        (&#39;damerau_levenshtein&#39;).</span>
+<span class="sd">    avg: bool, optional</span>
+<span class="sd">        If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise</span>
+<span class="sd">        each term list&#39; score is of equal significance to the final score. Default value is False.</span>
 
-    <span class="k">return</span> <span class="n">thres</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        A similarity score normalized in range [0,1].</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lsim_variance</span> <span class="o">=</span> <span class="s1">&#39;avg&#39;</span> <span class="k">if</span> <span class="n">avg</span> <span class="k">else</span> <span class="s1">&#39;simple&#39;</span>
+    <span class="n">split_thres</span> <span class="o">=</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">per_metric_optValues</span><span class="p">[</span><span class="n">metric</span><span class="p">][</span><span class="n">lsim_variance</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span> <span class="o">=</span> <span class="n">lgm_sim_lterms</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">split_thres</span><span class="p">)</span>
+    <span class="n">thres</span> <span class="o">=</span> <span class="n">weighted_sim</span><span class="p">(</span><span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">avg</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">thres</span></div>
 
 
-<span class="k">def</span> <span class="nf">avg_lsimilarity</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">lsimilarity</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">avg_lgm_sim</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">lgm_sim</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 
 <span class="n">algnms_to_func</span> <span class="o">=</span> <span class="p">{</span>
@@ -949,8 +1005,8 @@
     <span class="s1">&#39;jaro&#39;</span><span class="p">:</span> <span class="n">jaro</span><span class="p">,</span>
     <span class="s1">&#39;jaccard&#39;</span><span class="p">:</span> <span class="n">jaccard</span><span class="p">,</span>
     <span class="s1">&#39;l_jaro_winkler&#39;</span><span class="p">:</span> <span class="n">lgm_jaro_winkler</span><span class="p">,</span>
-    <span class="s1">&#39;lsimilarity&#39;</span><span class="p">:</span> <span class="n">lsimilarity</span><span class="p">,</span>
-    <span class="s1">&#39;avg_lsimilarity&#39;</span><span class="p">:</span> <span class="n">avg_lsimilarity</span><span class="p">,</span>
+    <span class="s1">&#39;lsimilarity&#39;</span><span class="p">:</span> <span class="n">lgm_sim</span><span class="p">,</span>
+    <span class="s1">&#39;avg_lsimilarity&#39;</span><span class="p">:</span> <span class="n">avg_lgm_sim</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 
