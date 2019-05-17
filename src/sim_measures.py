@@ -706,12 +706,12 @@ def lgm_sim_lterms(str1, str2, split_thres):
         Input values in unicode.
     split_thres: float
         If the similarity score is above this threshold, the compared terms are identified as base terms,
-        otherwise as mismatched ones.
+        otherwise as mismatch ones.
 
     Returns
     -------
     tuple of (list of str, list of str, list of str)
-        Three lists of terms identified as base, mismatched or frequent respectively per toponym, i.e., str1, str2.
+        Three lists of terms identified as base, mismatch or frequent respectively per toponym, i.e., str1, str2.
     """
     specialTerms = dict(a=[], b=[], len=0)
 
@@ -816,8 +816,8 @@ def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
     str1, str2: str
         Input values in unicode.
     metric: str, optional
-        Similarity metric used as internal one. It is used to split toponyms in three distinct lists, i.e., base,
-        mismatch and frequent terms. Defalut metric is :func:`~src.sim_measures.damerau_levenshtein`
+        Similarity metric used, as internal one, to split toponyms in three distinct lists containing base,
+        mismatch and frequent terms respectively. Default metric is :func:`~src.sim_measures.damerau_levenshtein`
         ('damerau_levenshtein').
     avg: bool, optional
         If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise

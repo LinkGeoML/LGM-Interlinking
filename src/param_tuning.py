@@ -95,8 +95,8 @@ class ParamTuning:
         Returns
         -------
         out: :obj:`dict` of {:obj:`str`: :obj:`int`, :obj:`str`: :obj:`str`}
-            It returns a dictionary with keys *accuracy*: score and *classifier*: the name in reference.
-
+            It returns a dictionary with keys *accuracy*, i.e., the used similarity score, and *classifier*, i.e.,
+            the name of the model in reference.
         """
         hyperparams_data = {
             'KFold': {},
@@ -218,12 +218,12 @@ class ParamTuning:
             The training input samples.
         y_train: array-like, shape = [n_samples] or [n_samples, n_outputs]
             The target values, i.e. class labels.
-        model: object
+        model: classifier object
             An instance of a classifier.
 
         Returns
         -------
-        object
+        classifier object
             It returns a trained classifier.
         """
         model.fit(X_train, y_train)
@@ -238,13 +238,14 @@ class ParamTuning:
             The training input samples.
         y_test: array-like, shape = [n_samples] or [n_samples, n_outputs]
             The target values, i.e. class labels.
-        model: object
+        model: classifier object
             A trained classifier.
 
         Returns
         -------
         tuple of (float, float, float, float)
-            It returns the following achieved scores on test dataset: accuracy, precision, recall and f1.
+            Returns the computed metrics, i.e., *accuracy*, *precision*, *recall* and *f1*, for the specified model on the test
+            dataset.
         """
         y_pred = model.predict(X_test)
 
