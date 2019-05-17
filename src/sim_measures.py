@@ -818,8 +818,7 @@ def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
         Input values in unicode.
     metric: str, optional
         Similarity metric used, as internal one, to split toponyms in three distinct lists containing base,
-        mismatch and frequent terms respectively. Default metric is :func:`~src.sim_measures.damerau_levenshtein`
-        ('damerau_levenshtein').
+        mismatch and frequent terms respectively. Default metric is :func:`~src.sim_measures.damerau_levenshtein`.
     avg: bool, optional
         If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
         each term list' score is of equal significance to the final score. Default value is False.
