@@ -696,13 +696,13 @@ def termsim_split(s1, s2, thres):
     return base, mis
 
 
-def lgm_sim_lterms(str1, str2, split_thres):
+def lgm_sim_lterms(s1, s2, split_thres):
     """It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the
     other toponym's tokens and identifies each token per toponym as base, mismatch or frequent one.
 
     Parameters
     ----------
-    str1, str2: str
+    s1, s2: str
         Input values in unicode.
     split_thres: float
         If the similarity score is above this threshold, the compared terms are identified as base terms,
@@ -710,22 +710,23 @@ def lgm_sim_lterms(str1, str2, split_thres):
 
     Returns
     -------
-    tuple of (list of str, list of str, list of str)
-        Three lists of terms identified as base, mismatch or frequent respectively per toponym, i.e., str1, str2.
+    tuple of (dict of list of :obj:`str`, dict of list of :obj:`str`, dict of list of :obj:`str`)
+        Three lists of terms identified as base, mismatch or frequent respectively per toponym, i.e., *a* for s1 and
+        *b* for s2.
     """
     specialTerms = dict(a=[], b=[], len=0)
 
-    specialTerms['a'] = list(set(str1.split()) & LSimilarityVars.freq_ngrams['tokens'])
-    specialTerms['b'] = list(set(str2.split()) & LSimilarityVars.freq_ngrams['tokens'])
+    specialTerms['a'] = list(set(s1.split()) & LSimilarityVars.freq_ngrams['tokens'])
+    specialTerms['b'] = list(set(s2.split()) & LSimilarityVars.freq_ngrams['tokens'])
     specialTerms['len'] = len(specialTerms['a']) + len(specialTerms['b'])
     specialTerms['char_len'] = sum(len(s) for s in specialTerms['a']) + sum(len(s) for s in specialTerms['b'])
 
     if specialTerms['a']:  # check if list is empty
-        str1 = re.sub("|".join(specialTerms['a']), ' ', str1).strip()
+        s1 = re.sub("|".join(specialTerms['a']), ' ', s1).strip()
     if specialTerms['b']:
-        str2 = re.sub("|".join(specialTerms['b']), ' ', str2).strip()
+        s2 = re.sub("|".join(specialTerms['b']), ' ', s2).strip()
 
-    baseTerms, mismatchTerms = termsim_split(str1, str2, split_thres)
+    baseTerms, mismatchTerms = termsim_split(s1, s2, split_thres)
 
     return baseTerms, mismatchTerms, specialTerms
 
