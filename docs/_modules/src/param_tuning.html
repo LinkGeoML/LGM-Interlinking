@@ -245,8 +245,8 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        out: :obj:`dict` of {:obj:`str`: :obj:`int`, :obj:`str`: :obj:`str`}</span>
-<span class="sd">            It returns a dictionary with keys *accuracy*: score and *classifier*: the name in reference.</span>
-
+<span class="sd">            It returns a dictionary with keys *accuracy*, i.e., the used similarity score, and *classifier*, i.e.,</span>
+<span class="sd">            the name of the model in reference.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">hyperparams_data</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;KFold&#39;</span><span class="p">:</span> <span class="p">{},</span>
@@ -368,12 +368,12 @@
 <span class="sd">            The training input samples.</span>
 <span class="sd">        y_train: array-like, shape = [n_samples] or [n_samples, n_outputs]</span>
 <span class="sd">            The target values, i.e. class labels.</span>
-<span class="sd">        model: object</span>
+<span class="sd">        model: classifier object</span>
 <span class="sd">            An instance of a classifier.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        object</span>
+<span class="sd">        classifier object</span>
 <span class="sd">            It returns a trained classifier.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -388,13 +388,14 @@
 <span class="sd">            The training input samples.</span>
 <span class="sd">        y_test: array-like, shape = [n_samples] or [n_samples, n_outputs]</span>
 <span class="sd">            The target values, i.e. class labels.</span>
-<span class="sd">        model: object</span>
+<span class="sd">        model: classifier object</span>
 <span class="sd">            A trained classifier.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        tuple of (float, float, float, float)</span>
-<span class="sd">            It returns the following achieved scores on test dataset: accuracy, precision, recall and f1.</span>
+<span class="sd">            Returns the computed metrics, i.e., *accuracy*, *precision*, *recall* and *f1*, for the specified model on the test</span>
+<span class="sd">            dataset.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 

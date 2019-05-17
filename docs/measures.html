@@ -157,40 +157,18 @@
 developed by Rui Santos and Alexandre Marinho for their work in
 <a class="reference external" href="https://github.com/ruipds/Toponym-Matching/blob/master/datasetcreator.py">Toponym-Matching</a>.</p>
 <dl class="function">
-<dt id="src.sim_measures.cosine">
-<code class="descclassname">src.sim_measures.</code><code class="descname">cosine</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#cosine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.cosine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements Cosine N-Grams metric for n=[2,3].</p>
-<dl class="docutils">
-<dt>str1, str2: str</dt>
-<dd>Input values in unicode.</dd>
-</dl>
+<dt id="src.sim_measures.skipgram">
+<code class="descclassname">src.sim_measures.</code><code class="descname">skipgram</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#skipgram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.skipgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Jaccard-skipgram metric.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1].</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1].</td>
 </tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="src.sim_measures.damerau_levenshtein">
-<code class="descclassname">src.sim_measures.</code><code class="descname">damerau_levenshtein</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#damerau_levenshtein"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.damerau_levenshtein" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements Damerau-Levenshtein metric.</p>
-<dl class="docutils">
-<dt>str1, str2: str</dt>
-<dd>Input values in unicode.</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1].</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
 </tr>
 </tbody>
 </table>
@@ -217,9 +195,29 @@ developed by Rui Santos and Alexandre Marinho for their work in
 </dd></dl>
 
 <dl class="function">
-<dt id="src.sim_measures.jaccard">
-<code class="descclassname">src.sim_measures.</code><code class="descname">jaccard</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#jaccard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.jaccard" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements Jaccard N-Grams metric for n=[2,3].</p>
+<dt id="src.sim_measures.cosine">
+<code class="descclassname">src.sim_measures.</code><code class="descname">cosine</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#cosine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.cosine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Cosine N-Grams metric for n=[2,3].</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1].</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.damerau_levenshtein">
+<code class="descclassname">src.sim_measures.</code><code class="descname">damerau_levenshtein</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#damerau_levenshtein"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.damerau_levenshtein" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Damerau-Levenshtein metric.</p>
 <dl class="docutils">
 <dt>str1, str2: str</dt>
 <dd>Input values in unicode.</dd>
@@ -277,80 +275,6 @@ developed by Rui Santos and Alexandre Marinho for their work in
 </dd></dl>
 
 <dl class="function">
-<dt id="src.sim_measures.lgm_jaro_winkler">
-<code class="descclassname">src.sim_measures.</code><code class="descname">lgm_jaro_winkler</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>long_tolerance=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_jaro_winkler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_jaro_winkler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements LGM Jaro-Winkler metric.</p>
-<dl class="docutils">
-<dt>str1, str2: str</dt>
-<dd>Input values in unicode.</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1].</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="src.sim_measures.lgm_sim">
-<code class="descclassname">src.sim_measures.</code><code class="descname">lgm_sim</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em>, <em>metric='damerau_levenshtein'</em>, <em>avg=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_sim" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements LGM-Sim metric.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</li>
-<li><strong>metric</strong> (<em>str, optional</em>) – Similarity metric used as internal one. It is used to split toponyms in three distinct lists, i.e., base,
-mismatch and frequent terms. Defalut metric is <a class="reference internal" href="#src.sim_measures.damerau_levenshtein" title="src.sim_measures.damerau_levenshtein"><code class="xref py py-func docutils literal notranslate"><span class="pre">damerau_levenshtein()</span></code></a>
-(‘damerau_levenshtein’).</li>
-<li><strong>avg</strong> (<em>bool, optional</em>) – If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
-each term list’ score is of equal significance to the final score. Default value is False.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A similarity score normalized in range [0,1].</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="src.sim_measures.lgm_sim_lterms">
-<code class="descclassname">src.sim_measures.</code><code class="descname">lgm_sim_lterms</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em>, <em>split_thres</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_sim_lterms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_sim_lterms" title="Permalink to this definition">¶</a></dt>
-<dd><p>It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the
-other toponym’s tokens and identifies each token per toponym as base, mismatch or frequent one.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</li>
-<li><strong>split_thres</strong> (<em>float</em>) – If the similarity score is above this threshold, the compared terms are identified as base terms,
-otherwise as mismatched ones.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Three lists of terms identified as base, mismatched or frequent respectively per toponym, i.e., str1, str2.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of (list of str, list of str, list of str)</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
 <dt id="src.sim_measures.monge_elkan">
 <code class="descclassname">src.sim_measures.</code><code class="descname">monge_elkan</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#monge_elkan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.monge_elkan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements Monge-Elkan metric.</p>
@@ -371,43 +295,40 @@ otherwise as mismatched ones.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="src.sim_measures.score_per_term">
-<code class="descclassname">src.sim_measures.</code><code class="descname">score_per_term</code><span class="sig-paren">(</span><em>base_t</em>, <em>mis_t</em>, <em>special_t</em>, <em>metric</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#score_per_term"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.score_per_term" title="Permalink to this definition">¶</a></dt>
-<dd><p>It computes three distinct similarity scores for each list of terms.</p>
+<dt id="src.sim_measures.strike_a_match">
+<code class="descclassname">src.sim_measures.</code><code class="descname">strike_a_match</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#strike_a_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.strike_a_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Dice Bi-Grams metric.</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>base_t, mismatch_t special_t</strong> (<em>list of str</em>) – Lists of toponym terms identified as base, mismatch or frequent (special) respectively.</li>
-<li><strong>metric</strong> (<em>str</em>) – Indicates the metric to utilize in order to calculate the similarity score by comparing individually the
-three lists.</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1].</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A similarity score for every list of terms. Each score is normalized in range [0,1].</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>)</p>
-</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="function">
-<dt id="src.sim_measures.skipgram">
-<code class="descclassname">src.sim_measures.</code><code class="descname">skipgram</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#skipgram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.skipgram" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements Jaccard-skipgram metric.</p>
+<dt id="src.sim_measures.jaccard">
+<code class="descclassname">src.sim_measures.</code><code class="descname">jaccard</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#jaccard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.jaccard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Jaccard N-Grams metric for n=[2,3].</p>
+<dl class="docutils">
+<dt>str1, str2: str</dt>
+<dd>Input values in unicode.</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1].</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1].</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
 </tr>
 </tbody>
 </table>
@@ -454,9 +375,9 @@ three lists.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="src.sim_measures.strike_a_match">
-<code class="descclassname">src.sim_measures.</code><code class="descname">strike_a_match</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#strike_a_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.strike_a_match" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements Dice Bi-Grams metric.</p>
+<dt id="src.sim_measures.lgm_jaro_winkler">
+<code class="descclassname">src.sim_measures.</code><code class="descname">lgm_jaro_winkler</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>long_tolerance=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_jaro_winkler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_jaro_winkler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements LGM Jaro-Winkler metric.</p>
 <dl class="docutils">
 <dt>str1, str2: str</dt>
 <dd>Input values in unicode.</dd>
@@ -468,6 +389,57 @@ three lists.</li>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A similarity score normalized in range [0,1].</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.lgm_sim_lterms">
+<code class="descclassname">src.sim_measures.</code><code class="descname">lgm_sim_lterms</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em>, <em>split_thres</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_sim_lterms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_sim_lterms" title="Permalink to this definition">¶</a></dt>
+<dd><p>It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the
+other toponym’s tokens and identifies each token per toponym as base, mismatch or frequent one.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</li>
+<li><strong>split_thres</strong> (<em>float</em>) – If the similarity score is above this threshold, the compared terms are identified as base terms,
+otherwise as mismatched ones.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Three lists of terms identified as base, mismatched or frequent respectively per toponym, i.e., str1, str2.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of (list of str, list of str, list of str)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.score_per_term">
+<code class="descclassname">src.sim_measures.</code><code class="descname">score_per_term</code><span class="sig-paren">(</span><em>base_t</em>, <em>mis_t</em>, <em>special_t</em>, <em>metric</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#score_per_term"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.score_per_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>It computes three distinct similarity scores for each list of terms.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>base_t, mismatch_t special_t</strong> (<em>list of str</em>) – Lists of toponym terms identified as base, mismatch or frequent (special) respectively.</li>
+<li><strong>metric</strong> (<em>str</em>) – Indicates the metric to utilize in order to calculate the similarity score by comparing individually the
+three lists.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A similarity score for every list of terms. Each score is normalized in range [0,1].</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>)</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -487,6 +459,34 @@ three lists.</li>
 three lists.</li>
 <li><strong>avg</strong> (<em>bool</em>) – If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
 each term list’ score is of equal significance to the final score.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A similarity score normalized in range [0,1].</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.sim_measures.lgm_sim">
+<code class="descclassname">src.sim_measures.</code><code class="descname">lgm_sim</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em>, <em>metric='damerau_levenshtein'</em>, <em>avg=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_sim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements LGM-Sim metric.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</li>
+<li><strong>metric</strong> (<em>str, optional</em>) – Similarity metric used as internal one. It is used to split toponyms in three distinct lists, i.e., base,
+mismatch and frequent terms. Defalut metric is <a class="reference internal" href="#src.sim_measures.damerau_levenshtein" title="src.sim_measures.damerau_levenshtein"><code class="xref py py-func docutils literal notranslate"><span class="pre">damerau_levenshtein()</span></code></a>
+(‘damerau_levenshtein’).</li>
+<li><strong>avg</strong> (<em>bool, optional</em>) – If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
+each term list’ score is of equal significance to the final score. Default value is False.</li>
 </ul>
 </td>
 </tr>
