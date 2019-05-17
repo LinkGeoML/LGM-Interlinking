@@ -396,7 +396,7 @@ developed by Rui Santos and Alexandre Marinho for their work in
 
 <dl class="function">
 <dt id="src.sim_measures.lgm_sim_lterms">
-<code class="descclassname">src.sim_measures.</code><code class="descname">lgm_sim_lterms</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em>, <em>split_thres</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_sim_lterms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_sim_lterms" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">src.sim_measures.</code><code class="descname">lgm_sim_lterms</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>split_thres</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_sim_lterms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_sim_lterms" title="Permalink to this definition">¶</a></dt>
 <dd><p>It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the
 other toponym’s tokens and identifies each token per toponym as base, mismatch or frequent one.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -404,16 +404,17 @@ other toponym’s tokens and identifies each token per toponym as base, mismatch
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</li>
+<li><strong>s1, s2</strong> (<em>str</em>) – Input values in unicode.</li>
 <li><strong>split_thres</strong> (<em>float</em>) – If the similarity score is above this threshold, the compared terms are identified as base terms,
-otherwise as mismatched ones.</li>
+otherwise as mismatch ones.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Three lists of terms identified as base, mismatched or frequent respectively per toponym, i.e., str1, str2.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Three lists of terms identified as base, mismatch or frequent respectively per toponym, i.e., <em>a</em> for s1 and
+<em>b</em> for s2.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of (list of str, list of str, list of str)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of (dict of list of <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, dict of list of <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, dict of list of <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>)</p>
 </td>
 </tr>
 </tbody>
@@ -482,9 +483,8 @@ each term list’ score is of equal significance to the final score.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</li>
-<li><strong>metric</strong> (<em>str, optional</em>) – Similarity metric used as internal one. It is used to split toponyms in three distinct lists, i.e., base,
-mismatch and frequent terms. Defalut metric is <a class="reference internal" href="#src.sim_measures.damerau_levenshtein" title="src.sim_measures.damerau_levenshtein"><code class="xref py py-func docutils literal notranslate"><span class="pre">damerau_levenshtein()</span></code></a>
-(‘damerau_levenshtein’).</li>
+<li><strong>metric</strong> (<em>str, optional</em>) – Similarity metric used, as internal one, to split toponyms in three distinct lists containing base,
+mismatch and frequent terms respectively. Default metric is <a class="reference internal" href="#src.sim_measures.damerau_levenshtein" title="src.sim_measures.damerau_levenshtein"><code class="xref py py-func docutils literal notranslate"><span class="pre">damerau_levenshtein()</span></code></a>.</li>
 <li><strong>avg</strong> (<em>bool, optional</em>) – If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
 each term list’ score is of equal significance to the final score. Default value is False.</li>
 </ul>

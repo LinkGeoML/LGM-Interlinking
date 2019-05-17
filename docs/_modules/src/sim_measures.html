@@ -846,36 +846,37 @@
     <span class="k">return</span> <span class="n">base</span><span class="p">,</span> <span class="n">mis</span>
 
 
-<div class="viewcode-block" id="lgm_sim_lterms"><a class="viewcode-back" href="../../measures.html#src.sim_measures.lgm_sim_lterms">[docs]</a><span class="k">def</span> <span class="nf">lgm_sim_lterms</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">split_thres</span><span class="p">):</span>
+<div class="viewcode-block" id="lgm_sim_lterms"><a class="viewcode-back" href="../../measures.html#src.sim_measures.lgm_sim_lterms">[docs]</a><span class="k">def</span> <span class="nf">lgm_sim_lterms</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">split_thres</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the</span>
 <span class="sd">    other toponym&#39;s tokens and identifies each token per toponym as base, mismatch or frequent one.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    str1, str2: str</span>
+<span class="sd">    s1, s2: str</span>
 <span class="sd">        Input values in unicode.</span>
 <span class="sd">    split_thres: float</span>
 <span class="sd">        If the similarity score is above this threshold, the compared terms are identified as base terms,</span>
-<span class="sd">        otherwise as mismatched ones.</span>
+<span class="sd">        otherwise as mismatch ones.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    tuple of (list of str, list of str, list of str)</span>
-<span class="sd">        Three lists of terms identified as base, mismatched or frequent respectively per toponym, i.e., str1, str2.</span>
+<span class="sd">    tuple of (dict of list of :obj:`str`, dict of list of :obj:`str`, dict of list of :obj:`str`)</span>
+<span class="sd">        Three lists of terms identified as base, mismatch or frequent respectively per toponym, i.e., *a* for s1 and</span>
+<span class="sd">        *b* for s2.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">specialTerms</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">[],</span> <span class="n">b</span><span class="o">=</span><span class="p">[],</span> <span class="nb">len</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">str1</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&amp;</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">freq_ngrams</span><span class="p">[</span><span class="s1">&#39;tokens&#39;</span><span class="p">])</span>
-    <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">str2</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&amp;</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">freq_ngrams</span><span class="p">[</span><span class="s1">&#39;tokens&#39;</span><span class="p">])</span>
+    <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&amp;</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">freq_ngrams</span><span class="p">[</span><span class="s1">&#39;tokens&#39;</span><span class="p">])</span>
+    <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&amp;</span> <span class="n">LSimilarityVars</span><span class="o">.</span><span class="n">freq_ngrams</span><span class="p">[</span><span class="s1">&#39;tokens&#39;</span><span class="p">])</span>
     <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;len&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">])</span>
     <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;char_len&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]:</span>  <span class="c1"># check if list is empty</span>
-        <span class="n">str1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]),</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">str1</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]),</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]:</span>
-        <span class="n">str2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]),</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">str2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">s2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">specialTerms</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]),</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-    <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span> <span class="o">=</span> <span class="n">termsim_split</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">split_thres</span><span class="p">)</span>
+    <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span> <span class="o">=</span> <span class="n">termsim_split</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">split_thres</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">baseTerms</span><span class="p">,</span> <span class="n">mismatchTerms</span><span class="p">,</span> <span class="n">specialTerms</span></div>
 
@@ -966,9 +967,8 @@
 <span class="sd">    str1, str2: str</span>
 <span class="sd">        Input values in unicode.</span>
 <span class="sd">    metric: str, optional</span>
-<span class="sd">        Similarity metric used as internal one. It is used to split toponyms in three distinct lists, i.e., base,</span>
-<span class="sd">        mismatch and frequent terms. Defalut metric is :func:`~src.sim_measures.damerau_levenshtein`</span>
-<span class="sd">        (&#39;damerau_levenshtein&#39;).</span>
+<span class="sd">        Similarity metric used, as internal one, to split toponyms in three distinct lists containing base,</span>
+<span class="sd">        mismatch and frequent terms respectively. Default metric is :func:`~src.sim_measures.damerau_levenshtein`.</span>
 <span class="sd">    avg: bool, optional</span>
 <span class="sd">        If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise</span>
 <span class="sd">        each term list&#39; score is of equal significance to the final score. Default value is False.</span>
