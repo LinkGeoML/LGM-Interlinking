@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>src.strategy_eval &mdash; LGM-Interlinking 0.1.0 documentation</title>
+  <title>src.core &mdash; LGM-Interlinking 0.1.0 documentation</title>
   
 
   
@@ -80,10 +80,10 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../config.html">config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../strategy_evaluator.html">evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../measures.html">metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../features.html">features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tuning.html">tuning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../measures.html">metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core.html">evaluator</a></li>
 </ul>
 
             
@@ -131,7 +131,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>src.strategy_eval</li>
+      <li>src.core</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -147,7 +147,7 @@
 
            <div itemprop="articleBody">
             
-  <h1>Source code for src.strategy_eval</h1><div class="highlight"><pre>
+  <h1>Source code for src.core</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="c1"># Author: vkaff</span>
 <span class="c1"># E-mail: vkaffes@imis.athena-innovation.gr</span>
@@ -161,14 +161,14 @@
 <span class="kn">from</span> <span class="nn">featuresConstruction</span> <span class="k">import</span> <span class="n">Features</span>
 
 
-<div class="viewcode-block" id="Evaluator"><a class="viewcode-back" href="../../strategy_evaluator.html#src.strategy_eval.Evaluator">[docs]</a><span class="k">class</span> <span class="nc">Evaluator</span><span class="p">:</span>
+<div class="viewcode-block" id="StrategyEvaluator"><a class="viewcode-back" href="../../core.html#src.core.StrategyEvaluator">[docs]</a><span class="k">class</span> <span class="nc">StrategyEvaluator</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class implements the pipeline for various strategies.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">encoding</span>
 
-<div class="viewcode-block" id="Evaluator.hyperparamTuning"><a class="viewcode-back" href="../../strategy_evaluator.html#src.strategy_eval.Evaluator.hyperparamTuning">[docs]</a>    <span class="k">def</span> <span class="nf">hyperparamTuning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;dataset-string-similarity.txt&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="StrategyEvaluator.hyperparamTuning"><a class="viewcode-back" href="../../core.html#src.core.StrategyEvaluator.hyperparamTuning">[docs]</a>    <span class="k">def</span> <span class="nf">hyperparamTuning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;dataset-string-similarity.txt&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to</span>
 <span class="sd">        toponym interlinking problem.</span>
 
