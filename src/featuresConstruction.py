@@ -21,6 +21,10 @@ class Features:
     * *basic*: similarity features based on basic similarity measures.
     * *basic_sorted*: similarity features based on sorted version of the basic similarity measures used in *basic* group.
     * *lgm*: similarity features based on variations of LGM-Sim similarity measures.
+
+    See Also
+    --------
+    :func:`compute_features`: Details on the metrics each classification group implements.
     """
     max_freq_terms = 200
 

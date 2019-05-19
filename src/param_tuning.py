@@ -164,7 +164,7 @@ class ParamTuning:
 
         This method searches over specified values to fine tune hyperparameters for
         best accuracy score. The supported search methods are GridSearchCV and RandomizedSearchCV
-        as presented in :class:`getBestClassifier`.
+        as presented in :func:`getBestClassifier`.
 
         Parameters
         ----------

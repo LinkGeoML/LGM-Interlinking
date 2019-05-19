@@ -51,11 +51,22 @@ class MLConf:
     #: Relative path to the test dataset.
     test_dataset = 'data/dataset-string-similarity.txt'
 
-    classification_method = 'lgm'  #: str: The classification group of features to use. Values: [*basic* | *basic_sorted* | *lgm*].
+    classification_method = 'lgm'
+    """str: The classification group of features to use. (*basic* | *basic_sorted* | *lgm*).
+
+    See Also
+    --------
+    :class:`~src.featuresConstruction.Features`: Details on available inputs.    
+    """
 
     # accepted values: randomized, grid, hyperband - not yet implemented!!!
-    hyperparams_search_method = 'randomized'  #: str: Search Method to use for finding best hyperparameters. Values: [*randomized* | *grid*].
-
+    hyperparams_search_method = 'randomized'
+    """str: Search Method to use for finding best hyperparameters. (*randomized* | *grid*).
+    
+    See Also
+    --------
+    :func:`~src.param_tuning.ParamTuning.getBestClassifier`: Details on available inputs.       
+    """
     #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to 'randomized'.
     max_iter = 250
 

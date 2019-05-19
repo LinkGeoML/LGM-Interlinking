@@ -201,11 +201,22 @@
     <span class="c1">#: Relative path to the test dataset.</span>
     <span class="n">test_dataset</span> <span class="o">=</span> <span class="s1">&#39;data/dataset-string-similarity.txt&#39;</span>
 
-    <span class="n">classification_method</span> <span class="o">=</span> <span class="s1">&#39;lgm&#39;</span>  <span class="c1">#: str: The classification group of features to use. Values: [*basic* | *basic_sorted* | *lgm*].</span>
+    <span class="n">classification_method</span> <span class="o">=</span> <span class="s1">&#39;lgm&#39;</span>
+    <span class="sd">&quot;&quot;&quot;str: The classification group of features to use. (*basic* | *basic_sorted* | *lgm*).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :class:`~src.featuresConstruction.Features`: Details on available inputs.    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># accepted values: randomized, grid, hyperband - not yet implemented!!!</span>
-    <span class="n">hyperparams_search_method</span> <span class="o">=</span> <span class="s1">&#39;randomized&#39;</span>  <span class="c1">#: str: Search Method to use for finding best hyperparameters. Values: [*randomized* | *grid*].</span>
-
+    <span class="n">hyperparams_search_method</span> <span class="o">=</span> <span class="s1">&#39;randomized&#39;</span>
+    <span class="sd">&quot;&quot;&quot;str: Search Method to use for finding best hyperparameters. (*randomized* | *grid*).</span>
+<span class="sd">    </span>
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`~src.param_tuning.ParamTuning.getBestClassifier`: Details on available inputs.       </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to &#39;randomized&#39;.</span>
     <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">250</span>
 
