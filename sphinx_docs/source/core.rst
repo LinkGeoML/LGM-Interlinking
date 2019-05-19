@@ -1,5 +1,5 @@
-evaluator
-==========
+core
+=====
 
     .. autoclass:: src.core.StrategyEvaluator
        :members:
