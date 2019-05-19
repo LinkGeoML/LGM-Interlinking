@@ -11,7 +11,7 @@ import config
 from featuresConstruction import Features
 
 
-class Evaluator:
+class StrategyEvaluator:
     """
     This class implements the pipeline for various strategies.
     """

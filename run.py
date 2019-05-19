@@ -25,7 +25,7 @@ import os, sys
 from docopt import docopt
 from kitchen.text.converters import getwriter
 
-from src.strategy_eval import Evaluator
+from src.core import StrategyEvaluator
 from src.helpers import getRelativePathtoWorking, StaticValues
 from src.sim_measures import LSimilarityVars
 import src.config as config
@@ -39,7 +39,7 @@ def main(args):
 
     fpath_ds = getRelativePathtoWorking(config.MLConf.test_dataset)
     if os.path.isfile(fpath_ds) and os.path.isfile(getRelativePathtoWorking(config.MLConf.train_dataset)):
-        seval = Evaluator(args['-e'])
+        seval = StrategyEvaluator(args['-e'])
         seval.hyperparamTuning(fpath_ds)
     else:
         print("File {0} and/or {1} is not found!!!\n".format(
