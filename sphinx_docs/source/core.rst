@@ -1,7 +1,7 @@
 evaluator
 ==========
 
-    .. autoclass:: src.strategy_eval.Evaluator
+    .. autoclass:: src.core.StrategyEvaluator
        :members:
 
 :ref:`Return Home <mastertoc>`

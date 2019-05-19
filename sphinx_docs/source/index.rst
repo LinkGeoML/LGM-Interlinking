@@ -24,10 +24,10 @@ View the auto-generated API documentation for information on a specific function
    :name: mastertoc
 
    config
-   strategy_evaluator
+   measures
    features
    tuning
-   measures
+   core
 
 Indices and tables
 ==================
