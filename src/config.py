@@ -5,12 +5,12 @@ import numpy as np
 from scipy.stats import randint as sp_randint, expon, truncnorm
 
 
-#: Relative path to the train dataset. This value is used only when the *--dtrain* argument is None.
+#: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.
 train_dataset = 'data/dataset-string-similarity_global_1k.csv'
 # train_dataset = 'data/dataset-string-similarity_latin_EU_NA_1k.txt'
 # train_dataset = 'data/dataset-string-similarity-100.csv'
 
-#: Relative path to the test dataset. This value is used only when the *--dtest* argument is None.
+#: Relative path to the test dataset. This value is used only when the *dtest* cmd argument is None.
 test_dataset = 'data/dataset-string-similarity.txt'
 
 #: float: Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score

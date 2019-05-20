@@ -22,9 +22,9 @@ class StrategyEvaluator:
         """A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to
         toponym interlinking problem.
 
-        :param train_data: Relative path to the train dataset
+        :param train_data: Relative path to the train dataset.
         :type train_data: str
-        :param test_data: Relative path to the test dataset
+        :param test_data: Relative path to the test dataset.
         :type test_data: str
         """
         pt = param_tuning.ParamTuning()
