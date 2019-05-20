@@ -18,13 +18,13 @@ class StrategyEvaluator:
     def __init__(self, encoding='latin'):
         self.encoding = encoding
 
-    def hyperparamTuning(self, train_data='ata/dataset-string-similarity_global_1k.csv', test_data='data/dataset-string-similarity.txt'):
+    def hyperparamTuning(self, train_data='data/dataset-string-similarity_global_1k.csv', test_data='data/dataset-string-similarity.txt'):
         """A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to
         toponym interlinking problem.
 
-        :param train_data: relative path to the train dataset
+        :param train_data: Relative path to the train dataset
         :type train_data: str
-        :param test_data: relative path to the test dataset
+        :param test_data: Relative path to the test dataset
         :type test_data: str
         """
         pt = param_tuning.ParamTuning()
