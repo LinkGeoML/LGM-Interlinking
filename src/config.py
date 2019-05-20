@@ -5,6 +5,18 @@ import numpy as np
 from scipy.stats import randint as sp_randint, expon, truncnorm
 
 
+train_dataset = 'data/dataset-string-similarity_global_1k.csv'  #: Relative path to the train dataset.
+# train_dataset = 'data/dataset-string-similarity_latin_EU_NA_1k.txt'
+# train_dataset = 'data/dataset-string-similarity-100.csv'
+
+#: Relative path to the test dataset.
+test_dataset = 'data/dataset-string-similarity.txt'
+
+#: float: Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score
+#: below the assigned threshold.
+sort_thres = 0.55
+
+
 class MLConf:
     """
     This class initializes parameters that correspond to the machine learning part of the framework.
@@ -44,13 +56,6 @@ class MLConf:
 
     n_jobs = -1  #: int: Number of parallel jobs to be initiated. -1 means to utilize all available processors.
 
-    train_dataset = 'data/dataset-string-similarity_global_1k.csv'  #: Relative path to the train dataset.
-    # train_dataset = 'data/dataset-string-similarity_latin_EU_NA_1k.txt'
-    # train_dataset = 'data/dataset-string-similarity-100.csv'
-
-    #: Relative path to the test dataset.
-    test_dataset = 'data/dataset-string-similarity.txt'
-
     classification_method = 'lgm'
     """str: The classification group of features to use. (*basic* | *basic_sorted* | *lgm*).
 
@@ -70,8 +75,6 @@ class MLConf:
     """
     #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to 'randomized'.
     max_iter = 250
-
-    sort_thres = 0.55  #: float: Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score below the assigned threshold.
 
     # These parameters constitute the search space for GridSearchCV in our experiments.
     SVM_hyperparameters = [

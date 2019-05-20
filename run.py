@@ -14,6 +14,10 @@ Command line::
     Options:
         -h --help                   show this screen.
         --version                   show version.
+        --dtrain <fpath>            relative path to the train dataset. If this is None, the train_dataset parameter in
+                                    config.py is used instead.
+        --dtest <fpath>             relative path to the test dataset. If this is None, the train_dataset parameter in
+                                    config.py is used instead.
         -e <encoding_type>          specify the encoding of toponyms in datasets. [default: global].
 
     Arguments:
@@ -37,13 +41,15 @@ def main(args):
 
     LSimilarityVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
 
-    fpath_ds = getRelativePathtoWorking(config.MLConf.test_dataset)
-    if os.path.isfile(fpath_ds) and os.path.isfile(getRelativePathtoWorking(config.MLConf.train_dataset)):
+    d_test = getRelativePathtoWorking(config.test_dataset) if args['--dtest'] is None \
+        else getRelativePathtoWorking(args['--dtest'])
+    d_train = getRelativePathtoWorking(config.train_dataset) if args['--dtrain'] is None \
+        else getRelativePathtoWorking(args['--dtrain'])
+    if os.path.isfile(d_test) and os.path.isfile(d_train):
         seval = StrategyEvaluator(args['-e'])
-        seval.hyperparamTuning(fpath_ds)
+        seval.hyperparamTuning(d_train, d_test)
     else:
-        print("File {0} and/or {1} is not found!!!\n".format(
-            fpath_ds, getRelativePathtoWorking(config.MLConf.train_dataset)))
+        print("File {0} and/or {1} is not found!!!\n".format(d_test, d_train))
 
 
 if __name__ == "__main__":

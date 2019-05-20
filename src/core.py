@@ -18,18 +18,20 @@ class StrategyEvaluator:
     def __init__(self, encoding='latin'):
         self.encoding = encoding
 
-    def hyperparamTuning(self, dataset='dataset-string-similarity.txt'):
+    def hyperparamTuning(self, train_data='ata/dataset-string-similarity_global_1k.csv', test_data='data/dataset-string-similarity.txt'):
         """A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to
         toponym interlinking problem.
 
-        :param dataset: relative path to the test dataset
-        :type dataset: str
+        :param train_data: relative path to the train dataset
+        :type train_data: str
+        :param test_data: relative path to the test dataset
+        :type test_data: str
         """
         pt = param_tuning.ParamTuning()
         f = Features()
 
         tot_time = time.time(); start_time = time.time()
-        f.load_data(getRelativePathtoWorking(config.MLConf.train_dataset), self.encoding)
+        f.load_data(train_data, self.encoding)
         fX, y = f.build()
         print("Loaded train dataset and build features for {} setup; {} sec.".format(
             config.MLConf.classification_method, time.time() - start_time))
@@ -51,7 +53,7 @@ class StrategyEvaluator:
         print("Finished training model on the dataset; {} sec.".format(time.time() - start_time))
 
         start_time = time.time()
-        f.load_data(dataset, self.encoding)
+        f.load_data(test_data, self.encoding)
         fX, y = f.build()
         print("Loaded test dataset and build features; {} sec".format(time.time() - start_time))
 
