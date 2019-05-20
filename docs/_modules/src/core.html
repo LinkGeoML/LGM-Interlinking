@@ -168,18 +168,20 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">encoding</span>
 
-<div class="viewcode-block" id="StrategyEvaluator.hyperparamTuning"><a class="viewcode-back" href="../../core.html#src.core.StrategyEvaluator.hyperparamTuning">[docs]</a>    <span class="k">def</span> <span class="nf">hyperparamTuning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;dataset-string-similarity.txt&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="StrategyEvaluator.hyperparamTuning"><a class="viewcode-back" href="../../core.html#src.core.StrategyEvaluator.hyperparamTuning">[docs]</a>    <span class="k">def</span> <span class="nf">hyperparamTuning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="o">=</span><span class="s1">&#39;data/dataset-string-similarity_global_1k.csv&#39;</span><span class="p">,</span> <span class="n">test_data</span><span class="o">=</span><span class="s1">&#39;data/dataset-string-similarity.txt&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to</span>
 <span class="sd">        toponym interlinking problem.</span>
 
-<span class="sd">        :param dataset: relative path to the test dataset</span>
-<span class="sd">        :type dataset: str</span>
+<span class="sd">        :param train_data: Relative path to the train dataset.</span>
+<span class="sd">        :type train_data: str</span>
+<span class="sd">        :param test_data: Relative path to the test dataset.</span>
+<span class="sd">        :type test_data: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pt</span> <span class="o">=</span> <span class="n">param_tuning</span><span class="o">.</span><span class="n">ParamTuning</span><span class="p">()</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">Features</span><span class="p">()</span>
 
         <span class="n">tot_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">();</span> <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">getRelativePathtoWorking</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">train_dataset</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
         <span class="n">fX</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loaded train dataset and build features for </span><span class="si">{}</span><span class="s2"> setup; </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">classification_method</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
@@ -201,7 +203,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished training model on the dataset; </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
 
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
         <span class="n">fX</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loaded test dataset and build features; </span><span class="si">{}</span><span class="s2"> sec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
 

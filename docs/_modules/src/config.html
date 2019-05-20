@@ -155,6 +155,19 @@
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">randint</span> <span class="k">as</span> <span class="n">sp_randint</span><span class="p">,</span> <span class="n">expon</span><span class="p">,</span> <span class="n">truncnorm</span>
 
 
+<span class="c1">#: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="s1">&#39;data/dataset-string-similarity_global_1k.csv&#39;</span>
+<span class="c1"># train_dataset = &#39;data/dataset-string-similarity_latin_EU_NA_1k.txt&#39;</span>
+<span class="c1"># train_dataset = &#39;data/dataset-string-similarity-100.csv&#39;</span>
+
+<span class="c1">#: Relative path to the test dataset. This value is used only when the *dtest* cmd argument is None.</span>
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="s1">&#39;data/dataset-string-similarity.txt&#39;</span>
+
+<span class="c1">#: float: Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score</span>
+<span class="c1">#: below the assigned threshold.</span>
+<span class="n">sort_thres</span> <span class="o">=</span> <span class="mf">0.55</span>
+
+
 <div class="viewcode-block" id="MLConf"><a class="viewcode-back" href="../../config.html#src.config.MLConf">[docs]</a><span class="k">class</span> <span class="nc">MLConf</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class initializes parameters that correspond to the machine learning part of the framework.</span>
@@ -194,19 +207,12 @@
 
     <span class="n">n_jobs</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1">#: int: Number of parallel jobs to be initiated. -1 means to utilize all available processors.</span>
 
-    <span class="n">train_dataset</span> <span class="o">=</span> <span class="s1">&#39;data/dataset-string-similarity_global_1k.csv&#39;</span>  <span class="c1">#: Relative path to the train dataset.</span>
-    <span class="c1"># train_dataset = &#39;data/dataset-string-similarity_latin_EU_NA_1k.txt&#39;</span>
-    <span class="c1"># train_dataset = &#39;data/dataset-string-similarity-100.csv&#39;</span>
-
-    <span class="c1">#: Relative path to the test dataset.</span>
-    <span class="n">test_dataset</span> <span class="o">=</span> <span class="s1">&#39;data/dataset-string-similarity.txt&#39;</span>
-
     <span class="n">classification_method</span> <span class="o">=</span> <span class="s1">&#39;lgm&#39;</span>
     <span class="sd">&quot;&quot;&quot;str: The classification group of features to use. (*basic* | *basic_sorted* | *lgm*).</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
-<span class="sd">    :class:`~src.featuresConstruction.Features`: Details on available inputs.    </span>
+<span class="sd">    :class:`~src.featuresConstruction.Features` Details on available inputs.    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># accepted values: randomized, grid, hyperband - not yet implemented!!!</span>
@@ -215,12 +221,11 @@
 <span class="sd">    </span>
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
-<span class="sd">    :func:`~src.param_tuning.ParamTuning.getBestClassifier`: Details on available inputs.       </span>
+<span class="sd">    :func:`~src.param_tuning.ParamTuning.getBestClassifier`, :func:`~src.param_tuning.ParamTuning.fineTuneClassifier` </span>
+<span class="sd">    Details on available inputs.       </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to &#39;randomized&#39;.</span>
     <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">250</span>
-
-    <span class="n">sort_thres</span> <span class="o">=</span> <span class="mf">0.55</span>  <span class="c1">#: float: Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score below the assigned threshold.</span>
 
     <span class="c1"># These parameters constitute the search space for GridSearchCV in our experiments.</span>
     <span class="n">SVM_hyperparameters</span> <span class="o">=</span> <span class="p">[</span>

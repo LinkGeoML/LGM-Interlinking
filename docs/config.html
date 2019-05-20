@@ -154,7 +154,34 @@
   <div class="section" id="config">
 <h1>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h1>
 <blockquote>
-<div><span class="target" id="module-src.config"></span><dl class="class">
+<div><span class="target" id="module-src.config"></span><dl class="data">
+<dt id="src.config.train_dataset">
+<code class="descclassname">src.config.</code><code class="descname">train_dataset</code><em class="property"> = 'data/dataset-string-similarity_global_1k.csv'</em><a class="headerlink" href="#src.config.train_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relative path to the train dataset. This value is used only when the <em>dtrain</em> cmd argument is None.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="src.config.test_dataset">
+<code class="descclassname">src.config.</code><code class="descname">test_dataset</code><em class="property"> = 'data/dataset-string-similarity.txt'</em><a class="headerlink" href="#src.config.test_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relative path to the test dataset. This value is used only when the <em>dtest</em> cmd argument is None.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="src.config.sort_thres">
+<code class="descclassname">src.config.</code><code class="descname">sort_thres</code><em class="property"> = 0.55</em><a class="headerlink" href="#src.config.sort_thres" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score
+below the assigned threshold.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
 <dt id="src.config.MLConf">
 <em class="property">class </em><code class="descclassname">src.config.</code><code class="descname">MLConf</code><a class="reference internal" href="_modules/src/config.html#MLConf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.config.MLConf" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class initializes parameters that correspond to the machine learning part of the framework.</p>
@@ -234,24 +261,12 @@ continuous parameters (whenever this is feasible):</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="src.config.MLConf.train_dataset">
-<code class="descname">train_dataset</code><em class="property"> = 'data/dataset-string-similarity_global_1k.csv'</em><a class="headerlink" href="#src.config.MLConf.train_dataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Relative path to the train dataset.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="src.config.MLConf.test_dataset">
-<code class="descname">test_dataset</code><em class="property"> = 'data/dataset-string-similarity.txt'</em><a class="headerlink" href="#src.config.MLConf.test_dataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Relative path to the test dataset.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="src.config.MLConf.classification_method">
 <code class="descname">classification_method</code><em class="property"> = 'lgm'</em><a class="headerlink" href="#src.config.MLConf.classification_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>The classification group of features to use. (<em>basic</em> | <em>basic_sorted</em> | <em>lgm</em>).</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="features.html#src.featuresConstruction.Features" title="src.featuresConstruction.Features"><code class="xref py py-class docutils literal notranslate"><span class="pre">Features</span></code></a>: Details on available inputs.</p>
+<p class="last"><a class="reference internal" href="features.html#src.featuresConstruction.Features" title="src.featuresConstruction.Features"><code class="xref py py-class docutils literal notranslate"><span class="pre">Features</span></code></a> Details on available inputs.</p>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -269,7 +284,8 @@ continuous parameters (whenever this is feasible):</p>
 <dd><p>Search Method to use for finding best hyperparameters. (<em>randomized</em> | <em>grid</em>).</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="tuning.html#src.param_tuning.ParamTuning.getBestClassifier" title="src.param_tuning.ParamTuning.getBestClassifier"><code class="xref py py-func docutils literal notranslate"><span class="pre">getBestClassifier()</span></code></a>: Details on available inputs.</p>
+<p class="last"><a class="reference internal" href="tuning.html#src.param_tuning.ParamTuning.getBestClassifier" title="src.param_tuning.ParamTuning.getBestClassifier"><code class="xref py py-func docutils literal notranslate"><span class="pre">getBestClassifier()</span></code></a>, <a class="reference internal" href="tuning.html#src.param_tuning.ParamTuning.fineTuneClassifier" title="src.param_tuning.ParamTuning.fineTuneClassifier"><code class="xref py py-func docutils literal notranslate"><span class="pre">fineTuneClassifier()</span></code></a>
+Details on available inputs.</p>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -290,20 +306,6 @@ continuous parameters (whenever this is feasible):</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)">int</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="src.config.MLConf.sort_thres">
-<code class="descname">sort_thres</code><em class="property"> = 0.55</em><a class="headerlink" href="#src.config.MLConf.sort_thres" title="Permalink to this definition">¶</a></dt>
-<dd><p>Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score below the assigned threshold.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></td>
 </tr>
 </tbody>
 </table>
