@@ -56,7 +56,7 @@ class MLConf:
 
     See Also
     --------
-    :class:`~src.featuresConstruction.Features`: Details on available inputs.    
+    :class:`~src.featuresConstruction.Features` Details on available inputs.    
     """
 
     # accepted values: randomized, grid, hyperband - not yet implemented!!!
@@ -65,7 +65,8 @@ class MLConf:
     
     See Also
     --------
-    :func:`~src.param_tuning.ParamTuning.getBestClassifier`: Details on available inputs.       
+    :func:`~src.param_tuning.ParamTuning.getBestClassifier`, :func:`~src.param_tuning.ParamTuning.fineTuneClassifier` 
+    Details on available inputs.       
     """
     #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to 'randomized'.
     max_iter = 250
