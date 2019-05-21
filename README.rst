@@ -1,5 +1,10 @@
+================
 LGM-Interlinking
 ================
+
+|MIT|
+
+=====
 
 This Python code implements and evaluates the proposed LinkGeoML models for Toponym Interlinking.
 The *data* folder contains the train datasets, which are used to build the classifiers, and files containing frequent terms,
@@ -50,3 +55,10 @@ work, which is under the MIT license.
 License
 -------
 LGM-Interlinking is available under the MIT License.
+
+..
+    .. |Documentation Status| image:: https://readthedocs.org/projects/coala/badge/?version=latest
+       :target: https://linkgeoml.github.io/LGM-Interlinking/
+
+.. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
+   :target: https://opensource.org/licenses/MIT
