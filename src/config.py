@@ -102,7 +102,7 @@ class MLConf:
     }
     XGBoost_hyperparameters = {
         "n_estimators": [500, 1000, 3000],
-        # 'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],
+        'max_depth': [3, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         # hyperparameters to avoid overfitting
         'eta': list(np.linspace(0.01, 0.2, 10)),  # 'learning_rate'
         'gamma': [0, 1, 5],
@@ -137,7 +137,7 @@ class MLConf:
     }
     XGBoost_hyperparameters_dist = {
         "n_estimators": sp_randint(500, 4000),
-        # 'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],
+        'max_depth': sp_randint(3, 100),
         # hyperparameters to avoid overfitting
         'eta': expon(loc=0.01, scale=0.1),  # 'learning_rate'
         'gamma': [0, 1, 5],
