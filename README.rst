@@ -1,10 +1,10 @@
-================
-LGM-Interlinking
-================
-
 |MIT|
 
 =====
+
+================
+LGM-Interlinking
+================
 
 This Python code implements and evaluates the proposed LinkGeoML models for Toponym Interlinking.
 The *data* folder contains the train datasets, which are used to build the classifiers, and files containing frequent terms,
