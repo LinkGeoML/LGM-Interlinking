@@ -14,15 +14,16 @@ Command line::
     Options:
         -h --help                   show this screen.
         --version                   show version.
-        --dtrain <fpath>            relative path to the train dataset. If this is None, the train_dataset parameter in
-                                    config.py is used instead.
-        --dtest <fpath>             relative path to the test dataset. If this is None, the train_dataset parameter in
-                                    config.py is used instead.
+        --dtrain <fpath>            relative path to the train dataset. If this is null, the assigned
+                                    value to `train_dataset` parameter in config.py is used instead.
+        --dtest <fpath>             relative path to the test dataset. If this is null, the assigned
+                                    value to `test_dataset` parameter in config.py is used instead.
         -e <encoding_type>          specify the encoding of toponyms in datasets. [default: global].
 
     Arguments:
         encoding_type               global
                                     latin
+
 """
 
 import os, sys

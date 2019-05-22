@@ -30,7 +30,7 @@ Setup procedure
 Download the latest version from the `GitHub repository <https://github.com/LinkGeoML/LGM-Interlinking.git>`_, change to the main
 directory and run:
 
-.. code-block:: bash
+.. code:: bash
 
    pip install -r pip_requirements.txt
 

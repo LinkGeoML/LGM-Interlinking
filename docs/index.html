@@ -165,7 +165,7 @@ the <a class="reference external" href="https://github.com/ruipds/Toponym-Matchi
 <h3>Setup procedure<a class="headerlink" href="#setup-procedure" title="Permalink to this headline">¶</a></h3>
 <p>Download the latest version from the <a class="reference external" href="https://github.com/LinkGeoML/LGM-Interlinking.git">GitHub repository</a>, change to the main
 directory and run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r pip_requirements.txt
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">pip_requirements</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
 <p>It should install all the required libraries automatically (<em>scikit-learn, numpy, pandas etc.</em>).</p>
@@ -191,23 +191,23 @@ work, which is under the MIT license.</p>
 <span id="how-to-use"></span><h4>How to use<a class="headerlink" href="#module-run" title="Permalink to this headline">¶</a></h4>
 <p>Feature extraction and state-of-the-art classifiers for toponym interlinking.</p>
 <p>Command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
-  <span class="n">run</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
-  <span class="n">run</span><span class="o">.</span><span class="n">py</span> <span class="p">(</span><span class="o">-</span><span class="n">h</span> <span class="o">|</span> <span class="o">--</span><span class="n">help</span><span class="p">)</span>
-  <span class="n">run</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">version</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Usage:
+  run.py [options]
+  run.py (-h | --help)
+  run.py --version
 
-<span class="n">Options</span><span class="p">:</span>
-    <span class="o">-</span><span class="n">h</span> <span class="o">--</span><span class="n">help</span>                   <span class="n">show</span> <span class="n">this</span> <span class="n">screen</span><span class="o">.</span>
-    <span class="o">--</span><span class="n">version</span>                   <span class="n">show</span> <span class="n">version</span><span class="o">.</span>
-    <span class="o">--</span><span class="n">dtrain</span> <span class="o">&lt;</span><span class="n">fpath</span><span class="o">&gt;</span>            <span class="n">relative</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">train</span> <span class="n">dataset</span><span class="o">.</span> <span class="n">If</span> <span class="n">this</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">the</span> <span class="n">train_dataset</span> <span class="n">parameter</span> <span class="ow">in</span>
-                                <span class="n">config</span><span class="o">.</span><span class="n">py</span> <span class="ow">is</span> <span class="n">used</span> <span class="n">instead</span><span class="o">.</span>
-    <span class="o">--</span><span class="n">dtest</span> <span class="o">&lt;</span><span class="n">fpath</span><span class="o">&gt;</span>             <span class="n">relative</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">test</span> <span class="n">dataset</span><span class="o">.</span> <span class="n">If</span> <span class="n">this</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">the</span> <span class="n">train_dataset</span> <span class="n">parameter</span> <span class="ow">in</span>
-                                <span class="n">config</span><span class="o">.</span><span class="n">py</span> <span class="ow">is</span> <span class="n">used</span> <span class="n">instead</span><span class="o">.</span>
-    <span class="o">-</span><span class="n">e</span> <span class="o">&lt;</span><span class="n">encoding_type</span><span class="o">&gt;</span>          <span class="n">specify</span> <span class="n">the</span> <span class="n">encoding</span> <span class="n">of</span> <span class="n">toponyms</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="k">global</span><span class="p">]</span><span class="o">.</span>
+Options:
+    -h --help                   show this screen.
+    --version                   show version.
+    --dtrain &lt;fpath&gt;            relative path to the train dataset. If this is null, the assigned
+                                value to `train_dataset` parameter in config.py is used instead.
+    --dtest &lt;fpath&gt;             relative path to the test dataset. If this is null, the assigned
+                                value to `test_dataset` parameter in config.py is used instead.
+    -e &lt;encoding_type&gt;          specify the encoding of toponyms in datasets. [default: global].
 
-<span class="n">Arguments</span><span class="p">:</span>
-    <span class="n">encoding_type</span>               <span class="k">global</span>
-                                <span class="n">latin</span>
+Arguments:
+    encoding_type               global
+                                latin
 </pre></div>
 </div>
 </div>
