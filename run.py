@@ -2,7 +2,8 @@
 # Author: vkaff
 # E-mail: vkaffes@imis.athena-innovation.gr
 
-"""Feature extraction and state-of-the-art classifiers for toponym interlinking.
+"""A complete pipeline of processes for features extraction and training/evaluating state-of-the-art classifiers for
+toponym interlinking.
 
 Command line::
 
