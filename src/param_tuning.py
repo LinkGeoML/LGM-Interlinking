@@ -39,8 +39,7 @@ class ParamTuning:
                           config.MLConf.RandomForest_hyperparameters_dist],
         'Extra-Trees': [ExtraTreesClassifier, config.MLConf.RandomForest_hyperparameters,
                         config.MLConf.RandomForest_hyperparameters_dist],
-        'XGBoost': [XGBClassifier, config.MLConf.XGBoost_hyperparameters,
-                    config.MLConf.XGBoost_hyperparameters_dist]
+        'XGBoost': [XGBClassifier, config.MLConf.XGBoost_hyperparameters, config.MLConf.XGBoost_hyperparameters_dist]
     }
 
     scores = ['accuracy']
@@ -226,6 +225,8 @@ class ParamTuning:
         classifier object
             It returns a trained classifier.
         """
+        if hasattr(model, "n_jobs"): model.set_params(n_jobs=config.MLConf.n_jobs)
+
         model.fit(X_train, y_train)
         return model
 
