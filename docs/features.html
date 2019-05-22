@@ -192,7 +192,7 @@ and return values (fX, y) as ndarray of floats.</p>
 
 <dl class="method">
 <dt id="src.featuresConstruction.Features.compute_features">
-<code class="descname">compute_features</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>sorting=True</em>, <em>all_features=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/featuresConstruction.html#Features.compute_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.featuresConstruction.Features.compute_features" title="Permalink to this definition">¶</a></dt>
+<code class="descname">compute_features</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>sorted=True</em>, <em>lgm_sims=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/featuresConstruction.html#Features.compute_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.featuresConstruction.Features.compute_features" title="Permalink to this definition">¶</a></dt>
 <dd><p>Depending on the group assigned to parameter <a class="reference internal" href="config.html#src.config.MLConf.classification_method" title="src.config.MLConf.classification_method"><code class="xref py py-attr docutils literal notranslate"><span class="pre">classification_method</span></code></a>,
 this method builds an ndarray of the following groups of features:</p>
 <ul class="simple">
@@ -220,8 +220,8 @@ except for the <a class="reference internal" href="measures.html#src.sim_measure
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>s1, s2</strong> (<em>str</em>) – Input toponyms.</li>
-<li><strong>sorting</strong> (<em>bool, optional</em>) – Value of True indicate to build features for groups <em>basic</em> and <em>basic_sorted</em>, value of False only for <em>basic</em> group.</li>
-<li><strong>all_features</strong> (<em>bool, optional</em>) – Values of True or False indicate whether to build or not features for group <em>lgm</em>.</li>
+<li><strong>sorted</strong> (<em>bool, optional</em>) – Value of True indicate to build features for groups <em>basic</em> and <em>basic_sorted</em>, value of False only for <em>basic</em> group.</li>
+<li><strong>lgm_sims</strong> (<em>bool, optional</em>) – Values of True or False indicate whether to build or not features for group <em>lgm</em>.</li>
 </ul>
 </td>
 </tr>

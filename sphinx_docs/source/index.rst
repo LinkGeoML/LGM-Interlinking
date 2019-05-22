@@ -8,8 +8,8 @@ Welcome to LGM-Interlinking's documentation!
 
 .. include:: ../../README.rst
 
-Main
-^^^^^^^^^
+How to use
+^^^^^^^^^^
    
 .. automodule:: run
    :members:

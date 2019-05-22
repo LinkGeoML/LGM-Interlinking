@@ -86,7 +86,7 @@ class Features:
 
         return fX, y
 
-    def compute_features(self, s1, s2, sorting=True, all_features=True):
+    def compute_features(self, s1, s2, sorted=True, lgm_sims=True):
         """
         Depending on the group assigned to parameter :py:attr:`~src.config.MLConf.classification_method`,
         this method builds an ndarray of the following groups of features:
@@ -113,9 +113,9 @@ class Features:
         ----------
         s1, s2: str
             Input toponyms.
-        sorting: bool, optional
+        sorted: bool, optional
             Value of True indicate to build features for groups *basic* and *basic_sorted*, value of False only for *basic* group.
-        all_features: bool, optional
+        lgm_sims: bool, optional
             Values of True or False indicate whether to build or not features for group *lgm*.
 
         Returns
@@ -124,7 +124,7 @@ class Features:
             It returns a list (vector) of features.
         """
         f = []
-        for status in list({False, sorting}):
+        for status in list({False, sorted}):
             a, b = transform(s1, s2, sorting=status, canonical=status)
 
             sim1 = algnms_to_func['damerau_levenshtein'](a, b)
@@ -146,23 +146,23 @@ class Features:
             if status: f.append([sim1, sim2, sim3, sim4, sim7, sim8, sim9, sim10, sim11, sim12, sim13, sim14, sim15])
             else: f.append([sim1, sim2, sim3, sim4, sim5, sim7, sim8, sim9, sim10, sim11, sim12, sim13])
 
-        if all_features:
+        if lgm_sims:
             a, b = transform(s1, s2, sorting=True, canonical=True)
 
-            sim1 = self._compute_lsimilarity(a, b, 'damerau_levenshtein')
-            sim2 = self._compute_lsimilarity(a, b, 'davies')
-            sim3 = self._compute_lsimilarity(a, b, 'skipgram')
-            sim4 = self._compute_lsimilarity(a, b, 'soft_jaccard')
-            sim5 = self._compute_lsimilarity(a, b, 'strike_a_match')
-            sim6 = self._compute_lsimilarity(a, b, 'cosine')
-            sim7 = self._compute_lsimilarity(a, b, 'jaccard')
-            sim8 = self._compute_lsimilarity(a, b, 'monge_elkan')
-            sim9 = self._compute_lsimilarity(a, b, 'jaro_winkler')
-            sim10 = self._compute_lsimilarity(a, b, 'jaro')
-            sim11 = self._compute_lsimilarity(a, b, 'jaro_winkler_r')
-            sim12 = self._compute_lsimilarity(a, b, 'l_jaro_winkler')
-            sim13 = self._compute_lsimilarity(a, b, 'l_jaro_winkler_r')
-            sim14, sim15, sim16 = list(self._compute_lsimilarity_base_scores(a, b, 'damerau_levenshtein'))
+            sim1 = self._compute_lgm_sim(a, b, 'damerau_levenshtein')
+            sim2 = self._compute_lgm_sim(a, b, 'davies')
+            sim3 = self._compute_lgm_sim(a, b, 'skipgram')
+            sim4 = self._compute_lgm_sim(a, b, 'soft_jaccard')
+            sim5 = self._compute_lgm_sim(a, b, 'strike_a_match')
+            sim6 = self._compute_lgm_sim(a, b, 'cosine')
+            sim7 = self._compute_lgm_sim(a, b, 'jaccard')
+            sim8 = self._compute_lgm_sim(a, b, 'monge_elkan')
+            sim9 = self._compute_lgm_sim(a, b, 'jaro_winkler')
+            sim10 = self._compute_lgm_sim(a, b, 'jaro')
+            sim11 = self._compute_lgm_sim(a, b, 'jaro_winkler_r')
+            sim12 = self._compute_lgm_sim(a, b, 'l_jaro_winkler')
+            sim13 = self._compute_lgm_sim(a, b, 'l_jaro_winkler_r')
+            sim14, sim15, sim16 = self._compute_lgm_sim_base_scores(a, b, 'damerau_levenshtein')
 
             f.append([sim1, sim2, sim3, sim4, sim5, sim6, sim7, sim8, sim9, sim10, sim11, sim12, sim13, sim14, sim15, sim16])
 
@@ -177,7 +177,7 @@ class Features:
         return self.compute_features(s1, s2, False, False)
 
     @staticmethod
-    def _compute_lsimilarity(s1, s2, metric, w_type='avg'):
+    def _compute_lgm_sim(s1, s2, metric, w_type='avg'):
         baseTerms, mismatchTerms, specialTerms = lgm_sim_lterms(
             s1, s2, LSimilarityVars.per_metric_optValues[metric][w_type][0])
 
@@ -195,7 +195,7 @@ class Features:
             return weighted_sim(baseTerms, mismatchTerms, specialTerms, metric, True if w_type == 'avg' else False)
 
     @staticmethod
-    def _compute_lsimilarity_base_scores(s1, s2, metric, w_type='avg'):
+    def _compute_lgm_sim_base_scores(s1, s2, metric, w_type='avg'):
         base_t, mis_t, special_t = lgm_sim_lterms(s1, s2, LSimilarityVars.per_metric_optValues[metric][w_type][0])
         return score_per_term(base_t, mis_t, special_t, metric)
 

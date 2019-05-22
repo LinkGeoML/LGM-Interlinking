@@ -252,7 +252,7 @@
     <span class="p">}</span>
     <span class="n">XGBoost_hyperparameters</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">],</span>
-        <span class="c1"># &#39;max_depth&#39;: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],</span>
+        <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
         <span class="c1"># hyperparameters to avoid overfitting</span>
         <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>  <span class="c1"># &#39;learning_rate&#39;</span>
         <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -287,7 +287,7 @@
     <span class="p">}</span>
     <span class="n">XGBoost_hyperparameters_dist</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="n">sp_randint</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">4000</span><span class="p">),</span>
-        <span class="c1"># &#39;max_depth&#39;: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],</span>
+        <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="n">sp_randint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
         <span class="c1"># hyperparameters to avoid overfitting</span>
         <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">expon</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>  <span class="c1"># &#39;learning_rate&#39;</span>
         <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>

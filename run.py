@@ -2,7 +2,7 @@
 # Author: vkaff
 # E-mail: vkaffes@imis.athena-innovation.gr
 
-"""Feature extraction and traditional classifiers for toponym interlinking.
+"""Feature extraction and state-of-the-art classifiers for toponym interlinking.
 
 Command line::
 
