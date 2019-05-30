@@ -842,6 +842,22 @@ def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
 
 
 def avg_lgm_sim(str1, str2, metric='damerau_levenshtein'):
+    """Implements LGM-Sim metric where *avg* flag is True.
+
+    Parameters
+    ----------
+    str1, str2: str
+        Input values in unicode.
+    metric: str, optional
+        Similarity metric used, as internal one, to split toponyms in the two distinct lists that contains base and
+        mismatch terms respectively. Each of the above supported metrics can be used as input.
+        Default metric is :attr:`~src.sim_measures.damerau_levenshtein`.
+
+    Returns
+    -------
+    float
+        A similarity score normalized in range [0,1].
+    """
     return lgm_sim(str1, str2, metric, True)
 
 algnms_to_func = {
