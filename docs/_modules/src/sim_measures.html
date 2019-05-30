@@ -847,8 +847,11 @@
 
 
 <div class="viewcode-block" id="lgm_sim_lterms"><a class="viewcode-back" href="../../measures.html#src.sim_measures.lgm_sim_lterms">[docs]</a><span class="k">def</span> <span class="nf">lgm_sim_lterms</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">split_thres</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the</span>
-<span class="sd">    other toponym&#39;s tokens and identifies each token per toponym as base, mismatch or frequent one.</span>
+    <span class="sd">&quot;&quot;&quot;Splits each toponym-string, i.e., s1, s2, to tokens, builds three distinct lists per toponym-string, i.e., base,</span>
+<span class="sd">    mismatch and frequent, and assigns the produced tokens to these lists. The *base* lists contains the terms that are</span>
+<span class="sd">    similar to one of the other toponym&#39;s tokens, The *mismatch* contains the terms that have no similar pair to the</span>
+<span class="sd">    tokens of the other toponym and the *frequent* list contains the terms that are common for the specified dataset</span>
+<span class="sd">    of toponyms.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -882,7 +885,7 @@
 
 
 <div class="viewcode-block" id="score_per_term"><a class="viewcode-back" href="../../measures.html#src.sim_measures.score_per_term">[docs]</a><span class="k">def</span> <span class="nf">score_per_term</span><span class="p">(</span><span class="n">base_t</span><span class="p">,</span> <span class="n">mis_t</span><span class="p">,</span> <span class="n">special_t</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;It computes three distinct similarity scores for each list of terms.</span>
+    <span class="sd">&quot;&quot;&quot;Computes three distinct similarity scores for each list of terms.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -967,8 +970,9 @@
 <span class="sd">    str1, str2: str</span>
 <span class="sd">        Input values in unicode.</span>
 <span class="sd">    metric: str, optional</span>
-<span class="sd">        Similarity metric used, as internal one, to split toponyms in three distinct lists containing base,</span>
-<span class="sd">        mismatch and frequent terms respectively. Default metric is :func:`~src.sim_measures.damerau_levenshtein`.</span>
+<span class="sd">        Similarity metric used, as internal one, to split toponyms in the two distinct lists that contains base and</span>
+<span class="sd">        mismatch terms respectively. Each of the above supported metrics can be used as input.</span>
+<span class="sd">        Default metric is :attr:`~src.sim_measures.damerau_levenshtein`.</span>
 <span class="sd">    avg: bool, optional</span>
 <span class="sd">        If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise</span>
 <span class="sd">        each term list&#39; score is of equal significance to the final score. Default value is False.</span>
@@ -990,7 +994,6 @@
 <span class="k">def</span> <span class="nf">avg_lgm_sim</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">lgm_sim</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
-
 <span class="n">algnms_to_func</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;damerau_levenshtein&#39;</span><span class="p">:</span> <span class="n">damerau_levenshtein</span><span class="p">,</span>
     <span class="s1">&#39;davies&#39;</span><span class="p">:</span> <span class="n">davies</span><span class="p">,</span>
@@ -1004,9 +1007,9 @@
     <span class="s1">&#39;jaro_winkler&#39;</span><span class="p">:</span> <span class="n">jaro_winkler</span><span class="p">,</span>
     <span class="s1">&#39;jaro&#39;</span><span class="p">:</span> <span class="n">jaro</span><span class="p">,</span>
     <span class="s1">&#39;jaccard&#39;</span><span class="p">:</span> <span class="n">jaccard</span><span class="p">,</span>
-    <span class="s1">&#39;l_jaro_winkler&#39;</span><span class="p">:</span> <span class="n">lgm_jaro_winkler</span><span class="p">,</span>
-    <span class="s1">&#39;lsimilarity&#39;</span><span class="p">:</span> <span class="n">lgm_sim</span><span class="p">,</span>
-    <span class="s1">&#39;avg_lsimilarity&#39;</span><span class="p">:</span> <span class="n">avg_lgm_sim</span><span class="p">,</span>
+    <span class="s1">&#39;lgm_jaro_winkler&#39;</span><span class="p">:</span> <span class="n">lgm_jaro_winkler</span><span class="p">,</span>
+    <span class="s1">&#39;lgm_sim&#39;</span><span class="p">:</span> <span class="n">lgm_sim</span><span class="p">,</span>
+    <span class="s1">&#39;avg_lgm_sim&#39;</span><span class="p">:</span> <span class="n">avg_lgm_sim</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 

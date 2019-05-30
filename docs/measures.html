@@ -398,8 +398,11 @@ developed by Rui Santos and Alexandre Marinho for their work in
 <dl class="function">
 <dt id="src.sim_measures.lgm_sim_lterms">
 <code class="descclassname">src.sim_measures.</code><code class="descname">lgm_sim_lterms</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>split_thres</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#lgm_sim_lterms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.lgm_sim_lterms" title="Permalink to this definition">¶</a></dt>
-<dd><p>It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the
-other toponym’s tokens and identifies each token per toponym as base, mismatch or frequent one.</p>
+<dd><p>Splits each toponym-string, i.e., s1, s2, to tokens, builds three distinct lists per toponym-string, i.e., base,
+mismatch and frequent, and assigns the produced tokens to these lists. The <em>base</em> lists contains the terms that are
+similar to one of the other toponym’s tokens, The <em>mismatch</em> contains the terms that have no similar pair to the
+tokens of the other toponym and the <em>frequent</em> list contains the terms that are common for the specified dataset
+of toponyms.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -425,7 +428,7 @@ otherwise as mismatch ones.</li>
 <dl class="function">
 <dt id="src.sim_measures.score_per_term">
 <code class="descclassname">src.sim_measures.</code><code class="descname">score_per_term</code><span class="sig-paren">(</span><em>base_t</em>, <em>mis_t</em>, <em>special_t</em>, <em>metric</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#score_per_term"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.score_per_term" title="Permalink to this definition">¶</a></dt>
-<dd><p>It computes three distinct similarity scores for each list of terms.</p>
+<dd><p>Computes three distinct similarity scores for each list of terms.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -484,8 +487,9 @@ each term list’ score is of equal significance to the final score.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</li>
-<li><strong>metric</strong> (<em>str, optional</em>) – Similarity metric used, as internal one, to split toponyms in three distinct lists containing base,
-mismatch and frequent terms respectively. Default metric is <a class="reference internal" href="#src.sim_measures.damerau_levenshtein" title="src.sim_measures.damerau_levenshtein"><code class="xref py py-func docutils literal notranslate"><span class="pre">damerau_levenshtein()</span></code></a>.</li>
+<li><strong>metric</strong> (<em>str, optional</em>) – Similarity metric used, as internal one, to split toponyms in the two distinct lists that contains base and
+mismatch terms respectively. Each of the above supported metrics can be used as input.
+Default metric is <a class="reference internal" href="#src.sim_measures.damerau_levenshtein" title="src.sim_measures.damerau_levenshtein"><code class="xref py py-attr docutils literal notranslate"><span class="pre">damerau_levenshtein</span></code></a>.</li>
 <li><strong>avg</strong> (<em>bool, optional</em>) – If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
 each term list’ score is of equal significance to the final score. Default value is False.</li>
 </ul>

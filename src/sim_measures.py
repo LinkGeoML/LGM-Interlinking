@@ -697,8 +697,11 @@ def termsim_split(s1, s2, thres):
 
 
 def lgm_sim_lterms(s1, s2, split_thres):
-    """It splits each toponym, i.e., str1, str2, to tokens. Tokens from one toponym are compared with the
-    other toponym's tokens and identifies each token per toponym as base, mismatch or frequent one.
+    """Splits each toponym-string, i.e., s1, s2, to tokens, builds three distinct lists per toponym-string, i.e., base,
+    mismatch and frequent, and assigns the produced tokens to these lists. The *base* lists contains the terms that are
+    similar to one of the other toponym's tokens, The *mismatch* contains the terms that have no similar pair to the
+    tokens of the other toponym and the *frequent* list contains the terms that are common for the specified dataset
+    of toponyms.
 
     Parameters
     ----------
@@ -732,7 +735,7 @@ def lgm_sim_lterms(s1, s2, split_thres):
 
 
 def score_per_term(base_t, mis_t, special_t, metric):
-    """It computes three distinct similarity scores for each list of terms.
+    """Computes three distinct similarity scores for each list of terms.
 
     Parameters
     ----------
@@ -817,8 +820,9 @@ def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
     str1, str2: str
         Input values in unicode.
     metric: str, optional
-        Similarity metric used, as internal one, to split toponyms in three distinct lists containing base,
-        mismatch and frequent terms respectively. Default metric is :func:`~src.sim_measures.damerau_levenshtein`.
+        Similarity metric used, as internal one, to split toponyms in the two distinct lists that contains base and
+        mismatch terms respectively. Each of the above supported metrics can be used as input.
+        Default metric is :attr:`~src.sim_measures.damerau_levenshtein`.
     avg: bool, optional
         If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
         each term list' score is of equal significance to the final score. Default value is False.
@@ -840,7 +844,6 @@ def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
 def avg_lgm_sim(str1, str2, metric='damerau_levenshtein'):
     return lgm_sim(str1, str2, metric, True)
 
-
 algnms_to_func = {
     'damerau_levenshtein': damerau_levenshtein,
     'davies': davies,
@@ -854,7 +857,7 @@ algnms_to_func = {
     'jaro_winkler': jaro_winkler,
     'jaro': jaro,
     'jaccard': jaccard,
-    'l_jaro_winkler': lgm_jaro_winkler,
-    'lsimilarity': lgm_sim,
-    'avg_lsimilarity': avg_lgm_sim,
+    'lgm_jaro_winkler': lgm_jaro_winkler,
+    'lgm_sim': lgm_sim,
+    'avg_lgm_sim': avg_lgm_sim,
 }
