@@ -9,19 +9,25 @@ developed by Rui Santos and Alexandre Marinho for their work in
 `Toponym-Matching <https://github.com/ruipds/Toponym-Matching/blob/master/datasetcreator.py>`_.
 """
 
+# Python 2 and 3
+from builtins import range
+from io import open
+import six
+
 import csv
 import os.path
 import sys
 import math
 import random
-import jellyfish
-import pyxdameraulevenshtein
-import numpy as np
 import itertools
+import re
+
+import numpy as np
 import unicodedata
 from alphabet_detector import AlphabetDetector
-import re
 import pycountry_convert
+import jellyfish
+import pyxdameraulevenshtein
 
 
 fields = ["geonameid",
@@ -47,7 +53,7 @@ fields = ["geonameid",
 
 def check_alphabet(str, alphabet, only=True):
     ad = AlphabetDetector()
-    uni_string = unicode(str, "utf-8")
+    uni_string = six.text_type(str, "utf-8")
     if only:
         return ad.only_alphabet_chars(uni_string, alphabet.upper())
     else:
@@ -58,7 +64,7 @@ def check_alphabet(str, alphabet, only=True):
 
 def detect_alphabet(str):
     ad = AlphabetDetector()
-    uni_string = unicode(str, "utf-8")
+    uni_string = six.text_type(str, "utf-8")
     ab = ad.detect_alphabet(uni_string)
     if "CYRILLIC" in ab:
         return "CYRILLIC"
@@ -119,7 +125,7 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
             for row in reader:
                 names = set([name.strip() for name in ("" + row['alternatenames']).split(",") if len(name.strip()) > 2])
                 if len(row['name'].strip()) > 2: names.add(row['name'].strip())
-                if len(unicode(row['asciiname'], "utf-8").strip()) > 2: names.add(row['asciiname'].strip())
+                if len(six.text_type(row['asciiname'], "utf-8").strip()) > 2: names.add(row['asciiname'].strip())
 
                 # nonLATIN = False
                 if only_latin:
@@ -230,12 +236,12 @@ def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
     for line in open(input):
         splitted = line.split('\t')
         if not (splitted[2] == "TRUE" or splitted[2] == "FALSE") or \
-                not (len(unicode(splitted[7], "utf-8")) == 2 and len(unicode(splitted[8], "utf-8")) == 3) or \
+                not (len(six.text_type(splitted[7], "utf-8")) == 2 and len(six.text_type(splitted[8], "utf-8")) == 3) or \
                 not (splitted[5] != "UND" and splitted[6] != "UND") or \
                 not (splitted[3].isdigit() and splitted[4].isdigit()) or \
                 len(splitted) != 9 or \
-                len(unicode(splitted[1], "utf-8")) < 3 or \
-                len(unicode(splitted[0], "utf-8")) < 3:
+                len(six.text_type(splitted[1], "utf-8")) < 3 or \
+                len(six.text_type(splitted[0], "utf-8")) < 3:
             continue
         if '\tTRUE\t' in line:
             pos.append(line)
@@ -449,8 +455,8 @@ def strike_a_match(str1, str2):
     float
         A similarity score normalized in range [0,1].
     """
-    pairs1 = {str1[i:i + 2] for i in xrange(len(str1) - 1)}
-    pairs2 = {str2[i:i + 2] for i in xrange(len(str2) - 1)}
+    pairs1 = {str1[i:i + 2] for i in range(len(str1) - 1)}
+    pairs2 = {str2[i:i + 2] for i in range(len(str2) - 1)}
     union = len(pairs1) + len(pairs2)
     hit_count = 0
     for x in pairs1:
@@ -546,8 +552,8 @@ def permuted_winkler(str1, str2):
 
 
 def _check_type(s):
-    if not isinstance(s, unicode):
-        raise TypeError('expected unicode, got %s' % type(s).__name__)
+    if not isinstance(s, six.text_type):
+        raise TypeError('expected str or unicode, got %s' % type(s).__name__)
 
 
 def _jaro_winkler(ying, yang, long_tolerance, winklerize):

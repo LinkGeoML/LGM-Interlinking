@@ -5,7 +5,6 @@
 from __future__ import print_function
 import time
 
-from helpers import getRelativePathtoWorking
 import param_tuning
 import config
 from featuresConstruction import Features

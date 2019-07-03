@@ -28,8 +28,8 @@ Command line::
 """
 
 import os, sys
+import codecs
 from docopt import docopt
-from kitchen.text.converters import getwriter
 
 from src.core import StrategyEvaluator
 from src.helpers import getRelativePathtoWorking, StaticValues
@@ -38,7 +38,7 @@ import src.config as config
 
 
 def main(args):
-    UTF8Writer = getwriter('utf8')
+    UTF8Writer = codecs.getwriter('utf8')
     sys.stdout = UTF8Writer(sys.stdout)
 
     LSimilarityVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
