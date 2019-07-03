@@ -140,8 +140,8 @@ class Features:
             sim10 = algnms_to_func['skipgram'](a, b)
             sim13 = algnms_to_func['davies'](a, b)
             if status:
-                sim14 = algnms_to_func['l_jaro_winkler'](a, b)
-                sim15 = algnms_to_func['l_jaro_winkler'](a[::-1], b[::-1])
+                sim14 = algnms_to_func['lgm_jaro_winkler'](a, b)
+                sim15 = algnms_to_func['lgm_jaro_winkler'](a[::-1], b[::-1])
 
             if status: f.append([sim1, sim2, sim3, sim4, sim7, sim8, sim9, sim10, sim11, sim12, sim13, sim14, sim15])
             else: f.append([sim1, sim2, sim3, sim4, sim5, sim7, sim8, sim9, sim10, sim11, sim12, sim13])
@@ -160,8 +160,8 @@ class Features:
             sim9 = self._compute_lgm_sim(a, b, 'jaro_winkler')
             sim10 = self._compute_lgm_sim(a, b, 'jaro')
             sim11 = self._compute_lgm_sim(a, b, 'jaro_winkler_r')
-            sim12 = self._compute_lgm_sim(a, b, 'l_jaro_winkler')
-            sim13 = self._compute_lgm_sim(a, b, 'l_jaro_winkler_r')
+            sim12 = self._compute_lgm_sim(a, b, 'lgm_jaro_winkler')
+            sim13 = self._compute_lgm_sim(a, b, 'lgm_jaro_winkler_r')
             sim14, sim15, sim16 = self._compute_lgm_sim_base_scores(a, b, 'damerau_levenshtein')
 
             f.append([sim1, sim2, sim3, sim4, sim5, sim6, sim7, sim8, sim9, sim10, sim11, sim12, sim13, sim14, sim15, sim16])
@@ -181,7 +181,7 @@ class Features:
         baseTerms, mismatchTerms, specialTerms = lgm_sim_lterms(
             s1, s2, LSimilarityVars.per_metric_optValues[metric][w_type][0])
 
-        if metric in ['jaro_winkler_r', 'l_jaro_winkler_r']:
+        if metric in ['jaro_winkler_r', 'lgm_jaro_winkler_r']:
             return weighted_sim(
                 {'a': [x[::-1] for x in baseTerms['a']], 'b': [x[::-1] for x in baseTerms['b']],
                  'len': baseTerms['len'], 'char_len': baseTerms['char_len']},
