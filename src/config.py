@@ -62,7 +62,7 @@ class MLConf:
 
     See Also
     --------
-    :class:`~src.featuresConstruction.Features` Details on available inputs.    
+    :class:`~src.featuresConstruction.Features`. Details on available inputs.    
     """
 
     # accepted values: randomized, grid, hyperband - not yet implemented!!!
