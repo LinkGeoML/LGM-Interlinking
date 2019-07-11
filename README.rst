@@ -6,7 +6,17 @@
 LGM-Interlinking
 ================
 
-This Python code implements and evaluates the proposed LinkGeoML models for Toponym Interlinking.
+This Python code implements and evaluates the proposed LinkGeoML models for Toponym classification-based interlinking.
+In this setting, we consider the names of the toponyms as the only source of information that can be used to decide
+whether two toponyms refer to the same real-world entity.
+Specifically, we build a meta-similarity function, called *LGM-Sim*, that takes into account
+and incorporates within its processing steps the specificities of toponym names. Consequently, we derive training features
+from **LGM-Sim** that are used in various classification models. The proposed method and its derived features are robust
+enough to handle variations in the distribution of toponyms and demonstrate a significant increase in interlinking
+accuracy compared to baseline models widely used in the literature. Indicatively, we succeed a 85.6% accuracy with
+the Gradient Boosting Trees classifier compared to the best baseline model that achieves accuracy of 78.6% with Random
+Forests.
+
 The *data* folder contains the train datasets, which are used to build the classifiers, and files containing frequent terms,
 extracted from train datasets. For evaluation, we used the dataset from
 the `Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_ work (see `Setup procedure`_).
@@ -22,13 +32,13 @@ the `Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_ work (see `
       - `./scripts/basic_test_100kglobal_parameter_based.sh`: collect the effectiveness values for the **basic** setup on the global dataset with hyper parameters obtained on the **100k global train** dataset;
       - `./scripts/lgm_test_100kglobal_parameter_based.sh`: collect the effectiveness values for the **LGM** setup on the global dataset with hyper parameters obtained on the **100k global train** dataset.
 
-The source code was tested using Python 2.7 and Scikit-Learn 0.20.3 on a Linux server.
+The source code was tested using Python 2.7, 3.5 and 3.6 and Scikit-Learn 0.20.3 on a Linux server.
 
 Setup procedure
 ---------------
 
-Download the latest version from the `GitHub repository <https://github.com/LinkGeoML/LGM-Interlinking.git>`_, change to the main
-directory and run:
+Download the latest version from the `GitHub repository <https://github.com/LinkGeoML/LGM-Interlinking.git>`_, change to
+the main directory and run:
 
 .. code:: bash
 
@@ -36,7 +46,7 @@ directory and run:
 
 It should install all the required libraries automatically (*scikit-learn, numpy, pandas etc.*).
 
-Change to the **datasets** folder, download the test dataset and unzip it:
+Change to the **data** folder, download the test dataset and unzip it:
 
 .. code-block:: bash
 
