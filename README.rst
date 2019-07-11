@@ -56,6 +56,12 @@ Change to the **data** folder, download the test dataset and unzip it:
    zip -FF dataset.zip  --out dataset.zip.fixed
    unzip dataset.zip.fixed
 
+Documentation
+-------------
+Source code documentation is available from `linkgeoml.github.io`__.
+
+__ https://linkgeoml.github.io/LGM-Interlinking/
+
 Acknowledgements
 -------------------
 The *sim_measures.py* file, which is used to generate the train/test datasets and to compute the string similarity measures,
