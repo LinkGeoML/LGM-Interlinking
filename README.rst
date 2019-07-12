@@ -13,7 +13,7 @@ Specifically, we build a meta-similarity function, called *LGM-Sim*, that takes 
 and incorporates within its processing steps the specificities of toponym names. Consequently, we derive training features
 from **LGM-Sim** that are used in various classification models. The proposed method and its derived features are robust
 enough to handle variations in the distribution of toponyms and demonstrate a significant increase in interlinking
-accuracy compared to baseline models widely used in the literature. Indicatively, we succeed a 85.6% accuracy with
+accuracy compared to baseline models widely used in the literature (see `References`_). Indicatively, we succeed a 85.6% accuracy with
 the Gradient Boosting Trees classifier compared to the best baseline model that achieves accuracy of 78.6% with Random
 Forests.
 
@@ -67,6 +67,12 @@ Acknowledgements
 The *sim_measures.py* file, which is used to generate the train/test datasets and to compute the string similarity measures,
 is a slightly modified version of the *datasetcreator.py* file used in `Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_
 work, which is under the MIT license.
+
+References
+----------
+* Santos, R., Murrieta-Flores, P. and Martins, B., 2018. Learning to combine multiple string similarity metrics for
+  effective toponym matching. *International journal of digital earth*, 11(9), pp.913-938.
+
 
 License
 -------
