@@ -7,6 +7,7 @@ LGM-Interlinking
 ================
 
 This Python code implements and evaluates the proposed LinkGeoML models for Toponym classification-based interlinking.
+
 In this setting, we consider the names of the toponyms as the only source of information that can be used to decide
 whether two toponyms refer to the same real-world entity.
 Specifically, we build a meta-similarity function, called *LGM-Sim*, that takes into account
