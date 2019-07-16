@@ -24,9 +24,9 @@ def ascii_transliteration_and_punctuation_strip(s):
     return s
 
 
-def transform(strA, strB, sorting=False, canonical=False, delimiter=' ', thres=config.sort_thres, only_sorting=False):
-    a = strA.decode('utf8') #.lower()
-    b = strB.decode('utf8') #.lower()
+def transform(s1, s2, sorting=False, canonical=False, delimiter=' ', thres=config.sort_thres, only_sorting=False):
+    a = s1.decode('utf8') #.lower()
+    b = s2.decode('utf8') #.lower()
 
     if canonical:
         a = ascii_transliteration_and_punctuation_strip(a)
