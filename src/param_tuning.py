@@ -107,7 +107,7 @@ class ParamTuning:
         for train_idx, test_idx in self.outer_cv.split(X, y):
             X_train, y_train, X_test, y_test = X[train_idx], y[train_idx], X[test_idx], y[test_idx]
 
-            for clf_key, clf_val in self.clf_names.iteritems():
+            for clf_key, clf_val in self.clf_names.items():
                 clf = None
                 for score in self.scores:
                     if self.search_method.lower() == 'grid':

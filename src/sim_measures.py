@@ -666,7 +666,6 @@ def lgm_jaro_winkler(s1, s2, long_tolerance=False):
 class LSimilarityVars:
     freq_ngrams = {'tokens': set(), 'chars': set()}
     lsimilarity_weights = []
-
     per_metric_optValues = {}
 
 
