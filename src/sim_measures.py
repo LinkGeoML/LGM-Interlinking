@@ -663,9 +663,9 @@ def lgm_jaro_winkler(s1, s2, long_tolerance=False):
     return _jaro_winkler(s1, s2, long_tolerance, True)
 
 
-class LSimilarityVars:
+class LGMSimVars:
     freq_ngrams = {'tokens': set(), 'chars': set()}
-    lsimilarity_weights = []
+    weights = []
     per_metric_optValues = {}
 
 
@@ -724,8 +724,8 @@ def lgm_sim_lterms(s1, s2, split_thres):
     """
     specialTerms = dict(a=[], b=[], len=0)
 
-    specialTerms['a'] = list(set(s1.split()) & LSimilarityVars.freq_ngrams['tokens'])
-    specialTerms['b'] = list(set(s2.split()) & LSimilarityVars.freq_ngrams['tokens'])
+    specialTerms['a'] = list(set(s1.split()) & LGMSimVars.freq_ngrams['tokens'])
+    specialTerms['b'] = list(set(s2.split()) & LGMSimVars.freq_ngrams['tokens'])
     specialTerms['len'] = len(specialTerms['a']) + len(specialTerms['b'])
     specialTerms['char_len'] = sum(len(s) for s in specialTerms['a']) + sum(len(s) for s in specialTerms['b'])
 
@@ -767,8 +767,8 @@ def score_per_term(base_t, mis_t, special_t, metric):
 
 def recalculated_weights(base_t, mis_t, special_t, metric, avg=False, tmode=False):
     lsim_variance = 'avg' if avg else 'simple'
-    weights = LSimilarityVars.lsimilarity_weights[:] if tmode \
-        else LSimilarityVars.per_metric_optValues[metric][lsim_variance][1][:]
+    weights = LGMSimVars.weights[:] if tmode \
+        else LGMSimVars.per_metric_optValues[metric][lsim_variance][1][:]
 
     if base_t['len'] == 0:
         weights[1] += weights[0] * (float(mis_t['len']) / (mis_t['len'] + special_t['len']))
@@ -838,7 +838,7 @@ def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
         A similarity score normalized in range [0,1].
     """
     lsim_variance = 'avg' if avg else 'simple'
-    split_thres = LSimilarityVars.per_metric_optValues[metric][lsim_variance][0]
+    split_thres = LGMSimVars.per_metric_optValues[metric][lsim_variance][0]
 
     baseTerms, mismatchTerms, specialTerms = lgm_sim_lterms(str1, str2, split_thres)
     thres = weighted_sim(baseTerms, mismatchTerms, specialTerms, metric, avg)

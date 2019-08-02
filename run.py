@@ -33,7 +33,7 @@ from docopt import docopt
 
 from src.core import StrategyEvaluator
 from src.helpers import getRelativePathtoWorking, StaticValues
-from src.sim_measures import LSimilarityVars
+from src.sim_measures import LGMSimVars
 import src.config as config
 
 
@@ -41,7 +41,7 @@ def main(args):
     UTF8Writer = codecs.getwriter('utf8')
     sys.stdout = UTF8Writer(sys.stdout)
 
-    LSimilarityVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
+    LGMSimVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
 
     d_test = getRelativePathtoWorking(config.test_dataset) if args['--dtest'] is None \
         else getRelativePathtoWorking(args['--dtest'])
@@ -55,5 +55,5 @@ def main(args):
 
 
 if __name__ == "__main__":
-    arguments = docopt(__doc__, version='LGM-Interlinking 0.1.0')
+    arguments = docopt(__doc__, version='LGM-Interlinking 0.1.1')
     main(arguments)

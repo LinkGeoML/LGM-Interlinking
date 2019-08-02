@@ -10,7 +10,7 @@ import os
 import glob
 
 from helpers import transform, getBasePath
-from sim_measures import LSimilarityVars, lgm_sim_lterms, score_per_term, weighted_sim, algnms_to_func
+from sim_measures import LGMSimVars, lgm_sim_lterms, score_per_term, weighted_sim, algnms_to_func
 
 
 class Features:
@@ -179,7 +179,7 @@ class Features:
     @staticmethod
     def _compute_lgm_sim(s1, s2, metric, w_type='avg'):
         baseTerms, mismatchTerms, specialTerms = lgm_sim_lterms(
-            s1, s2, LSimilarityVars.per_metric_optValues[metric][w_type][0])
+            s1, s2, LGMSimVars.per_metric_optValues[metric][w_type][0])
 
         if metric in ['jaro_winkler_r', 'lgm_jaro_winkler_r']:
             return weighted_sim(
@@ -196,13 +196,13 @@ class Features:
 
     @staticmethod
     def _compute_lgm_sim_base_scores(s1, s2, metric, w_type='avg'):
-        base_t, mis_t, special_t = lgm_sim_lterms(s1, s2, LSimilarityVars.per_metric_optValues[metric][w_type][0])
+        base_t, mis_t, special_t = lgm_sim_lterms(s1, s2, LGMSimVars.per_metric_optValues[metric][w_type][0])
         return score_per_term(base_t, mis_t, special_t, metric)
 
     def _get_freqterms(self, encoding):
         print("Resetting any previously assigned frequent terms ...")
-        LSimilarityVars.freq_ngrams['tokens'].clear()
-        LSimilarityVars.freq_ngrams['chars'].clear()
+        LGMSimVars.freq_ngrams['tokens'].clear()
+        LGMSimVars.freq_ngrams['chars'].clear()
 
         input_path = (True, os.path.join(getBasePath(), 'data/input/')) \
             if os.path.isdir(os.path.join(getBasePath(), 'data/input/')) \
@@ -213,6 +213,6 @@ class Features:
 
                 print("Loading frequent terms from file {} ...".format(f))
                 df = pd.read_csv(f, sep='\t', header=0, names=['term', 'no'], nrows=self.max_freq_terms)
-                LSimilarityVars.freq_ngrams[gram_type].update(df['term'].values.tolist())
+                LGMSimVars.freq_ngrams[gram_type].update(df['term'].values.tolist())
             print('Frequent terms loaded.')
         else: print("Folder 'input' does not exist")

@@ -7,7 +7,7 @@ import time
 
 import param_tuning
 import config
-from featuresConstruction import Features
+from features import Features
 
 
 class StrategyEvaluator:
