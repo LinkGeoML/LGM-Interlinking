@@ -155,8 +155,8 @@
 <h1>features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><dl class="class">
-<dt id="src.featuresConstruction.Features">
-<em class="property">class </em><code class="descclassname">src.featuresConstruction.</code><code class="descname">Features</code><a class="reference internal" href="_modules/src/featuresConstruction.html#Features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.featuresConstruction.Features" title="Permalink to this definition">¶</a></dt>
+<dt id="src.features.Features">
+<em class="property">class </em><code class="descclassname">src.features.</code><code class="descname">Features</code><a class="reference internal" href="_modules/src/features.html#Features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.features.Features" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class loads the dataset, frequent terms and builds features that are used as input to supported classification
 groups:</p>
 <ul class="simple">
@@ -167,13 +167,13 @@ groups:</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
-<dt><a class="reference internal" href="#src.featuresConstruction.Features.compute_features" title="src.featuresConstruction.Features.compute_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_features()</span></code></a></dt>
+<dt><a class="reference internal" href="#src.features.Features.compute_features" title="src.features.Features.compute_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_features()</span></code></a></dt>
 <dd>Details on the metrics each classification group implements.</dd>
 </dl>
 </div>
 <dl class="method">
-<dt id="src.featuresConstruction.Features.build">
-<code class="descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/featuresConstruction.html#Features.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.featuresConstruction.Features.build" title="Permalink to this definition">¶</a></dt>
+<dt id="src.features.Features.build">
+<code class="descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/features.html#Features.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.features.Features.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build features depending on the assignment of parameter <a class="reference internal" href="config.html#src.config.MLConf.classification_method" title="src.config.MLConf.classification_method"><code class="xref py py-attr docutils literal notranslate"><span class="pre">classification_method</span></code></a>
 and return values (fX, y) as ndarray of floats.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -191,8 +191,8 @@ and return values (fX, y) as ndarray of floats.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="src.featuresConstruction.Features.compute_features">
-<code class="descname">compute_features</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>sorted=True</em>, <em>lgm_sims=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/featuresConstruction.html#Features.compute_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.featuresConstruction.Features.compute_features" title="Permalink to this definition">¶</a></dt>
+<dt id="src.features.Features.compute_features">
+<code class="descname">compute_features</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>sorted=True</em>, <em>lgm_sims=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/features.html#Features.compute_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.features.Features.compute_features" title="Permalink to this definition">¶</a></dt>
 <dd><p>Depending on the group assigned to parameter <a class="reference internal" href="config.html#src.config.MLConf.classification_method" title="src.config.MLConf.classification_method"><code class="xref py py-attr docutils literal notranslate"><span class="pre">classification_method</span></code></a>,
 this method builds an ndarray of the following groups of features:</p>
 <ul class="simple">

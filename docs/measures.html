@@ -505,6 +505,32 @@ each term list’ score is of equal significance to the final score. Default val
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="src.sim_measures.avg_lgm_sim">
+<code class="descclassname">src.sim_measures.</code><code class="descname">avg_lgm_sim</code><span class="sig-paren">(</span><em>str1</em>, <em>str2</em>, <em>metric='damerau_levenshtein'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sim_measures.html#avg_lgm_sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.sim_measures.avg_lgm_sim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements LGM-Sim metric where <em>avg</em> flag is True.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str1, str2</strong> (<em>str</em>) – Input values in unicode.</li>
+<li><strong>metric</strong> (<em>str, optional</em>) – Similarity metric used, as internal one, to split toponyms in the two distinct lists that contains base and
+mismatch terms respectively. Each of the above supported metrics can be used as input.
+Default metric is <a class="reference internal" href="#src.sim_measures.damerau_levenshtein" title="src.sim_measures.damerau_levenshtein"><code class="xref py py-attr docutils literal notranslate"><span class="pre">damerau_levenshtein</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A similarity score normalized in range [0,1].</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div></blockquote>
 <p><a class="reference internal" href="index.html#mastertoc"><span class="std std-ref">Return Home</span></a></p>
 </div>

@@ -1,7 +1,7 @@
 features
 ========
 
-    .. autoclass:: src.featuresConstruction.Features
+    .. autoclass:: src.features.Features
        :members:
 
 :ref:`Return Home <mastertoc>`
