@@ -4,13 +4,13 @@
 
 import pandas as pd
 import numpy as np
-import config
+from src import config
 from itertools import chain
 import os
 import glob
 
-from helpers import transform, getBasePath
-from sim_measures import LGMSimVars, lgm_sim_lterms, score_per_term, weighted_sim, algnms_to_func
+from src.helpers import transform, getBasePath
+from src.sim_measures import LGMSimVars, lgm_sim_lterms, score_per_term, weighted_sim, algnms_to_func
 
 
 class Features:
@@ -58,7 +58,7 @@ class Features:
         self.data_df = None
 
     def load_data(self, fname, encoding):
-        self.data_df = pd.read_csv(fname, sep='\t', names=self.fields, dtype=self.dtypes, na_filter=False)
+        self.data_df = pd.read_csv(fname, sep='\t', names=self.fields, dtype=self.dtypes, na_filter=False, encoding='utf8')
         self._get_freqterms(encoding)
 
     def build(self):

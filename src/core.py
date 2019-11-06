@@ -5,9 +5,9 @@
 from __future__ import print_function
 import time
 
-import param_tuning
-import config
-from features import Features
+from src import param_tuning
+from src import config
+from src.features import Features
 
 
 class StrategyEvaluator:

@@ -1,7 +1,7 @@
 # Author: vkaff
 # E-mail: vkaffes@imis.athena-innovation.gr
 
-import config
+from src import config
 import numpy as np
 
 from sklearn.svm import SVC
@@ -31,15 +31,15 @@ class ParamTuning:
     * eXtreme Gradient Boosting (XGBoost)
     """
     clf_names = {
-        'SVM': [SVC, config.MLConf.SVM_hyperparameters, config.MLConf.SVM_hyperparameters_dist],
+        # 'SVM': [SVC, config.MLConf.SVM_hyperparameters, config.MLConf.SVM_hyperparameters_dist],
         'Decision Tree': [DecisionTreeClassifier, config.MLConf.DecisionTree_hyperparameters,
                           config.MLConf.DecisionTree_hyperparameters_dist],
-        'MLP': [MLPClassifier, config.MLConf.MLP_hyperparameters, config.MLConf.MLP_hyperparameters_dist],
-        'Random Forest': [RandomForestClassifier, config.MLConf.RandomForest_hyperparameters,
-                          config.MLConf.RandomForest_hyperparameters_dist],
-        'Extra-Trees': [ExtraTreesClassifier, config.MLConf.RandomForest_hyperparameters,
-                        config.MLConf.RandomForest_hyperparameters_dist],
-        'XGBoost': [XGBClassifier, config.MLConf.XGBoost_hyperparameters, config.MLConf.XGBoost_hyperparameters_dist]
+        # 'MLP': [MLPClassifier, config.MLConf.MLP_hyperparameters, config.MLConf.MLP_hyperparameters_dist],
+        # 'Random Forest': [RandomForestClassifier, config.MLConf.RandomForest_hyperparameters,
+        #                   config.MLConf.RandomForest_hyperparameters_dist],
+        # 'Extra-Trees': [ExtraTreesClassifier, config.MLConf.RandomForest_hyperparameters,
+        #                 config.MLConf.RandomForest_hyperparameters_dist],
+        # 'XGBoost': [XGBClassifier, config.MLConf.XGBoost_hyperparameters, config.MLConf.XGBoost_hyperparameters_dist]
     }
 
     scores = ['accuracy']

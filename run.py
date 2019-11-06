@@ -39,7 +39,7 @@ import src.config as config
 
 def main(args):
     UTF8Writer = codecs.getwriter('utf8')
-    sys.stdout = UTF8Writer(sys.stdout)
+    # sys.stdout = UTF8Writer(sys.stdout)
 
     LGMSimVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
 
@@ -55,5 +55,5 @@ def main(args):
 
 
 if __name__ == "__main__":
-    arguments = docopt(__doc__, version='LGM-Interlinking 0.1.1')
+    arguments = docopt(__doc__, version='LGM-Interlinking 0.2.0')
     main(arguments)

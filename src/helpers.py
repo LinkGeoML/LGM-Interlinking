@@ -1,14 +1,15 @@
-# -*- coding: utf-8 -*-
+# coding= utf-8
 # Author: vkaff
 # E-mail: vkaffes@imis.athena-innovation.gr
 
+import six
 import os
 import re
 from text_unidecode import unidecode
 import __main__
 
-from sim_measures import strip_accents, algnms_to_func
-import config
+from src.sim_measures import strip_accents, algnms_to_func
+from src import config
 
 
 punctuation_regex = re.compile(u'[‘’“”\'"!?;/⧸⁄‹›«»`ʿ,.-]')
@@ -25,8 +26,8 @@ def ascii_transliteration_and_punctuation_strip(s):
 
 
 def transform(s1, s2, sorting=False, canonical=False, delimiter=' ', thres=config.sort_thres, only_sorting=False):
-    a = s1.decode('utf8') #.lower()
-    b = s2.decode('utf8') #.lower()
+    a = six.text_type(s1) #.lower()
+    b = six.text_type(s2) #.lower()
 
     if canonical:
         a = ascii_transliteration_and_punctuation_strip(a)
