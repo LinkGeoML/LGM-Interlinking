@@ -17,6 +17,7 @@ xgboost = "*"
 text-unidecode = "*"
 docopt = "*"
 wheel = "*"
+setuptools = "*"
 
 [requires]
 python_version = "3.7"
