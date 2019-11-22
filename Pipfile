@@ -18,6 +18,7 @@ text-unidecode = "*"
 docopt = "*"
 wheel = "*"
 setuptools = "*"
+tqdm = "*"
 
 [requires]
 python_version = "3.7"
