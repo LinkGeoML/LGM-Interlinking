@@ -28,7 +28,7 @@ import unicodedata
 from alphabet_detector import AlphabetDetector
 import pycountry_convert
 import jellyfish
-# import pyxdameraulevenshtein
+import pyxdameraulevenshtein
 from tqdm import tqdm
 
 
@@ -92,7 +92,7 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
     lastname2 = None
     lastid = None
     # country = None
-    skip = random.randint(10, 100)
+    skip = random.randint(10, 10000)
     file = open(getRelativePathtoWorking(os.path.join('data', output)), "w+")
     max_no_attempts = 1000
     totalrows = 0
