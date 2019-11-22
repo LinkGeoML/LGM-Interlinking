@@ -214,7 +214,7 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
                         curr_attempt += 1
                         if curr_attempt > max_no_attempts: break
                     if curr_attempt > max_no_attempts:
-                        print("Failed to find alternative names...")
+                        print("Failed to find alternative names for {}...".format(id))
                         lastid = id
                         lastname2 = randomname2
                         firstcountry = country
