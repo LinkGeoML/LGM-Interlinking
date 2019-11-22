@@ -94,7 +94,7 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
     # country = None
     skip = random.randint(10, 10000)
     file = open(getRelativePathtoWorking(os.path.join('data', output)), "w+")
-    max_no_attempts = 1000
+    max_no_attempts = 500
     totalrows = 0
 
     for input in datasets:
