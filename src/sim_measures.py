@@ -62,7 +62,7 @@ fields = ["geonameid",
 
 def check_alphabet(str, alphabet, only=True):
     ad = AlphabetDetector()
-    uni_string = six.text_type(str, "utf-8")
+    uni_string = six.text_type(str)
     if only:
         return ad.only_alphabet_chars(uni_string, alphabet.upper())
     else:
@@ -73,7 +73,7 @@ def check_alphabet(str, alphabet, only=True):
 
 def detect_alphabet(str):
     ad = AlphabetDetector()
-    uni_string = six.text_type(str, "utf-8")
+    uni_string = six.text_type(str)
     ab = ad.detect_alphabet(uni_string)
     if "CYRILLIC" in ab:
         return "CYRILLIC"
@@ -135,7 +135,7 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
             for row in reader:
                 names = set([name.strip() for name in ("" + row['alternatenames']).split(",") if len(name.strip()) > 2])
                 if len(row['name'].strip()) > 2: names.add(row['name'].strip())
-                if len(six.text_type(row['asciiname'], "utf-8").strip()) > 2: names.add(row['asciiname'].strip())
+                if len(six.text_type(row['asciiname']).strip()) > 2: names.add(row['asciiname'].strip())
 
                 # nonLATIN = False
                 if only_latin:
@@ -246,12 +246,12 @@ def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
     for line in open(getRelativePathtoWorking(os.path.join("data", input))):
         splitted = line.split('\t')
         if not (splitted[2] == "TRUE" or splitted[2] == "FALSE") or \
-                not (len(six.text_type(splitted[7], "utf-8")) == 2 and len(six.text_type(splitted[8], "utf-8")) == 3) or \
+                not (len(six.text_type(splitted[7])) == 2 and len(six.text_type(splitted[8])) == 3) or \
                 not (splitted[5] != "UND" and splitted[6] != "UND") or \
                 not (splitted[3].isdigit() and splitted[4].isdigit()) or \
                 len(splitted) != 9 or \
-                len(six.text_type(splitted[1], "utf-8")) < 3 or \
-                len(six.text_type(splitted[0], "utf-8")) < 3:
+                len(six.text_type(splitted[1])) < 3 or \
+                len(six.text_type(splitted[0])) < 3:
             continue
         if '\tTRUE\t' in line:
             pos.append(line)
