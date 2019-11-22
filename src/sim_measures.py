@@ -21,6 +21,7 @@ import math
 import random
 import itertools
 import re
+import __main__
 
 import numpy as np
 import unicodedata
@@ -29,7 +30,13 @@ import pycountry_convert
 import jellyfish
 import pyxdameraulevenshtein
 
-import helpers
+
+def getBasePath():
+    return os.path.abspath(os.path.dirname(__main__.__file__))
+
+
+def getRelativePathtoWorking(ds):
+    return os.path.join(getBasePath(), ds)
 
 
 fields = ["geonameid",
@@ -85,11 +92,11 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
     lastid = None
     # country = None
     skip = random.randint(10, 100)
-    file = open(helpers.getRelativePathtoWorking(os.path.join('data', output)), "w+")
+    file = open(getRelativePathtoWorking(os.path.join('data', output)), "w+")
     max_no_attempts = 1000
 
     for input in datasets:
-        input = helpers.getRelativePathtoWorking(os.path.join('data', input))
+        input = getRelativePathtoWorking(os.path.join('data', input))
         if not os.path.isfile(input):
             print("File {0} does not exist".format(input))
             continue
@@ -234,9 +241,9 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
 def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
     pos = []
     neg = []
-    file = open(helpers.getRelativePathtoWorking(os.path.join("data", "dataset-string-similarity.txt")), "w+")
+    file = open(getRelativePathtoWorking(os.path.join("data", "dataset-string-similarity.txt")), "w+")
     print("Filtering for {0}...".format(num_instances * 2))
-    for line in open(helpers.getRelativePathtoWorking(os.path.join("data", input))):
+    for line in open(getRelativePathtoWorking(os.path.join("data", input))):
         splitted = line.split('\t')
         if not (splitted[2] == "TRUE" or splitted[2] == "FALSE") or \
                 not (len(six.text_type(splitted[7], "utf-8")) == 2 and len(six.text_type(splitted[8], "utf-8")) == 3) or \
