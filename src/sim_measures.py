@@ -29,6 +29,8 @@ import pycountry_convert
 import jellyfish
 import pyxdameraulevenshtein
 
+from src.helpers import getRelativePathtoWorking
+
 
 fields = ["geonameid",
           "name",
@@ -72,7 +74,7 @@ def detect_alphabet(str):
 
 
 # The geonames dataset can be obtained from http://download.geonames.org/export/dump/allCountries.zip
-def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=False):
+def build_dataset_from_geonames(output='data/dataset-unfiltered.txt', only_latin=False):
     # remove dupls after running this script
     # cat -n dataset-string-similarity.txt | sort -k2 -k1n | uniq -f1 | sort -nk1,1 | cut -f2-
     datasets = ['allCountries.txt']
@@ -87,6 +89,7 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
     max_no_attempts = 1000
 
     for input in datasets:
+        input = getRelativePathtoWorking(os.path.join('data', input))
         if not os.path.isfile(input):
             print("File {0} does not exist".format(input))
             continue
