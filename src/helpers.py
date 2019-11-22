@@ -27,7 +27,7 @@ def ascii_transliteration_and_punctuation_strip(s):
 
 def transform(s1, s2, sorting=False, canonical=False, delimiter=' ', thres=config.sort_thres, only_sorting=False):
     a = six.text_type(s1) #.lower()
-    b = six.text_type(s2) #.lower()
+    b = six.text_type(s2)
 
     if canonical:
         a = ascii_transliteration_and_punctuation_strip(a)

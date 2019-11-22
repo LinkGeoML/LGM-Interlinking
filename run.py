@@ -20,6 +20,7 @@ Command line::
         --dtest <fpath>             relative path to the test dataset. If this is null, the assigned
                                     value to `test_dataset` parameter in config.py is used instead.
         -e <encoding_type>          specify the encoding of toponyms in datasets. [default: global].
+        --build                     build the dataset for evaluation.
 
     Arguments:
         encoding_type               global
@@ -28,18 +29,22 @@ Command line::
 """
 
 import os, sys
-import codecs
+# import codecs
 from docopt import docopt
 
 from src.core import StrategyEvaluator
 from src.helpers import getRelativePathtoWorking, StaticValues
-from src.sim_measures import LGMSimVars
+from src.sim_measures import LGMSimVars, build_dataset
 import src.config as config
 
 
 def main(args):
-    UTF8Writer = codecs.getwriter('utf8')
+    # UTF8Writer = codecs.getwriter('utf8')
     # sys.stdout = UTF8Writer(sys.stdout)
+
+    if args['--build']:
+        build_dataset(args['-e'])
+        sys.exit(0)
 
     LGMSimVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
 
@@ -55,5 +60,5 @@ def main(args):
 
 
 if __name__ == "__main__":
-    arguments = docopt(__doc__, version='LGM-Interlinking 0.2.0')
+    arguments = docopt(__doc__, version='LGM-Interlinking 0.2.1')
     main(arguments)

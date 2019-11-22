@@ -75,7 +75,7 @@ def detect_alphabet(str):
 def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=False):
     # remove dupls after running this script
     # cat -n dataset-string-similarity.txt | sort -k2 -k1n | uniq -f1 | sort -nk1,1 | cut -f2-
-    datasets = ['allCountries.txt', 'cities5000.txt', 'cities500.txt']
+    datasets = ['allCountries.txt']
 
     csv.field_size_limit(sys.maxsize)
     lastname = None
@@ -112,7 +112,7 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
                                 names.remove(n)
                                 print(e.message)
 
-                if len(names) < 5: continue
+                if len(names) < 4: continue
                 lastid = row['geonameid']
                 firstcountry = row['country_code']
                 lastname = random.sample(names, 1)[0]
@@ -140,7 +140,7 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
                                 names.remove(n)
                                 print(e.message)
 
-                if len(names) < 3: continue
+                if len(names) < 2: continue
                 id = row['geonameid']
                 country = row['country_code']
                 randomname1 = random.sample(names, 1)[0]
@@ -185,7 +185,7 @@ def build_dataset_from_geonames(output='dataset-unfiltered.txt', only_latin=Fals
                     file.write(lastname + "\t" + randomname3 + "\tFALSE\t" + lastid + "\t" + id + "\t" + detect_alphabet(
                     lastname) + "\t" + detect_alphabet(randomname3) + "\t" + firstcountry + "\t" + country + "\n")
                 lastname = randomname1
-                if len(names) < 5:
+                if len(names) < 4:
                     lastid = id
                     lastname2 = randomname2
                     firstcountry = country
@@ -254,6 +254,11 @@ def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
         file.write(neg[i])
     print("Filtering ended with {0}.".format(min(num_instances * 2, len(pos) + len(neg))))
     file.close()
+
+
+def build_dataset(encoding='global'):
+    build_dataset_from_geonames(only_latin=True if encoding.lower() == 'latin' else False)
+    # filter_dataset()
 
 
 def skipgrams(sequence, n, k):
