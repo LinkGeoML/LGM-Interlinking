@@ -55,7 +55,9 @@ def main(args):
         else getRelativePathtoWorking(args['--dtrain'])
     if os.path.isfile(d_test) and os.path.isfile(d_train):
         seval = StrategyEvaluator(args['-e'])
-        seval.hyperparamTuning(d_train, d_test)
+
+        if args['--customparams']: seval.exec_classifiers()
+        else: seval.hyperparamTuning(d_train, d_test)
     else:
         print("File {0} and/or {1} is not found!!!\n".format(d_test, d_train))
 
