@@ -17,6 +17,9 @@ test_dataset = 'data/dataset-string-similarity.txt'
 #: below the assigned threshold.
 sort_thres = 0.55
 
+#: int: Seed used by each of the random number generators.
+seed_no = 13
+
 
 class MLConf:
     """
@@ -55,7 +58,7 @@ class MLConf:
     #: int: The number of inner folds that splits the dataset for the k-fold cross-validation.
     kfold_inner_parameter = 4
 
-    n_jobs = -1  #: int: Number of parallel jobs to be initiated. -1 means to utilize all available processors.
+    n_jobs = 4  #: int: Number of parallel jobs to be initiated. -1 means to utilize all available processors.
 
     classification_method = 'lgm'
     """str: The classification group of features to use. (*basic* | *basic_sorted* | *lgm*).
@@ -74,8 +77,67 @@ class MLConf:
     :func:`~src.param_tuning.ParamTuning.getBestClassifier`, :func:`~src.param_tuning.ParamTuning.fineTuneClassifier` 
     Details on available inputs.       
     """
-    #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to 'randomized'.
+    #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_
+    #: search_method` equals to 'randomized'.
     max_iter = 250
+
+    classifiers = [
+        # 'SVM',
+        # 'DecisionTree',
+        'RandomForest',
+        # 'ExtraTrees',
+        # 'XGBoost',
+        # 'MLP'
+    ]
+    """list of str: Define the classifiers to apply on code execution. Accepted values are: 
+
+    - SVM 
+    - DecisionTree
+    - RandomForest
+    - ExtraTrees
+    - XGBoost
+    - MLP.
+    """
+
+    score = 'accuracy'
+    """str: The metric to optimize on hyper-parameter tuning. Possible valid values presented on `Scikit predefined values`_. 
+
+    .. _Scikit predefined values:
+        https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values
+    """
+
+    clf_custom_params = {
+        'SVM': {
+            'gamma': 0.2456161956918959, 'max_iter': 3000, 'C': 199.0212721894755, 'kernel': 'rbf',
+            'class_weight': None, 'tol': 0.0001, 'degree': 2,
+            'random_state': seed_no
+        },
+        'DecisionTree': {
+            'max_features': 7, 'max_depth': 50, 'min_samples_split': 0.5138831080474099,
+            'min_samples_leaf': 0.12655804022659994, 'class_weight': {1: 1, 4: 4},
+            'random_state': seed_no,
+        },
+        'RandomForest': {
+            'max_depth': 77, 'min_samples_split': 8, 'min_samples_leaf': 2, 'bootstrap': False, 'criterion': 'entropy',
+            'n_estimators': 459, 'max_features': 'log2', 'class_weight': {1: 1, 4: 7},
+            'random_state': seed_no, 'n_jobs': n_jobs,  # 'oob_score': True,
+        },
+        'ExtraTrees': {
+            'class_weight': {1: 1, 4: 4}, 'max_depth': 98, 'criterion': 'gini', 'bootstrap': False,
+            'min_samples_leaf': 1, 'max_features': 'sqrt', 'min_samples_split': 4, 'n_estimators': 887,
+            'random_state': seed_no, 'n_jobs': n_jobs
+        },
+        'XGBoost': {
+            'n_estimators': 1638, 'colsample_bytree': 0.8721685761725149, 'min_child_weight': 2, 'gamma': 1,
+            'max_depth': 79, 'eta': 0.03649597209843184, 'subsample': 0.957596136356163, 'scale_pos_weight': 1,
+            'seed': seed_no, 'nthread': n_jobs
+        },
+        'MLP': {
+            'tol': 0.0001, 'learning_rate_init': 0.06794912926673598, 'max_iter': 1000, 'activation': 'logistic',
+            'solver': 'lbfgs',
+            'random_state': seed_no,
+        },
+    }
 
     # These parameters constitute the search space for GridSearchCV in our experiments.
     SVM_hyperparameters = [

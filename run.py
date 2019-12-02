@@ -20,6 +20,7 @@ Command line::
         --dtest <fpath>             relative path to the test dataset. If this is null, the assigned
                                     value to `test_dataset` parameter in config.py is used instead.
         -e <encoding_type>          specify the encoding of toponyms in datasets. [default: global].
+        --customparams              run classifiers with custom hyper-parameters defined in config.py file [default: False].
         --build                     build the dataset for evaluation.
 
     Arguments:

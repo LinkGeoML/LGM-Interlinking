@@ -4,9 +4,9 @@ docopt==0.6.2
 jellyfish==0.6.1
 alphabet_detector==0.0.7
 pandas==0.23.0
-pyxDamerauLevenshtein==1.4.1
 scipy==1.2.1
 text_unidecode==1.2
 kitchen==1.2.5
 scikit_learn==0.20.3
 xgboost==0.82
+pyxDamerauLevenshtein==1.4.1
