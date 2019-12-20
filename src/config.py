@@ -3,15 +3,18 @@
 
 import numpy as np
 from scipy.stats import randint as sp_randint, expon, truncnorm
+import warnings
+
+warnings.filterwarnings(action='ignore', category=FutureWarning)
 
 
 #: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.
-train_dataset = 'data/dataset-string-similarity_global_1k.csv'
+train_dataset = 'data/dataset-string-similarity_global_20k.csv'
 # train_dataset = 'data/dataset-string-similarity_latin_EU_NA_1k.txt'
 # train_dataset = 'data/dataset-string-similarity-100.csv'
 
 #: Relative path to the test dataset. This value is used only when the *dtest* cmd argument is None.
-test_dataset = 'data/dataset-string-similarity.txt'
+test_dataset = 'data/dataset-string-similarity_20k.csv'
 
 #: float: Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score
 #: below the assigned threshold.
@@ -80,14 +83,16 @@ class MLConf:
     #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_
     #: search_method` equals to 'randomized'.
     max_iter = 250
+    feature_selection = True
+    feature_selection_method = 'VarianceThreshold'
 
     classifiers = [
         # 'SVM',
         # 'DecisionTree',
         'RandomForest',
-        # 'ExtraTrees',
-        # 'XGBoost',
-        # 'MLP'
+        #'ExtraTrees',
+        #'XGBoost',
+        #'MLP'
     ]
     """list of str: Define the classifiers to apply on code execution. Accepted values are: 
 
@@ -192,7 +197,7 @@ class MLConf:
     }
     RandomForest_hyperparameters_dist = {
         'bootstrap': [True, False],
-        'max_depth': [10, 20, 30, 40, 50, 60, 100, None],
+        'max_depth': [10,  60, 100,20, 30, 40, 50, None],
         'criterion': ['gini', 'entropy'],
         'max_features': ['sqrt', 'log2'],  # sp_randint(1, 11)
         'min_samples_leaf': sp_randint(1, 5),
@@ -214,3 +219,28 @@ class MLConf:
         'max_iter': [300, 500, 1000],
         'solver': ['sgd', 'adam']
     }
+    """
+    Feature selection hyperparameters
+    """
+
+    SelectKbest_hyperparameters = {
+        'selection__k': [.9, .85, .95]
+    }
+
+    VT_hyperparameters = [
+        {
+            'selection__threshold': [0.02, 0.05, 0.07]
+        }
+    ]
+
+    PCA_hyperparameters = [
+        {
+            'selection__n_components': [.9, .8, .7]
+        }
+    ]
+    SelectFromModel_hyperparameters = [
+        {
+            'selection__threshold': [0.003, '0.5*median', '0.1*median']
+        }
+    ]
+

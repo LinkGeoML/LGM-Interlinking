@@ -8,6 +8,9 @@ import time
 from src import param_tuning
 from src import config
 from src.features import Features
+import warnings
+
+warnings.filterwarnings(action='ignore', category=FutureWarning)
 
 
 class StrategyEvaluator:
@@ -31,30 +34,31 @@ class StrategyEvaluator:
 
         tot_time = time.time(); start_time = time.time()
         f.load_data(train_data, self.encoding)
-        fX, y = f.build()
+        X_train, y_train = f.build()
         print("Loaded train dataset and build features for {} setup; {} sec.".format(
             config.MLConf.classification_method, time.time() - start_time))
 
         start_time = time.time()
+        f.load_data(test_data, self.encoding)
+        X_test, y_test = f.build()
+        print("Loaded test dataset and build features; {} sec".format(time.time() - start_time))
+
+        start_time = time.time()
         # 1st phase: find out best classifier from a list of candidate ones
-        best_clf = pt.fineTuneClassifiers(fX, y)
+        best_clf, X_train, X_test = pt.fineTuneClassifiers(X_train, y_train, X_test)
+
         print("Best classifier {} with hyperparams {} and score {}; {} sec.".format(
             best_clf['classifier'], best_clf['hyperparams'], best_clf['score'], time.time() - start_time)
         )
 
         start_time = time.time()
         # 2nd phase: train the fine tuned best classifier on the whole train dataset (no folds)
-        estimator = pt.trainClassifier(fX, y, best_clf['estimator'])
+        estimator = pt.trainClassifier(X_train, y_train, best_clf['estimator'])
         print("Finished training model on the dataset; {} sec.".format(time.time() - start_time))
 
         start_time = time.time()
-        f.load_data(test_data, self.encoding)
-        fX, y = f.build()
-        print("Loaded test dataset and build features; {} sec".format(time.time() - start_time))
-
-        start_time = time.time()
         # 4th phase: test the fine tuned best classifier on the test dataset
-        acc, pre, rec, f1 = pt.testClassifier(fX, y, estimator)
+        acc, pre, rec, f1 = pt.testClassifier(X_test, y_test, estimator)
         self._print_stats({
             'classifier': best_clf['classifier'], 'accuracy': acc, 'precision': pre, 'recall': rec, 'f1_score': f1,
             'time': start_time
