@@ -207,8 +207,32 @@ effective toponym matching. <em>International journal of digital earth</em>, 11(
 <div class="section" id="license">
 <h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
 <p>LGM-Interlinking is available under the MIT License.</p>
-<div class="section" id="how-to-use">
-<h4>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="module-run">
+<span id="how-to-use"></span><h4>How to use<a class="headerlink" href="#module-run" title="Permalink to this headline">¶</a></h4>
+<p>A complete pipeline of processes for features extraction and training/evaluating state-of-the-art classifiers for
+toponym interlinking.</p>
+<p>Command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Usage:
+  run.py [options]
+  run.py (-h | --help)
+  run.py --version
+
+Options:
+    -h --help                   show this screen.
+    --version                   show version.
+    --dtrain &lt;fpath&gt;            relative path to the train dataset. If this is null, the assigned
+                                value to `train_dataset` parameter in config.py is used instead.
+    --dtest &lt;fpath&gt;             relative path to the test dataset. If this is null, the assigned
+                                value to `test_dataset` parameter in config.py is used instead.
+    -e &lt;encoding_type&gt;          specify the encoding of toponyms in datasets. [default: global].
+    --customparams              run classifiers with custom hyper-parameters defined in config.py file [default: False].
+    --build                     build the dataset for evaluation.
+
+Arguments:
+    encoding_type               global
+                                latin
+</pre></div>
+</div>
 </div>
 <div class="section" id="api-reference">
 <h4>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h4>

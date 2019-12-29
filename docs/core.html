@@ -152,6 +152,35 @@
             
   <div class="section" id="core">
 <h1>core<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><dl class="class">
+<dt id="src.core.StrategyEvaluator">
+<em class="property">class </em><code class="sig-prename descclassname">src.core.</code><code class="sig-name descname">StrategyEvaluator</code><span class="sig-paren">(</span><em class="sig-param">encoding='latin'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/core.html#StrategyEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.core.StrategyEvaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements the pipeline for various strategies.</p>
+<dl class="method">
+<dt id="src.core.StrategyEvaluator.hyperparamTuning">
+<code class="sig-name descname">hyperparamTuning</code><span class="sig-paren">(</span><em class="sig-param">train_data='data/dataset-string-similarity_global_1k.csv'</em>, <em class="sig-param">test_data='data/dataset-string-similarity.txt'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/core.html#StrategyEvaluator.hyperparamTuning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.core.StrategyEvaluator.hyperparamTuning" title="Permalink to this definition">¶</a></dt>
+<dd><p>A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to
+toponym interlinking problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Relative path to the train dataset.</p></li>
+<li><p><strong>test_data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Relative path to the test dataset.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.core.StrategyEvaluator.exec_classifiers">
+<code class="sig-name descname">exec_classifiers</code><span class="sig-paren">(</span><em class="sig-param">train_data='data/dataset-string-similarity_global_1k.csv'</em>, <em class="sig-param">test_data='data/dataset-string-similarity.txt'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/core.html#StrategyEvaluator.exec_classifiers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.core.StrategyEvaluator.exec_classifiers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train and evaluate selected ML algorithms with custom hyper-parameters on dataset.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div></blockquote>
 <p><a class="reference internal" href="index.html#mastertoc"><span class="std std-ref">Return Home</span></a></p>
 </div>
 

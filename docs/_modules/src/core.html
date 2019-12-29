@@ -152,19 +152,19 @@
 <span class="c1"># Author: vkaff</span>
 <span class="c1"># E-mail: vkaffes@imis.athena-innovation.gr</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-<span class="kn">import</span> <span class="nn">param_tuning</span>
-<span class="kn">import</span> <span class="nn">config</span>
-<span class="kn">from</span> <span class="nn">features</span> <span class="k">import</span> <span class="n">Features</span>
+<span class="kn">from</span> <span class="nn">src</span> <span class="kn">import</span> <span class="n">param_tuning</span>
+<span class="kn">from</span> <span class="nn">src</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">src.features</span> <span class="kn">import</span> <span class="n">Features</span>
 
 
 <div class="viewcode-block" id="StrategyEvaluator"><a class="viewcode-back" href="../../core.html#src.core.StrategyEvaluator">[docs]</a><span class="k">class</span> <span class="nc">StrategyEvaluator</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class implements the pipeline for various strategies.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">encoding</span>
 
 <div class="viewcode-block" id="StrategyEvaluator.hyperparamTuning"><a class="viewcode-back" href="../../core.html#src.core.StrategyEvaluator.hyperparamTuning">[docs]</a>    <span class="k">def</span> <span class="nf">hyperparamTuning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="o">=</span><span class="s1">&#39;data/dataset-string-similarity_global_1k.csv&#39;</span><span class="p">,</span> <span class="n">test_data</span><span class="o">=</span><span class="s1">&#39;data/dataset-string-similarity.txt&#39;</span><span class="p">):</span>
@@ -187,18 +187,14 @@
 
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="c1"># 1st phase: find out best classifier from a list of candidate ones</span>
-        <span class="n">best_clf</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">getBestClassifier</span><span class="p">(</span><span class="n">fX</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best classifier is </span><span class="si">{}</span><span class="s2"> with score </span><span class="si">{}</span><span class="s2">; </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">],</span> <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+        <span class="n">best_clf</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fineTuneClassifiers</span><span class="p">(</span><span class="n">fX</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best classifier </span><span class="si">{}</span><span class="s2"> with hyperparams </span><span class="si">{}</span><span class="s2"> and score </span><span class="si">{}</span><span class="s2">; </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">],</span> <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;hyperparams&#39;</span><span class="p">],</span> <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="c1">#  2nd phase: fine tune the best classifier in previous step</span>
-        <span class="n">estimator</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fineTuneClassifier</span><span class="p">(</span><span class="n">fX</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">best_clf</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best hyperparams, </span><span class="si">{}</span><span class="s2">, with score </span><span class="si">{}</span><span class="s2">; </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
-
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="c1"># 3nd phase: train the fine tuned best classifier on the whole train dataset (no folds)</span>
-        <span class="n">estimator</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">trainClassifier</span><span class="p">(</span><span class="n">fX</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">estimator</span><span class="p">)</span>
+        <span class="c1"># 2nd phase: train the fine tuned best classifier on the whole train dataset (no folds)</span>
+        <span class="n">estimator</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">trainClassifier</span><span class="p">(</span><span class="n">fX</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;estimator&#39;</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished training model on the dataset; </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
 
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -207,13 +203,74 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loaded test dataset and build features; </span><span class="si">{}</span><span class="s2"> sec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
 
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="c1"># 4th phase: test the fine tuned best classifier on the test dataset</span>
+        <span class="c1"># 3th phase: test the fine tuned best classifier on the test dataset</span>
         <span class="n">acc</span><span class="p">,</span> <span class="n">pre</span><span class="p">,</span> <span class="n">rec</span><span class="p">,</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">testClassifier</span><span class="p">(</span><span class="n">fX</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">estimator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print_stats</span><span class="p">({</span>
+            <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">],</span> <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">acc</span><span class="p">,</span> <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="n">pre</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">:</span> <span class="n">rec</span><span class="p">,</span> <span class="s1">&#39;f1_score&#39;</span><span class="p">:</span> <span class="n">f1</span><span class="p">,</span>
+            <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">start_time</span>
+        <span class="p">})</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The whole process took </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tot_time</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="StrategyEvaluator.exec_classifiers"><a class="viewcode-back" href="../../core.html#src.core.StrategyEvaluator.exec_classifiers">[docs]</a>    <span class="k">def</span> <span class="nf">exec_classifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="o">=</span><span class="s1">&#39;data/dataset-string-similarity_global_1k.csv&#39;</span><span class="p">,</span> <span class="n">test_data</span><span class="o">=</span><span class="s1">&#39;data/dataset-string-similarity.txt&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Train and evaluate selected ML algorithms with custom hyper-parameters on dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">Features</span><span class="p">()</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="n">param_tuning</span><span class="o">.</span><span class="n">ParamTuning</span><span class="p">()</span>
+
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+        <span class="n">fX_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loaded train dataset and build features for </span><span class="si">{}</span><span class="s2"> setup; </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">classification_method</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+        <span class="n">fX_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loaded test dataset and build features; </span><span class="si">{}</span><span class="s2"> sec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">clf</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">clf_custom_params</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Method </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=======&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span> <span class="o">*</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span>
+
+            <span class="n">tot_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">();</span> <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="c1"># 1st phase: train each classifier on the whole train dataset (no folds)</span>
+            <span class="n">estimator</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">clf</span><span class="p">][</span><span class="mi">0</span><span class="p">](</span><span class="o">**</span><span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">clf_custom_params</span><span class="p">[</span><span class="n">clf</span><span class="p">])</span>
+            <span class="n">estimator</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">trainClassifier</span><span class="p">(</span><span class="n">fX_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">estimator</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished training model on dataset; </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="c1"># 2nd phase: test each classifier on the test dataset</span>
+            <span class="n">acc</span><span class="p">,</span> <span class="n">pre</span><span class="p">,</span> <span class="n">rec</span><span class="p">,</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">testClassifier</span><span class="p">(</span><span class="n">fX_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">estimator</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_print_stats</span><span class="p">({</span>
+                <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="n">clf</span><span class="p">,</span> <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">acc</span><span class="p">,</span> <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="n">pre</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">:</span> <span class="n">rec</span><span class="p">,</span> <span class="s1">&#39;f1_score&#39;</span><span class="p">:</span> <span class="n">f1</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">start_time</span>
+            <span class="p">})</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The whole process took </span><span class="si">{}</span><span class="s2"> sec.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tot_time</span><span class="p">))</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_print_stats</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;| Method</span><span class="se">\t\t</span><span class="s2">&amp; Accuracy</span><span class="se">\t</span><span class="s2">&amp; Precision</span><span class="se">\t</span><span class="s2">&amp; Recall</span><span class="se">\t</span><span class="s2">&amp; F1-Score</span><span class="se">\t</span><span class="s2">&amp; Time (sec)&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;||</span><span class="si">{0}</span><span class="se">\t</span><span class="s2">&amp; </span><span class="si">{1}</span><span class="se">\t</span><span class="s2">&amp; </span><span class="si">{2}</span><span class="se">\t</span><span class="s2">&amp; </span><span class="si">{3}</span><span class="se">\t</span><span class="s2">&amp; </span><span class="si">{4}</span><span class="se">\t</span><span class="s2">&amp; </span><span class="si">{5}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">],</span> <span class="n">acc</span><span class="p">,</span> <span class="n">pre</span><span class="p">,</span> <span class="n">rec</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;recall&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;f1_score&#39;</span><span class="p">],</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]))</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The whole process took </span><span class="si">{}</span><span class="s2"> sec.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tot_time</span><span class="p">))</span></div></div>
+        <span class="c1"># if params[&#39;feature_importances&#39;] is not None:</span>
+        <span class="c1">#     importances = np.ma.masked_equal(params[&#39;feature_importances&#39;], 0.0)</span>
+        <span class="c1">#     if importances.mask is np.ma.nomask: importances.mask = np.zeros(importances.shape, dtype=bool)</span>
+        <span class="c1">#</span>
+        <span class="c1">#     indices = np.argsort(importances.compressed())[::-1][</span>
+        <span class="c1">#               :min(importances.compressed().shape[0], self.max_features_toshow)]</span>
+        <span class="c1">#     headers = [&quot;name&quot;, &quot;score&quot;]</span>
+        <span class="c1">#</span>
+        <span class="c1">#     fcols = StaticValues.featureCols if config.MLConf.extra_features is False \</span>
+        <span class="c1">#         else StaticValues.featureCols + StaticValues.extra_featureCols</span>
+        <span class="c1">#     print(tabulate(zip(</span>
+        <span class="c1">#         np.asarray(fcols, object)[~importances.mask][indices], importances.compressed()[indices]</span>
+        <span class="c1">#     ), headers, tablefmt=&quot;simple&quot;))</span>
+
+        <span class="nb">print</span><span class="p">()</span></div>
 </pre></div>
 
            </div>

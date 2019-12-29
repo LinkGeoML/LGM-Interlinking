@@ -154,13 +154,13 @@
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">config</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">src</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 
-<span class="kn">from</span> <span class="nn">helpers</span> <span class="k">import</span> <span class="n">transform</span><span class="p">,</span> <span class="n">getBasePath</span>
-<span class="kn">from</span> <span class="nn">sim_measures</span> <span class="k">import</span> <span class="n">LGMSimVars</span><span class="p">,</span> <span class="n">lgm_sim_lterms</span><span class="p">,</span> <span class="n">score_per_term</span><span class="p">,</span> <span class="n">weighted_sim</span><span class="p">,</span> <span class="n">algnms_to_func</span>
+<span class="kn">from</span> <span class="nn">src.helpers</span> <span class="kn">import</span> <span class="n">transform</span><span class="p">,</span> <span class="n">getBasePath</span>
+<span class="kn">from</span> <span class="nn">src.sim_measures</span> <span class="kn">import</span> <span class="n">LGMSimVars</span><span class="p">,</span> <span class="n">lgm_sim_lterms</span><span class="p">,</span> <span class="n">score_per_term</span><span class="p">,</span> <span class="n">weighted_sim</span><span class="p">,</span> <span class="n">algnms_to_func</span>
 
 
 <div class="viewcode-block" id="Features"><a class="viewcode-back" href="../../features.html#src.features.Features">[docs]</a><span class="k">class</span> <span class="nc">Features</span><span class="p">:</span>
@@ -203,12 +203,12 @@
         <span class="s1">&#39;FALSE&#39;</span><span class="p">:</span> <span class="kc">False</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clf_method</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">classification_method</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">encoding</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtypes</span><span class="p">,</span> <span class="n">na_filter</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtypes</span><span class="p">,</span> <span class="n">na_filter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_get_freqterms</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Features.build"><a class="viewcode-back" href="../../features.html#src.features.Features.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

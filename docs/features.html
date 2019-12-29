@@ -153,6 +153,84 @@
             
   <div class="section" id="features">
 <h1>features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><dl class="class">
+<dt id="src.features.Features">
+<em class="property">class </em><code class="sig-prename descclassname">src.features.</code><code class="sig-name descname">Features</code><a class="reference internal" href="_modules/src/features.html#Features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.features.Features" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class loads the dataset, frequent terms and builds features that are used as input to supported classification
+groups:</p>
+<ul class="simple">
+<li><p><em>basic</em>: similarity features based on basic similarity measures.</p></li>
+<li><p><em>basic_sorted</em>: similarity features based on sorted version of the basic similarity measures used in <em>basic</em> group.</p></li>
+<li><p><em>lgm</em>: similarity features based on variations of LGM-Sim similarity measures.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#src.features.Features.compute_features" title="src.features.Features.compute_features"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_features()</span></code></a></dt><dd><p>Details on the metrics each classification group implements.</p>
+</dd>
+</dl>
+</div>
+<dl class="method">
+<dt id="src.features.Features.build">
+<code class="sig-name descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/features.html#Features.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.features.Features.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build features depending on the assignment of parameter <a class="reference internal" href="config.html#src.config.MLConf.classification_method" title="src.config.MLConf.classification_method"><code class="xref py py-attr docutils literal notranslate"><span class="pre">classification_method</span></code></a>
+and return values (fX, y) as ndarray of floats.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>fX</strong> (<em>ndarray</em>) – The computed features that will be used as input to ML classifiers.</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – Binary labels {True, False} to train the classifiers.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="src.features.Features.compute_features">
+<code class="sig-name descname">compute_features</code><span class="sig-paren">(</span><em class="sig-param">s1</em>, <em class="sig-param">s2</em>, <em class="sig-param">sorted=True</em>, <em class="sig-param">lgm_sims=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/features.html#Features.compute_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.features.Features.compute_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on the group assigned to parameter <a class="reference internal" href="config.html#src.config.MLConf.classification_method" title="src.config.MLConf.classification_method"><code class="xref py py-attr docutils literal notranslate"><span class="pre">classification_method</span></code></a>,
+this method builds an ndarray of the following groups of features:</p>
+<ul class="simple">
+<li><p><em>basic</em>: various similarity measures, i.e.,
+<a class="reference internal" href="measures.html#src.sim_measures.damerau_levenshtein" title="src.sim_measures.damerau_levenshtein"><code class="xref py py-func docutils literal notranslate"><span class="pre">damerau_levenshtein()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.jaro" title="src.sim_measures.jaro"><code class="xref py py-func docutils literal notranslate"><span class="pre">jaro()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.jaro_winkler" title="src.sim_measures.jaro_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">jaro_winkler()</span></code></a> and the reversed one,
+<a class="reference internal" href="measures.html#src.sim_measures.sorted_winkler" title="src.sim_measures.sorted_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted_winkler()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.cosine" title="src.sim_measures.cosine"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.jaccard" title="src.sim_measures.jaccard"><code class="xref py py-func docutils literal notranslate"><span class="pre">jaccard()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.strike_a_match" title="src.sim_measures.strike_a_match"><code class="xref py py-func docutils literal notranslate"><span class="pre">strike_a_match()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.monge_elkan" title="src.sim_measures.monge_elkan"><code class="xref py py-func docutils literal notranslate"><span class="pre">monge_elkan()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.soft_jaccard" title="src.sim_measures.soft_jaccard"><code class="xref py py-func docutils literal notranslate"><span class="pre">soft_jaccard()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.davies" title="src.sim_measures.davies"><code class="xref py py-func docutils literal notranslate"><span class="pre">davies()</span></code></a>,
+<a class="reference internal" href="measures.html#src.sim_measures.lgm_jaro_winkler" title="src.sim_measures.lgm_jaro_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">lgm_jaro_winkler()</span></code></a> and the reversed one,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">skipgrams()</span></code>.</p></li>
+<li><p><em>basic_sorted</em>: sorted versions of similarity measures utilized in <em>basic</em> group, except for the
+<a class="reference internal" href="measures.html#src.sim_measures.sorted_winkler" title="src.sim_measures.sorted_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted_winkler()</span></code></a>.</p></li>
+<li><p><em>lgm</em>: LGM-Sim variations that integrate, as internal, the similarity measures utilized in <em>basic</em> group,
+except for the <a class="reference internal" href="measures.html#src.sim_measures.sorted_winkler" title="src.sim_measures.sorted_winkler"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted_winkler()</span></code></a>.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s1, s2</strong> (<em>str</em>) – Input toponyms.</p></li>
+<li><p><strong>sorted</strong> (<em>bool, optional</em>) – Value of True indicate to build features for groups <em>basic</em> and <em>basic_sorted</em>, value of False only for <em>basic</em> group.</p></li>
+<li><p><strong>lgm_sims</strong> (<em>bool, optional</em>) – Values of True or False indicate whether to build or not features for group <em>lgm</em>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>It returns a list (vector) of features.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div></blockquote>
 <p><a class="reference internal" href="index.html#mastertoc"><span class="std std-ref">Return Home</span></a></p>
 </div>
 
