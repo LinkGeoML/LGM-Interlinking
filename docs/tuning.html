@@ -156,149 +156,108 @@
 <blockquote>
 <div><dl class="class">
 <dt id="src.param_tuning.ParamTuning">
-<em class="property">class </em><code class="descclassname">src.param_tuning.</code><code class="descname">ParamTuning</code><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">src.param_tuning.</code><code class="sig-name descname">ParamTuning</code><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class provides all main methods for selecting, fine tuning hyperparameters, training and testing the best
 classifier for toponym matching. The following classifiers are examined:</p>
 <ul class="simple">
-<li>Support Vector Machine (SVM)</li>
-<li>Decision Trees</li>
-<li>Multi-Layer Perceptron (MLP)</li>
-<li>Random Forest</li>
-<li>Extra-Trees</li>
-<li>eXtreme Gradient Boosting (XGBoost)</li>
+<li><p>Support Vector Machine (SVM)</p></li>
+<li><p>Decision Trees</p></li>
+<li><p>Multi-Layer Perceptron (MLP)</p></li>
+<li><p>Random Forest</p></li>
+<li><p>Extra-Trees</p></li>
+<li><p>eXtreme Gradient Boosting (XGBoost)</p></li>
 </ul>
 <dl class="method">
-<dt id="src.param_tuning.ParamTuning.getBestClassifier">
-<code class="descname">getBestClassifier</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.getBestClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.getBestClassifier" title="Permalink to this definition">¶</a></dt>
+<dt id="src.param_tuning.ParamTuning.fineTuneClassifiers">
+<code class="sig-name descname">fineTuneClassifiers</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.fineTuneClassifiers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.fineTuneClassifiers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search over specified parameter values for various estimators/classifiers and choose the best one.</p>
 <p>This method searches over specified values and selects the classifier that
 achieves the best avg accuracy score for all evaluations. The supported search methods are:</p>
 <ul class="simple">
-<li><em>GridSearchCV</em>: Exhaustive search over specified parameter values for supported estimators.
-The following variables are defined in <a class="reference internal" href="config.html#src.config.MLConf" title="src.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</li>
+<li><p><em>GridSearchCV</em>: Exhaustive search over specified parameter values for supported estimators.
+The following variables are defined in <a class="reference internal" href="config.html#src.config.MLConf" title="src.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</p></li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">MLP_hyperparameters</span></code></li>
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">RandomForests_hyperparameters</span></code></li>
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">XGBoost_hyperparameters</span></code></li>
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">SVM_hyperparameters</span></code></li>
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">DecisionTree_hyperparameters</span></code></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">MLP_hyperparameters</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">RandomForests_hyperparameters</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">XGBoost_hyperparameters</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">SVM_hyperparameters</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">DecisionTree_hyperparameters</span></code></p></li>
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li><em>RandomizedSearchCV</em>: Randomized search over continuous distribution space. <a class="reference internal" href="config.html#src.config.MLConf.max_iter" title="src.config.MLConf.max_iter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code></a>
+<li><p><em>RandomizedSearchCV</em>: Randomized search over continuous distribution space. <a class="reference internal" href="config.html#src.config.MLConf.max_iter" title="src.config.MLConf.max_iter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code></a>
 defines the number of parameter settings that are sampled. <a class="reference internal" href="config.html#src.config.MLConf.max_iter" title="src.config.MLConf.max_iter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code></a> trades off
-runtime vs quality of the solution. The following variables are defined in <a class="reference internal" href="config.html#src.config.MLConf" title="src.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</li>
+runtime vs quality of the solution. The following variables are defined in <a class="reference internal" href="config.html#src.config.MLConf" title="src.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</p></li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">MLP_hyperparameters_dist</span></code></li>
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">RandomForests_hyperparameters_dist</span></code></li>
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">XGBoost_hyperparameters_dist</span></code></li>
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">SVM_hyperparameters_dist</span></code></li>
-<li><code class="xref py py-attr docutils literal notranslate"><span class="pre">DecisionTree_hyperparameters_dist</span></code></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">MLP_hyperparameters_dist</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">RandomForests_hyperparameters_dist</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">XGBoost_hyperparameters_dist</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">SVM_hyperparameters_dist</span></code></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">DecisionTree_hyperparameters_dist</span></code></p></li>
 </ul>
 </div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>X</strong> (<em>array-like or sparse matrix, shape = [n_samples, n_features]</em>) – The training input samples.</li>
-<li><strong>y</strong> (<em>array-like, shape = [n_samples] or [n_samples, n_outputs]</em>) – The target values, i.e. class labels.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like or sparse matrix, shape = [n_samples, n_features]</em>) – The training input samples.</p></li>
+<li><p><strong>y</strong> (<em>array-like, shape = [n_samples] or [n_samples, n_outputs]</em>) – The target values, i.e. class labels.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> – It returns a dictionary with keys <em>accuracy</em>, i.e., the used similarity score, and <em>classifier</em>, i.e.,
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – It returns a dictionary with keys <em>accuracy</em>, i.e., the used similarity score, and <em>classifier</em>, i.e.,
 the name of the model in reference.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of {<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>}</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="src.param_tuning.ParamTuning.fineTuneClassifier">
-<code class="descname">fineTuneClassifier</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>best_clf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.fineTuneClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.fineTuneClassifier" title="Permalink to this definition">¶</a></dt>
-<dd><p>Search over specified parameter values for an estimator/classifier.</p>
-<p>This method searches over specified values to fine tune hyperparameters for
-best accuracy score. The supported search methods are GridSearchCV and RandomizedSearchCV
-as presented in <a class="reference internal" href="#src.param_tuning.ParamTuning.getBestClassifier" title="src.param_tuning.ParamTuning.getBestClassifier"><code class="xref py py-func docutils literal notranslate"><span class="pre">getBestClassifier()</span></code></a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>X</strong> (<em>array-like or sparse matrix, shape = [n_samples, n_features]</em>) – The training input samples.</li>
-<li><strong>y</strong> (<em>array-like, shape = [n_samples] or [n_samples, n_outputs]</em>) – The target values, i.e. class labels.</li>
-<li><strong>best_clf</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of {<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>}) – A dictionary with values for keys <em>accuracy</em>: score and <em>classifier</em>: its name.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">It returns the estimator, the parameter setting that gave the best results on the X dataset and the mean
-cross-validated score of the estimator.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a>, <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>)</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of {<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>}</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="src.param_tuning.ParamTuning.trainClassifier">
-<code class="descname">trainClassifier</code><span class="sig-paren">(</span><em>X_train</em>, <em>y_train</em>, <em>model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.trainClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.trainClassifier" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">trainClassifier</code><span class="sig-paren">(</span><em class="sig-param">X_train</em>, <em class="sig-param">y_train</em>, <em class="sig-param">model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.trainClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.trainClassifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a classifier from the training set (X_train, y_train).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>X_train</strong> (<em>array-like or sparse matrix, shape = [n_samples, n_features]</em>) – The training input samples.</li>
-<li><strong>y_train</strong> (<em>array-like, shape = [n_samples] or [n_samples, n_outputs]</em>) – The target values, i.e. class labels.</li>
-<li><strong>model</strong> (<em>classifier object</em>) – An instance of a classifier.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X_train</strong> (<em>array-like or sparse matrix, shape = [n_samples, n_features]</em>) – The training input samples.</p></li>
+<li><p><strong>y_train</strong> (<em>array-like, shape = [n_samples] or [n_samples, n_outputs]</em>) – The target values, i.e. class labels.</p></li>
+<li><p><strong>model</strong> (<em>classifier object</em>) – An instance of a classifier.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">It returns a trained classifier.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">classifier object</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>It returns a trained classifier.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>classifier object</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="src.param_tuning.ParamTuning.testClassifier">
-<code class="descname">testClassifier</code><span class="sig-paren">(</span><em>X_test</em>, <em>y_test</em>, <em>model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.testClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.testClassifier" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">testClassifier</code><span class="sig-paren">(</span><em class="sig-param">X_test</em>, <em class="sig-param">y_test</em>, <em class="sig-param">model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.testClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.testClassifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate a classifier on a testing set (X_test, y_test).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>X_test</strong> (<em>array-like or sparse matrix, shape = [n_samples, n_features]</em>) – The training input samples.</li>
-<li><strong>y_test</strong> (<em>array-like, shape = [n_samples] or [n_samples, n_outputs]</em>) – The target values, i.e. class labels.</li>
-<li><strong>model</strong> (<em>classifier object</em>) – A trained classifier.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X_test</strong> (<em>array-like or sparse matrix, shape = [n_samples, n_features]</em>) – The training input samples.</p></li>
+<li><p><strong>y_test</strong> (<em>array-like, shape = [n_samples] or [n_samples, n_outputs]</em>) – The target values, i.e. class labels.</p></li>
+<li><p><strong>model</strong> (<em>classifier object</em>) – A trained classifier.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Returns the computed metrics, i.e., <em>accuracy</em>, <em>precision</em>, <em>recall</em> and <em>f1</em>, for the specified model on the test
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns the computed metrics, i.e., <em>accuracy</em>, <em>precision</em>, <em>recall</em> and <em>f1</em>, for the specified model on the test
 dataset.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>)</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple of (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

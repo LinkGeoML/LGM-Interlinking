@@ -2,7 +2,7 @@
 # E-mail: vkaffes@imis.athena-innovation.gr
 
 import numpy as np
-from scipy.stats import randint as sp_randint, expon, truncnorm
+from scipy.stats import randint as sp_randint, expon, truncnorm, uniform
 
 
 #: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.
@@ -168,14 +168,14 @@ class MLConf:
         "n_estimators": [500, 1000, 3000],
         'max_depth': [3, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         # hyperparameters to avoid overfitting
-        'eta': list(np.linspace(0.01, 0.2, 10)),  # 'learning_rate'
-        'gamma': [0, 1, 5],
+        # 'eta': list(np.linspace(0.01, 0.2, 10)),  # 'learning_rate'
+        # 'gamma': [0, 1, 5],
         'subsample': [0.8, 0.9, 1],
         'colsample_bytree': list(np.linspace(0.3, 1, 8)),
         'min_child_weight': [1, 5, 10],
     }
     MLP_hyperparameters = {
-        'learning_rate_init': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05, 0.1],
+        'learning_rate_init': [0.0001, 0.001, 0.005, 0.01, 0.05, 0.1],
         'max_iter': [300, 500, 1000],
         'solver': ['sgd', 'adam']
     }
@@ -202,15 +202,15 @@ class MLConf:
     XGBoost_hyperparameters_dist = {
         "n_estimators": sp_randint(500, 4000),
         'max_depth': sp_randint(3, 100),
+        # 'eta': expon(loc=0.01, scale=0.1),  # 'learning_rate'
         # hyperparameters to avoid overfitting
-        'eta': expon(loc=0.01, scale=0.1),  # 'learning_rate'
-        'gamma': [0, 1, 5],
+        'gamma': uniform(0, 5),
         'subsample': truncnorm(0.7, 1),
         'colsample_bytree': truncnorm(0, 1),
-        'min_child_weight': [1, 5, 10],
+        'min_child_weight': sp_randint(1, 10),
     }
     MLP_hyperparameters_dist = {
         'learning_rate_init': expon(loc=0.0001, scale=0.1),
-        'max_iter': [300, 500, 1000],
+        'max_iter': sp_randint(300, 1000),
         'solver': ['sgd', 'adam']
     }

@@ -151,21 +151,20 @@
 <span></span><span class="c1"># Author: vkaff</span>
 <span class="c1"># E-mail: vkaffes@imis.athena-innovation.gr</span>
 
-<span class="kn">import</span> <span class="nn">config</span>
+<span class="kn">from</span> <span class="nn">src</span> <span class="kn">import</span> <span class="n">config</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">SVC</span>
-<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="k">import</span> <span class="n">DecisionTreeClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">ExtraTreesClassifier</span>
-<span class="kn">from</span> <span class="nn">xgboost</span> <span class="k">import</span> <span class="n">XGBClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="k">import</span> <span class="n">MLPClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span><span class="p">,</span> <span class="n">RandomizedSearchCV</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">ExtraTreesClassifier</span>
+<span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span><span class="p">,</span> <span class="n">RandomizedSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
 
 
-<span class="n">seed_no</span> <span class="o">=</span> <span class="mi">13</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed_no</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">seed_no</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ParamTuning"><a class="viewcode-back" href="../../tuning.html#src.param_tuning.ParamTuning">[docs]</a><span class="k">class</span> <span class="nc">ParamTuning</span><span class="p">:</span>
@@ -182,26 +181,20 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">clf_names</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;SVM&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">SVC</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">SVM_hyperparameters</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">SVM_hyperparameters_dist</span><span class="p">],</span>
-        <span class="s1">&#39;Decision Tree&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">DecisionTree_hyperparameters</span><span class="p">,</span>
+        <span class="s1">&#39;DecisionTree&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">DecisionTree_hyperparameters</span><span class="p">,</span>
                           <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">DecisionTree_hyperparameters_dist</span><span class="p">],</span>
         <span class="s1">&#39;MLP&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">MLPClassifier</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">MLP_hyperparameters</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">MLP_hyperparameters_dist</span><span class="p">],</span>
-        <span class="s1">&#39;Random Forest&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">RandomForest_hyperparameters</span><span class="p">,</span>
+        <span class="s1">&#39;RandomForest&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">RandomForest_hyperparameters</span><span class="p">,</span>
                           <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">RandomForest_hyperparameters_dist</span><span class="p">],</span>
-        <span class="s1">&#39;Extra-Trees&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ExtraTreesClassifier</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">RandomForest_hyperparameters</span><span class="p">,</span>
+        <span class="s1">&#39;ExtraTrees&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ExtraTreesClassifier</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">RandomForest_hyperparameters</span><span class="p">,</span>
                         <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">RandomForest_hyperparameters_dist</span><span class="p">],</span>
         <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">XGBClassifier</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">XGBoost_hyperparameters</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">XGBoost_hyperparameters_dist</span><span class="p">]</span>
     <span class="p">}</span>
 
-    <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># To be used within GridSearch</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inner_cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">kfold_inner_parameter</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                        <span class="n">random_state</span><span class="o">=</span><span class="n">seed_no</span><span class="p">)</span>
-
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># To be used in outer CV</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outer_cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">kfold_parameter</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                        <span class="n">random_state</span><span class="o">=</span><span class="n">seed_no</span><span class="p">)</span>
+                                        <span class="n">random_state</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">seed_no</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">kfold</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">kfold_parameter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">n_jobs</span>
@@ -209,7 +202,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">search_method</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">hyperparams_search_method</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">max_iter</span>
 
-<div class="viewcode-block" id="ParamTuning.getBestClassifier"><a class="viewcode-back" href="../../tuning.html#src.param_tuning.ParamTuning.getBestClassifier">[docs]</a>    <span class="k">def</span> <span class="nf">getBestClassifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="ParamTuning.fineTuneClassifiers"><a class="viewcode-back" href="../../tuning.html#src.param_tuning.ParamTuning.fineTuneClassifiers">[docs]</a>    <span class="k">def</span> <span class="nf">fineTuneClassifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Search over specified parameter values for various estimators/classifiers and choose the best one.</span>
 
 <span class="sd">        This method searches over specified values and selects the classifier that</span>
@@ -247,116 +240,46 @@
 <span class="sd">            It returns a dictionary with keys *accuracy*, i.e., the used similarity score, and *classifier*, i.e.,</span>
 <span class="sd">            the name of the model in reference.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">hyperparams_data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;KFold&#39;</span><span class="p">:</span> <span class="p">{},</span>
-            <span class="s1">&#39;Avg&#39;</span><span class="p">:</span> <span class="p">[]</span>
-        <span class="p">}</span>
+        <span class="n">hyperparams_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
-        <span class="n">fold</span> <span class="o">=</span> <span class="mi">1</span>
-
-        <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outer_cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-            <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">test_idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span>
-
-            <span class="k">for</span> <span class="n">clf_key</span><span class="p">,</span> <span class="n">clf_val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">clf_key</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">classifiers</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
                 <span class="n">clf</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="k">for</span> <span class="n">score</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
-                        <span class="n">clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
-                            <span class="n">clf_val</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">clf_key</span> <span class="o">==</span> <span class="s1">&#39;SVM&#39;</span> <span class="k">else</span> <span class="n">clf_val</span><span class="p">[</span><span class="mi">0</span><span class="p">](),</span> <span class="n">clf_val</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                            <span class="n">cv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">score</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
-                    <span class="c1"># elif self.search_method.lower() == &#39;hyperband&#39; and clf_key in [&#39;XGBoost&#39;, &#39;Extra-Trees&#39;, &#39;Random Forest&#39;]:</span>
-                    <span class="c1">#     HyperbandSearchCV(</span>
-                    <span class="c1">#         clf_val[0](probability=True) if clf_key == &#39;SVM&#39; else clf_val[0](), clf_val[2].copy().pop(&#39;n_estimators&#39;),</span>
-                    <span class="c1">#         resource_param=&#39;n_estimators&#39;,</span>
-                    <span class="c1">#         min_iter=500 if clf_key == &#39;XGBoost&#39; else 200,</span>
-                    <span class="c1">#         max_iter=3000 if clf_key == &#39;XGBoost&#39; else 1000,</span>
-                    <span class="c1">#         cv=self.inner_cv, random_state=seed_no, scoring=score</span>
-                    <span class="c1">#     )</span>
-                    <span class="k">else</span><span class="p">:</span>  <span class="c1"># randomized is used as default</span>
-                        <span class="n">clf</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span>
-                            <span class="n">clf_val</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">clf_key</span> <span class="o">==</span> <span class="s1">&#39;SVM&#39;</span> <span class="k">else</span> <span class="n">clf_val</span><span class="p">[</span><span class="mi">0</span><span class="p">](),</span> <span class="n">clf_val</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                            <span class="n">cv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">score</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span><span class="p">)</span>
-                    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-
-                <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
+                    <span class="n">clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">clf_key</span><span class="p">][</span><span class="mi">0</span><span class="p">](),</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">clf_key</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                        <span class="n">cv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outer_cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span>
+                    <span class="p">)</span>
+                <span class="c1"># elif self.search_method.lower() == &#39;hyperband&#39; and clf_key in [&#39;XGBoost&#39;, &#39;Extra-Trees&#39;, &#39;Random Forest&#39;]:</span>
+                <span class="c1">#     HyperbandSearchCV(</span>
+                <span class="c1">#         clf_val[0](probability=True) if clf_key == &#39;SVM&#39; else clf_val[0](), clf_val[2].copy().pop(&#39;n_estimators&#39;),</span>
+                <span class="c1">#         resource_param=&#39;n_estimators&#39;,</span>
+                <span class="c1">#         min_iter=500 if clf_key == &#39;XGBoost&#39; else 200,</span>
+                <span class="c1">#         max_iter=3000 if clf_key == &#39;XGBoost&#39; else 1000,</span>
+                <span class="c1">#         cv=self.inner_cv, random_state=seed_no, scoring=score</span>
+                <span class="c1">#     )</span>
+                <span class="k">else</span><span class="p">:</span>  <span class="c1"># randomized is used as default</span>
+                    <span class="n">clf</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">clf_key</span><span class="p">][</span><span class="mi">0</span><span class="p">](),</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">clf_key</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+                        <span class="n">cv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outer_cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">MLConf</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span>
+                    <span class="p">)</span>
+                <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
                 <span class="n">hyperparams_found</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;f1_weighted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
-                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;f1_macro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">)</span>
-                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;fold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fold</span>
-                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;Best Hyperparameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">best_params_</span>
+                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">best_score_</span>
+                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">cv_results_</span>
+                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;hyperparams&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">best_params_</span>
+                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;estimator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">best_estimator_</span>
+                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf_key</span>
+                <span class="n">hyperparams_found</span><span class="p">[</span><span class="s1">&#39;scorers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">scorer_</span>
 
-                <span class="k">if</span> <span class="n">clf_key</span> <span class="ow">in</span> <span class="n">hyperparams_data</span><span class="p">[</span><span class="s1">&#39;KFold&#39;</span><span class="p">]:</span>
-                    <span class="n">hyperparams_data</span><span class="p">[</span><span class="s1">&#39;KFold&#39;</span><span class="p">][</span><span class="n">clf_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hyperparams_found</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">hyperparams_data</span><span class="p">[</span><span class="s1">&#39;KFold&#39;</span><span class="p">][</span><span class="n">clf_key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">hyperparams_found</span><span class="p">]</span>
+                <span class="n">hyperparams_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hyperparams_found</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type error: </span><span class="si">{}</span><span class="s2"> for key: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">clf_key</span><span class="p">))</span>
 
-            <span class="n">fold</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="k">for</span> <span class="n">clf_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">clf_metrics</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-            <span class="n">clf_metrics</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">hyperparams_data</span><span class="p">[</span><span class="s1">&#39;KFold&#39;</span><span class="p">][</span><span class="n">clf_key</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">kfold</span>
-            <span class="n">clf_metrics</span><span class="p">[</span><span class="s1">&#39;f1_weighted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
-                <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;f1_weighted&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">hyperparams_data</span><span class="p">[</span><span class="s1">&#39;KFold&#39;</span><span class="p">][</span><span class="n">clf_key</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">kfold</span>
-            <span class="n">clf_metrics</span><span class="p">[</span><span class="s1">&#39;f1_macro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;f1_macro&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">hyperparams_data</span><span class="p">[</span><span class="s1">&#39;KFold&#39;</span><span class="p">][</span><span class="n">clf_key</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">kfold</span>
-            <span class="n">clf_metrics</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf_key</span>
-
-            <span class="n">hyperparams_data</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clf_metrics</span><span class="p">)</span>
-
-        <span class="n">_</span><span class="p">,</span> <span class="n">best_clf</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">hyperparams_data</span><span class="p">[</span><span class="s1">&#39;Avg&#39;</span><span class="p">]),</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]))</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">best_clf</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">hyperparams_data</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]))</span>
 
         <span class="k">return</span> <span class="n">best_clf</span></div>
-
-<div class="viewcode-block" id="ParamTuning.fineTuneClassifier"><a class="viewcode-back" href="../../tuning.html#src.param_tuning.ParamTuning.fineTuneClassifier">[docs]</a>    <span class="k">def</span> <span class="nf">fineTuneClassifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">best_clf</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Search over specified parameter values for an estimator/classifier.</span>
-
-<span class="sd">        This method searches over specified values to fine tune hyperparameters for</span>
-<span class="sd">        best accuracy score. The supported search methods are GridSearchCV and RandomizedSearchCV</span>
-<span class="sd">        as presented in :func:`getBestClassifier`.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        X: array-like or sparse matrix, shape = [n_samples, n_features]</span>
-<span class="sd">            The training input samples.</span>
-<span class="sd">        y: array-like, shape = [n_samples] or [n_samples, n_outputs]</span>
-<span class="sd">            The target values, i.e. class labels.</span>
-<span class="sd">        best_clf: :obj:`dict` of {:obj:`str`: :obj:`int`, :obj:`str`: :obj:`str`}</span>
-<span class="sd">            A dictionary with values for keys *accuracy*: score and *classifier*: its name.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        tuple of (str, dict, float)</span>
-<span class="sd">            It returns the estimator, the parameter setting that gave the best results on the X dataset and the mean</span>
-<span class="sd">            cross-validated score of the estimator.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">clf</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">for</span> <span class="n">score</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;grid&#39;</span><span class="p">:</span>
-                <span class="n">clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]][</span><span class="mi">0</span><span class="p">](</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SVM&#39;</span>
-                    <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]][</span><span class="mi">0</span><span class="p">](),</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]][</span><span class="mi">1</span><span class="p">],</span>
-                    <span class="n">cv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outer_cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">score</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
-            <span class="c1"># elif self.search_method.lower() == &#39;hyperband&#39; and  best_clf[&#39;classifier&#39;] in [&#39;XGBoost&#39;, &#39;Extra-Trees&#39;, &#39;Random Forest&#39;]:</span>
-            <span class="c1">#     HyperbandSearchCV(</span>
-            <span class="c1">#         self.clf_names[best_clf[&#39;classifier&#39;]][0](probability=True) if best_clf[&#39;classifier&#39;] == &#39;SVM&#39;</span>
-            <span class="c1">#         else self.clf_names[best_clf[&#39;classifier&#39;]][0](),</span>
-            <span class="c1">#         self.clf_names[best_clf[&#39;classifier&#39;]][2].copy().pop(&#39;n_estimators&#39;),</span>
-            <span class="c1">#         resource_param=&#39;n_estimators&#39;,</span>
-            <span class="c1">#         min_iter=500 if best_clf[&#39;classifier&#39;] == &#39;XGBoost&#39; else 200,</span>
-            <span class="c1">#         max_iter=3000 if best_clf[&#39;classifier&#39;] == &#39;XGBoost&#39; else 1000,</span>
-            <span class="c1">#         cv=self.inner_cv, random_state=seed_no, scoring=score</span>
-            <span class="c1">#     )</span>
-            <span class="k">else</span><span class="p">:</span>  <span class="c1"># randomized is used as default</span>
-                <span class="n">clf</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]][</span><span class="mi">0</span><span class="p">](</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SVM&#39;</span>
-                    <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]][</span><span class="mi">0</span><span class="p">](),</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">clf_names</span><span class="p">[</span><span class="n">best_clf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]][</span><span class="mi">2</span><span class="p">],</span>
-                    <span class="n">cv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outer_cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">score</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span><span class="p">)</span>
-            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">clf</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">best_params_</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">best_score_</span></div>
 
 <div class="viewcode-block" id="ParamTuning.trainClassifier"><a class="viewcode-back" href="../../tuning.html#src.param_tuning.ParamTuning.trainClassifier">[docs]</a>    <span class="k">def</span> <span class="nf">trainClassifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Build a classifier from the training set (X_train, y_train).</span>

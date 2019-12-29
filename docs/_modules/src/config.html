@@ -152,7 +152,7 @@
 <span class="c1"># E-mail: vkaffes@imis.athena-innovation.gr</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">randint</span> <span class="k">as</span> <span class="n">sp_randint</span><span class="p">,</span> <span class="n">expon</span><span class="p">,</span> <span class="n">truncnorm</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">randint</span> <span class="k">as</span> <span class="n">sp_randint</span><span class="p">,</span> <span class="n">expon</span><span class="p">,</span> <span class="n">truncnorm</span><span class="p">,</span> <span class="n">uniform</span>
 
 
 <span class="c1">#: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.</span>
@@ -166,6 +166,9 @@
 <span class="c1">#: float: Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score</span>
 <span class="c1">#: below the assigned threshold.</span>
 <span class="n">sort_thres</span> <span class="o">=</span> <span class="mf">0.55</span>
+
+<span class="c1">#: int: Seed used by each of the random number generators.</span>
+<span class="n">seed_no</span> <span class="o">=</span> <span class="mi">13</span>
 
 
 <div class="viewcode-block" id="MLConf"><a class="viewcode-back" href="../../config.html#src.config.MLConf">[docs]</a><span class="k">class</span> <span class="nc">MLConf</span><span class="p">:</span>
@@ -205,7 +208,7 @@
     <span class="c1">#: int: The number of inner folds that splits the dataset for the k-fold cross-validation.</span>
     <span class="n">kfold_inner_parameter</span> <span class="o">=</span> <span class="mi">4</span>
 
-    <span class="n">n_jobs</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1">#: int: Number of parallel jobs to be initiated. -1 means to utilize all available processors.</span>
+    <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1">#: int: Number of parallel jobs to be initiated. -1 means to utilize all available processors.</span>
 
     <span class="n">classification_method</span> <span class="o">=</span> <span class="s1">&#39;lgm&#39;</span>
     <span class="sd">&quot;&quot;&quot;str: The classification group of features to use. (*basic* | *basic_sorted* | *lgm*).</span>
@@ -224,8 +227,69 @@
 <span class="sd">    :func:`~src.param_tuning.ParamTuning.getBestClassifier`, :func:`~src.param_tuning.ParamTuning.fineTuneClassifier` </span>
 <span class="sd">    Details on available inputs.       </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1">#: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_search_method` equals to &#39;randomized&#39;.</span>
+    <span class="c1">#: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_</span>
+    <span class="c1">#: search_method` equals to &#39;randomized&#39;.</span>
     <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">250</span>
+
+    <span class="n">classifiers</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="c1"># &#39;SVM&#39;,</span>
+        <span class="c1"># &#39;DecisionTree&#39;,</span>
+        <span class="s1">&#39;RandomForest&#39;</span><span class="p">,</span>
+        <span class="c1"># &#39;ExtraTrees&#39;,</span>
+        <span class="c1"># &#39;XGBoost&#39;,</span>
+        <span class="c1"># &#39;MLP&#39;</span>
+    <span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;list of str: Define the classifiers to apply on code execution. Accepted values are: </span>
+
+<span class="sd">    - SVM </span>
+<span class="sd">    - DecisionTree</span>
+<span class="sd">    - RandomForest</span>
+<span class="sd">    - ExtraTrees</span>
+<span class="sd">    - XGBoost</span>
+<span class="sd">    - MLP.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">score</span> <span class="o">=</span> <span class="s1">&#39;accuracy&#39;</span>
+    <span class="sd">&quot;&quot;&quot;str: The metric to optimize on hyper-parameter tuning. Possible valid values presented on `Scikit predefined values`_. </span>
+
+<span class="sd">    .. _Scikit predefined values:</span>
+<span class="sd">        https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">clf_custom_params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;SVM&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1"># basic</span>
+            <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
+            <span class="c1"># &#39;gamma&#39;: 0.2456161956918959, &#39;max_iter&#39;: 3000, &#39;C&#39;: 199.0212721894755, &#39;kernel&#39;: &#39;rbf&#39;,</span>
+            <span class="c1"># &#39;class_weight&#39;: None, &#39;tol&#39;: 0.0001, &#39;degree&#39;: 2,</span>
+            <span class="s1">&#39;random_state&#39;</span><span class="p">:</span> <span class="n">seed_no</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;DecisionTree&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1"># basic</span>
+            <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;random_state&#39;</span><span class="p">:</span> <span class="n">seed_no</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;RandomForest&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1"># basic</span>
+            <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span> <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;oob_score&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;random_state&#39;</span><span class="p">:</span> <span class="n">seed_no</span><span class="p">,</span> <span class="s1">&#39;n_jobs&#39;</span><span class="p">:</span> <span class="n">n_jobs</span><span class="p">,</span>  <span class="c1"># &#39;oob_score&#39;: True,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;ExtraTrees&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1"># basic</span>
+            <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span> <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="s1">&#39;random_state&#39;</span><span class="p">:</span> <span class="n">seed_no</span><span class="p">,</span> <span class="s1">&#39;n_jobs&#39;</span><span class="p">:</span> <span class="n">n_jobs</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1"># basic</span>
+            <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
+            <span class="s1">&#39;seed&#39;</span><span class="p">:</span> <span class="n">seed_no</span><span class="p">,</span> <span class="s1">&#39;nthread&#39;</span><span class="p">:</span> <span class="n">n_jobs</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;MLP&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;tol&#39;</span><span class="p">:</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="s1">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="mf">0.06794912926673598</span><span class="p">,</span> <span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;activation&#39;</span><span class="p">:</span> <span class="s1">&#39;logistic&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;solver&#39;</span><span class="p">:</span> <span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;random_state&#39;</span><span class="p">:</span> <span class="n">seed_no</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
 
     <span class="c1"># These parameters constitute the search space for GridSearchCV in our experiments.</span>
     <span class="n">SVM_hyperparameters</span> <span class="o">=</span> <span class="p">[</span>
@@ -254,14 +318,14 @@
         <span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">],</span>
         <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
         <span class="c1"># hyperparameters to avoid overfitting</span>
-        <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>  <span class="c1"># &#39;learning_rate&#39;</span>
-        <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="c1"># &#39;eta&#39;: list(np.linspace(0.01, 0.2, 10)),  # &#39;learning_rate&#39;</span>
+        <span class="c1"># &#39;gamma&#39;: [0, 1, 5],</span>
         <span class="s1">&#39;subsample&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
         <span class="s1">&#39;colsample_bytree&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)),</span>
         <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
     <span class="p">}</span>
     <span class="n">MLP_hyperparameters</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.0005</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+        <span class="s1">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
         <span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
         <span class="s1">&#39;solver&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="s1">&#39;adam&#39;</span><span class="p">]</span>
     <span class="p">}</span>
@@ -288,16 +352,16 @@
     <span class="n">XGBoost_hyperparameters_dist</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="n">sp_randint</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">4000</span><span class="p">),</span>
         <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="n">sp_randint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="c1"># &#39;eta&#39;: expon(loc=0.01, scale=0.1),  # &#39;learning_rate&#39;</span>
         <span class="c1"># hyperparameters to avoid overfitting</span>
-        <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">expon</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>  <span class="c1"># &#39;learning_rate&#39;</span>
-        <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
         <span class="s1">&#39;subsample&#39;</span><span class="p">:</span> <span class="n">truncnorm</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
         <span class="s1">&#39;colsample_bytree&#39;</span><span class="p">:</span> <span class="n">truncnorm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-        <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+        <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="n">sp_randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
     <span class="p">}</span>
     <span class="n">MLP_hyperparameters_dist</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="n">expon</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
-        <span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
+        <span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="n">sp_randint</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span>
         <span class="s1">&#39;solver&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="s1">&#39;adam&#39;</span><span class="p">]</span>
     <span class="p">}</span></div>
 </pre></div>

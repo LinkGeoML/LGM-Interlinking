@@ -53,7 +53,7 @@ class StrategyEvaluator:
         print("Loaded test dataset and build features; {} sec".format(time.time() - start_time))
 
         start_time = time.time()
-        # 4th phase: test the fine tuned best classifier on the test dataset
+        # 3th phase: test the fine tuned best classifier on the test dataset
         acc, pre, rec, f1 = pt.testClassifier(fX, y, estimator)
         self._print_stats({
             'classifier': best_clf['classifier'], 'accuracy': acc, 'precision': pre, 'recall': rec, 'f1_score': f1,
