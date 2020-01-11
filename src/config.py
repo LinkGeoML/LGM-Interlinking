@@ -151,8 +151,8 @@ class MLConf:
     ]
     DecisionTree_hyperparameters = {
         'max_depth': [i for i in range(1, 33)],
-        'min_samples_split': list(np.linspace(0.1, 1, 10)),
-        'min_samples_leaf': list(np.linspace(0.1, 0.5, 5)),
+        'min_samples_split': list(np.linspace(1, 50, 50)),
+        'min_samples_leaf': list(np.linspace(1, 5, 5)),
         'max_features': [i for i in range(1, 10)]
     }
     RandomForest_hyperparameters = {
@@ -186,8 +186,8 @@ class MLConf:
     }
     DecisionTree_hyperparameters_dist = {
         'max_depth': sp_randint(10, 100),
-        'min_samples_split': list(np.linspace(0.1, 1, 50)),
-        'min_samples_leaf': list(np.linspace(0.1, 0.5, 25)),
+        'min_samples_split': list(np.linspace(1, 50, 50)),
+        'min_samples_leaf': list(np.linspace(1, 5, 5)),
         'max_features': sp_randint(1, 11),
     }
     RandomForest_hyperparameters_dist = {
