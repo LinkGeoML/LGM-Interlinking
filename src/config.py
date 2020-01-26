@@ -153,10 +153,10 @@ class MLConf:
         },
     ]
     DecisionTree_hyperparameters = {
-        'max_depth': [i for i in range(1, 33)],
+        'max_depth': np.arange(1, 33),
         'min_samples_split': [2, 5, 10, 20, 50, 100, 200],
-        'min_samples_leaf': list(np.linspace(1, 10, 4)),
-        'max_features': [i for i in range(2, 11, 2)] + ["sqrt", "log2", None]
+        'min_samples_leaf': np.arange(1, 11, 3),
+        'max_features': list(np.arange(2, 11, 2)) + ["sqrt", "log2", None]
     }
     RandomForest_hyperparameters = {
         'bootstrap': [True, False],
