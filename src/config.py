@@ -148,7 +148,7 @@ class MLConf:
             'C': [0.001, 0.01, 0.1, 1, 10, 25, 50, 100, 1000], 'max_iter': [3000]
         },
         {
-            'kernel': ['poly'], 'degree': [1, 2, 3], 'gamma': ['scale'], 'C': [0.01, 0.1, 1, 10, 25, 50, 100],
+            'kernel': ['poly'], 'degree': [1, 2, 3], 'gamma': ['scale', 'auto'], 'C': [0.01, 0.1, 1, 10, 25, 50, 100],
             'max_iter': [3000]
         },
     ]
@@ -212,7 +212,7 @@ class MLConf:
         # hyperparameters to avoid overfitting
         'gamma': sp_randint(0, 5),
         'subsample': truncnorm(0.7, 1),
-        'colsample_bytree': truncnorm(0, 1),
+        'colsample_bytree': truncnorm(0.8, 1),
         'min_child_weight': sp_randint(1, 10),
     }
     MLP_hyperparameters_dist = {
