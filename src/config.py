@@ -143,11 +143,10 @@ class MLConf:
 
     # These parameters constitute the search space for GridSearchCV in our experiments.
     SVM_hyperparameters = [
-        {'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],
-         'C': [0.01, 0.1, 1, 10, 100, 1000], 'max_iter': [3000]},
-        {'kernel': ['poly'], 'degree': [1, 2, 3, 4], 'gamma': ['scale'],
-         'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000], 'max_iter': [3000]},
-        {'kernel': ['linear'], 'C': [0.01, 0.1, 1, 10, 100], 'gamma': ['scale'], 'max_iter': [3000]}
+        {'kernel': ['rbf', 'sigmoid'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
+         'C': [0.001, 0.01, 0.1, 1, 10, 25, 50, 100, 1000], 'max_iter': [3000]},
+        {'kernel': ['poly'], 'degree': [1, 2, 3], 'gamma': ['scale'],
+         'C': [0.01, 0.1, 1, 10, 25, 50, 100], 'max_iter': [3000]},
     ]
     DecisionTree_hyperparameters = {
         'max_depth': [i for i in range(1, 33)],
