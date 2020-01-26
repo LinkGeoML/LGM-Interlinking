@@ -144,24 +144,24 @@ class MLConf:
     # These parameters constitute the search space for GridSearchCV in our experiments.
     SVM_hyperparameters = [
         {'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],
-         'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000], 'max_iter': [300]},
+         'C': [0.01, 0.1, 1, 10, 100, 1000], 'max_iter': [3000]},
         {'kernel': ['poly'], 'degree': [1, 2, 3, 4], 'gamma': ['scale'],
-         'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000], 'max_iter': [300]},
-        {'kernel': ['linear'], 'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000], 'gamma': ['scale'], 'max_iter': [300]}
+         'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000], 'max_iter': [3000]},
+        {'kernel': ['linear'], 'C': [0.01, 0.1, 1, 10, 100], 'gamma': ['scale'], 'max_iter': [3000]}
     ]
     DecisionTree_hyperparameters = {
         'max_depth': [i for i in range(1, 33)],
-        'min_samples_split': list(np.linspace(1, 50, 50)),
-        'min_samples_leaf': list(np.linspace(1, 5, 5)),
-        'max_features': [i for i in range(1, 10)]
+        'min_samples_split': [2, 5, 10, 20, 50, 100, 200],
+        'min_samples_leaf': list(np.linspace(1, 10, 4)),
+        'max_features': [i for i in range(2, 11, 2)] + ["sqrt", "log2", None]
     }
     RandomForest_hyperparameters = {
         'bootstrap': [True, False],
         'max_depth': [10, 20, 30, 40, 50, 60, 100, None],
         'criterion': ['gini', 'entropy'],
         'max_features': ['log2', 'sqrt'],  # auto is equal to sqrt
-        'min_samples_leaf': [1, 2, 4],
-        'min_samples_split': [2, 5, 10],
+        'min_samples_leaf': [1, 2, 4, 10],
+        'min_samples_split': [2, 5, 10, 50],
         "n_estimators": [250, 500, 1000]
     }
     XGBoost_hyperparameters = {
@@ -182,12 +182,13 @@ class MLConf:
 
     # These parameters constitute the search space for RandomizedSearchCV in our experiments.
     SVM_hyperparameters_dist = {
-        'C': expon(scale=100), 'gamma': expon(scale=.1), 'kernel': ['rbf'], 'class_weight': ['balanced', None]
+        'C': expon(scale=100), 'gamma': expon(scale=.1), 'kernel': ['rbf'], 'class_weight': ['balanced', None],
+        'max_iter': [10000]
     }
     DecisionTree_hyperparameters_dist = {
         'max_depth': sp_randint(10, 100),
-        'min_samples_split': list(np.linspace(1, 50, 50)),
-        'min_samples_leaf': list(np.linspace(1, 5, 5)),
+        'min_samples_split': sp_randint(2, 200),
+        'min_samples_leaf': sp_randint(1, 10),
         'max_features': sp_randint(1, 11),
     }
     RandomForest_hyperparameters_dist = {
@@ -195,8 +196,8 @@ class MLConf:
         'max_depth': [10, 20, 30, 40, 50, 60, 100, None],
         'criterion': ['gini', 'entropy'],
         'max_features': ['sqrt', 'log2'],  # sp_randint(1, 11)
-        'min_samples_leaf': sp_randint(1, 5),
-        'min_samples_split': sp_randint(2, 11),
+        'min_samples_leaf': sp_randint(1, 10),
+        'min_samples_split': sp_randint(2, 100),
         "n_estimators": sp_randint(250, 1000),
     }
     XGBoost_hyperparameters_dist = {
