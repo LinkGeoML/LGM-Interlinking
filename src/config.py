@@ -143,10 +143,14 @@ class MLConf:
 
     # These parameters constitute the search space for GridSearchCV in our experiments.
     SVM_hyperparameters = [
-        {'kernel': ['rbf', 'sigmoid'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
-         'C': [0.001, 0.01, 0.1, 1, 10, 25, 50, 100, 1000], 'max_iter': [3000]},
-        {'kernel': ['poly'], 'degree': [1, 2, 3], 'gamma': ['scale'],
-         'C': [0.01, 0.1, 1, 10, 25, 50, 100], 'max_iter': [3000]},
+        {
+            'kernel': ['rbf', 'sigmoid'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
+            'C': [0.001, 0.01, 0.1, 1, 10, 25, 50, 100, 1000], 'max_iter': [3000]
+        },
+        {
+            'kernel': ['poly'], 'degree': [1, 2, 3], 'gamma': ['scale'], 'C': [0.01, 0.1, 1, 10, 25, 50, 100],
+            'max_iter': [3000]
+        },
     ]
     DecisionTree_hyperparameters = {
         'max_depth': [i for i in range(1, 33)],
@@ -156,12 +160,12 @@ class MLConf:
     }
     RandomForest_hyperparameters = {
         'bootstrap': [True, False],
-        'max_depth': [10, 20, 30, 40, 50, 60, 100, None],
+        'max_depth': [10, 20, 30, 40, 50, 60, 100],
+        "n_estimators": [250, 500, 1000],
         'criterion': ['gini', 'entropy'],
         'max_features': ['log2', 'sqrt'],  # auto is equal to sqrt
-        'min_samples_leaf': [1, 2, 4, 10],
+        # 'min_samples_leaf': [1, 2, 4, 10],
         'min_samples_split': [2, 5, 10, 50],
-        "n_estimators": [250, 500, 1000]
     }
     XGBoost_hyperparameters = {
         "n_estimators": [500, 1000, 3000],
@@ -170,7 +174,9 @@ class MLConf:
         # 'eta': list(np.linspace(0.01, 0.2, 10)),  # 'learning_rate'
         # 'gamma': [0, 1, 5],
         'subsample': [0.8, 0.9, 1],
-        'colsample_bytree': list(np.linspace(0.3, 1, 8)),
+        # # Values from 0.3 to 0.8 if you have many columns (especially if you did one-hot encoding),
+        # # or 0.8 to 1 if you only have a few columns
+        'colsample_bytree': list(np.linspace(0.8, 1, 3)),
         'min_child_weight': [1, 5, 10],
     }
     MLP_hyperparameters = {
@@ -204,7 +210,7 @@ class MLConf:
         'max_depth': sp_randint(3, 100),
         # 'eta': expon(loc=0.01, scale=0.1),  # 'learning_rate'
         # hyperparameters to avoid overfitting
-        'gamma': uniform(0, 5),
+        'gamma': sp_randint(0, 5),
         'subsample': truncnorm(0.7, 1),
         'colsample_bytree': truncnorm(0, 1),
         'min_child_weight': sp_randint(1, 10),
