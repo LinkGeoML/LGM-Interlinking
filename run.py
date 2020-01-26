@@ -43,17 +43,16 @@ def main(args):
     # UTF8Writer = codecs.getwriter('utf8')
     # sys.stdout = UTF8Writer(sys.stdout)
 
-    if args['--build']:
-        build_dataset(args['-e'])
-        sys.exit(0)
-
-    LGMSimVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
-
     d_test = getRelativePathtoWorking(config.test_dataset) if args['--dtest'] is None \
         else getRelativePathtoWorking(args['--dtest'])
     d_train = getRelativePathtoWorking(config.train_dataset) if args['--dtrain'] is None \
         else getRelativePathtoWorking(args['--dtrain'])
     if os.path.isfile(d_test) and os.path.isfile(d_train):
+        if args['--build']:
+            build_dataset(d_train, args['-e'])
+            sys.exit(0)
+
+        LGMSimVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
         seval = StrategyEvaluator(args['-e'])
 
         if args['--customparams']: seval.exec_classifiers(d_train, d_test)
