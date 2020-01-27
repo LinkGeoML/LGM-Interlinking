@@ -95,7 +95,7 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
     file = open(getRelativePathtoWorking(os.path.join('data', output)), "w+")
     max_no_attempts = 300
     totalrows = 0
-    min_altnames = 2
+    min_altnames = 3
     max_altnames = 4
 
     input = getRelativePathtoWorking(os.path.join('data', dataset))
