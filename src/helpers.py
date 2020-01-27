@@ -67,7 +67,7 @@ def getBasePath():
 
 
 def getRelativePathtoWorking(ds):
-    return os.path.join(getBasePath(), ds)
+    return os.path.join(getBasePath(), 'data', ds)
 
 
 class StaticValues:

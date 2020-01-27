@@ -95,6 +95,8 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
     file = open(getRelativePathtoWorking(os.path.join('data', output)), "w+")
     max_no_attempts = 300
     totalrows = 0
+    min_altnames = 2
+    max_altnames = 4
 
     input = getRelativePathtoWorking(os.path.join('data', dataset))
     if not os.path.isfile(input):
@@ -103,12 +105,18 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
 
     print("Working on dataset {}...".format(input))
     with open(input) as csvfile:
-        reader = csv.DictReader(csvfile, fieldnames=fields, delimiter='\t')
+        # reader = csv.DictReader(csvfile, fieldnames=fields, delimiter='\t')
+        first_line = csvfile.readline()
+        has_header = csv.Sniffer().has_header(first_line)
+        file.seek(0)  # Rewind.
+        reader = csv.DictReader(csvfile, fieldnames=first_line.rstrip('\n').split(',') if has_header else fields)
+        if has_header:
+            next(reader)  # Skip header row.
         for row in reader:
             totalrows += 1
             skip = skip - 1
             if skip > 0: continue
-            names = set([name.strip() for name in ("" + row['alternatenames']).split(",") if len(name.strip()) > 2])
+            names = set([name.strip() for name in ("" + row['alternate_names']).split(",") if len(name.strip()) > 3])
 
             # remove non LATIN names
             if only_latin:
@@ -123,21 +131,28 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
                             names.remove(n)
                             print(e.message)
 
-            if len(names) < 4: continue
+            if len(names) < max_altnames: continue
             lastid = row['geonameid']
-            firstcountry = row['country_code']
+            firstcountry = row['country_code'] if 'country_code' in row else 'unknown'
             lastname = random.sample(names, 1)[0]
             lastname2 = random.sample(names, 1)[0]
             while True:
                 lastname2 = random.sample(names, 1)[0]
                 if not (lastname2.lower() == lastname.lower()): break
     with open(input) as csvfile:
-        reader = csv.DictReader(csvfile, fieldnames=fields, delimiter='\t')
+        # reader = csv.DictReader(csvfile, fieldnames=fields, delimiter='\t')
+        first_line = csvfile.readline()
+        has_header = csv.Sniffer().has_header(first_line)
+        file.seek(0)  # Rewind.
+        reader = csv.DictReader(csvfile, fieldnames=first_line.rstrip('\n').split(',') if has_header else fields)
+        if has_header:
+            next(reader)  # Skip header row.
+
         with tqdm(total=totalrows) as pbar:
             for row in reader:
                 pbar.update(1)
 
-                names = set([name.strip() for name in ("" + row['alternatenames']).split(",") if len(name.strip()) > 2])
+                names = set([name.strip() for name in ("" + row['alternate_names']).split(",") if len(name.strip()) > 3])
                 if len(row['name'].strip()) > 2: names.add(row['name'].strip())
                 if len(six.text_type(row['asciiname']).strip()) > 2: names.add(six.text_type(row['asciiname']).strip())
 
@@ -154,9 +169,9 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
                                 names.remove(n)
                                 print(e.message)
 
-                if len(names) < 3: continue
+                if len(names) < min_altnames: continue
                 id = row['geonameid']
-                country = row['country_code']
+                country = row['country_code'] if 'country_code' in row else 'unknown'
                 randomname1 = random.sample(names, 1)[0]
                 randomname3 = random.sample(names, 1)[0]
                 randomname5 = random.sample(names, 1)[0]
@@ -185,7 +200,7 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
                     lastid = id
                     lastname = randomname1
                     lastname2 = randomname2
-                    firstcountry = row['country_code']
+                    firstcountry = row['country_code'] if 'country_code' in row else 'unknown'
                     continue
                 if randomname1 is None or randomname2 is None or id is None or country is None:
                     continue
@@ -199,7 +214,7 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
                     file.write(lastname + "\t" + randomname3 + "\tFALSE\t" + lastid + "\t" + id + "\t" + detect_alphabet(
                     lastname) + "\t" + detect_alphabet(randomname3) + "\t" + firstcountry + "\t" + country + "\n")
                 lastname = randomname1
-                if len(names) < 4:
+                if len(names) < max_altnames:
                     lastid = id
                     lastname2 = randomname2
                     firstcountry = country

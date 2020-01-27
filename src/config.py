@@ -5,6 +5,7 @@ import numpy as np
 from scipy.stats import randint as sp_randint, expon, truncnorm, uniform
 
 
+raw_dataset = 'allCountries.txt'
 #: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.
 train_dataset = 'data/dataset-string-similarity_global_1k.csv'
 # train_dataset = 'data/dataset-string-similarity_latin_EU_NA_1k.txt'
