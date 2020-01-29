@@ -375,8 +375,9 @@ def filter_dataset(input='dataset-unfiltered.txt', output='dataset-string-simila
 def build_dataset(dataset='allCountries.txt', n_alternates=3, num_instances=2500000, encoding='global'):
     # build_dataset_from_geonames(dataset=dataset, only_latin=True if encoding.lower() == 'latin' else False)
     build_dataset_from_source(dataset, n_alternates)
-    output = 'dataset-string-similarity_{}_{}_{}k_pytorch.csv'.format(
-        n_alternates if n_alternates > 0 else 'ALL', encoding, 2 * (num_instances // 1000))
+    output = 'dataset-string-similarity_{}_{}_{}_{}k.csv'.format(
+        n_alternates if n_alternates > 0 else 'ALL', encoding, 'stratified' if 'stratified' in dataset else 'random',
+        2 * (num_instances // 1000))
     filter_dataset(output=output, num_instances=num_instances)
 
 
