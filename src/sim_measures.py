@@ -349,7 +349,7 @@ def filter_dataset(input='dataset-unfiltered.txt', output='dataset-string-simila
     file = open(getRelativePathtoWorking(os.path.join("data", output)), "w+")
     print("Filtering for {0}...".format(num_instances * 2))
     for line in open(getRelativePathtoWorking(os.path.join("data", input))):
-        splitted = line.split('\t')
+        # splitted = line.split('\t')
         # if not (splitted[2] == "TRUE" or splitted[2] == "FALSE") or \
         #         not (len(six.text_type(splitted[7])) == 2 and len(six.text_type(splitted[8])) == 3) or \
         #         not (splitted[5] != "UND" and splitted[6] != "UND") or \
@@ -375,7 +375,7 @@ def filter_dataset(input='dataset-unfiltered.txt', output='dataset-string-simila
 def build_dataset(dataset='allCountries.txt', n_alternates=3, num_instances=2500000, encoding='global'):
     # build_dataset_from_geonames(dataset=dataset, only_latin=True if encoding.lower() == 'latin' else False)
     build_dataset_from_source(dataset, n_alternates)
-    output = 'dataset-string-similarity_{}_{}_{}k.csv'.format(
+    output = 'dataset-string-similarity_{}_{}_{}k_pytorch.csv'.format(
         n_alternates if n_alternates > 0 else 'ALL', encoding, 2 * (num_instances // 1000))
     filter_dataset(output=output, num_instances=num_instances)
 
