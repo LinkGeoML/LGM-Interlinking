@@ -22,6 +22,8 @@ Command line::
         -e <encoding_type>          specify the encoding of toponyms in datasets. [default: global].
         --customparams              run classifiers with custom hyper-parameters defined in config.py file [default: False].
         --build                     build the dataset for evaluation.
+        --n_alternates <no>         min number of alternative names in order to process the record [default: -1]
+        --num_instances <no>        total number of toponym pairs to create per status (true/false) [default: 500000]
 
     Arguments:
         encoding_type               global
@@ -43,7 +45,7 @@ def main(args):
     # UTF8Writer = codecs.getwriter('utf8')
     # sys.stdout = UTF8Writer(sys.stdout)
     if args['--build']:
-        build_dataset(config.raw_dataset, args['-e'])
+        build_dataset(config.raw_dataset, int(args['--n_alternates']), int(args['--num_instances']), args['-e'])
         sys.exit(0)
 
     d_test = getRelativePathtoWorking(config.test_dataset) if args['--dtest'] is None \

@@ -257,6 +257,92 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
     file.close()
 
 
+# The geonames dataset can be obtained from http://download.geonames.org/export/dump/allCountries.zip
+def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output='dataset-unfiltered.txt'):
+    # remove dupls after running this script
+    # cat -n dataset-string-similarity.txt | sort -k2 -k1n | uniq -f1 | sort -nk1,1 | cut -f2-
+
+    csv.field_size_limit(sys.maxsize)
+    lastnames = []
+
+    skip = random.randint(10, 10000)
+    file = open(getRelativePathtoWorking(os.path.join('data', output)), "w+")
+    max_no_attempts = 300
+    totalrows = 0
+    str_length = 2
+    negative_list_size = 10000
+
+    input = getRelativePathtoWorking(os.path.join('data', dataset))
+    if not os.path.isfile(input):
+        print("File {0} does not exist".format(input))
+        exit()
+
+    print("Working on dataset {}...".format(input))
+    with open(input) as csvfile:
+        # reader = csv.DictReader(csvfile, fieldnames=fields, delimiter='\t')
+        first_line = csvfile.readline()
+        has_header = csv.Sniffer().has_header(first_line)
+        file.seek(0)  # Rewind.
+        reader = csv.DictReader(csvfile, fieldnames=first_line.rstrip('\n').split(',') if has_header else fields)
+        if has_header:
+            next(reader)  # Skip header row.
+        for row in reader:
+            skip = skip - 1
+            if skip > 0: continue
+            names = set([name.strip() for name in ("" + row['alternate_names']).split(",") if len(name.strip()) > str_length])
+
+            if len(names) < n_alternates: continue
+            lastid = row['geonameid']
+            firstcountry = row['country_code'] if 'country_code' in row else 'unknown'
+            for n in names:
+                lastnames.append([n, lastid, firstcountry])
+
+            if len(lastnames) >= negative_list_size: break
+
+    with open(input) as csvfile:
+        # reader = csv.DictReader(csvfile, fieldnames=fields, delimiter='\t')
+        first_line = csvfile.readline()
+        has_header = csv.Sniffer().has_header(first_line)
+        file.seek(0)  # Rewind.
+        reader = csv.DictReader(csvfile, fieldnames=first_line.rstrip('\n').split(',') if has_header else fields)
+        if has_header:
+            next(reader)  # Skip header row.
+
+        with tqdm(total=totalrows) as pbar:
+            for row in reader:
+                pbar.update(1)
+
+                names = set([name.strip() for name in ("" + row['alternate_names']).split(",") if len(name.strip()) > str_length])
+                if len(row['name'].strip()) > str_length: names.add(row['name'].strip())
+                if len(six.text_type(row['asciiname']).strip()) > str_length: names.add(six.text_type(row['asciiname']).strip())
+
+                if len(names) < n_alternates: continue
+                id = row['geonameid']
+                country = row['country_code'] if 'country_code' in row else 'unknown'
+
+                for n1, n2 in itertools.combinations(names, 2):
+                    if jaccard(n1.lower(), n2.lower()) == 1.0:
+                        continue
+
+                    file.write(n1 + "\t" + n2 + "\tTRUE\t" + id + "\t" + id + "\t" + detect_alphabet(
+                        n1) + "\t" + detect_alphabet(n2) + "\t" + country + "\t" + country + "\n")
+                    attempts = max_no_attempts
+                    while attempts > 0:
+                        attempts = attempts - 1
+                        randomname = random.sample(lastnames, 1)[0]
+                        if randomname[1] != id: break
+                    if attempts > 0:
+                        file.write(
+                            n1 + "\t" + randomname[0] + "\tFALSE\t" + id + "\t" + randomname[1] + "\t" +
+                            detect_alphabet(n1) + "\t" + detect_alphabet(randomname[0]) + "\t" +
+                            country + "\t" + randomname[2] + "\n")
+
+                for n in names:
+                    lastnames.append([n, id, country])
+                lastnames = lastnames[(len(lastnames) - negative_list_size):]
+    file.close()
+
+
 def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
     pos = []
     neg = []
@@ -264,18 +350,19 @@ def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
     print("Filtering for {0}...".format(num_instances * 2))
     for line in open(getRelativePathtoWorking(os.path.join("data", input))):
         splitted = line.split('\t')
-        if not (splitted[2] == "TRUE" or splitted[2] == "FALSE") or \
-                not (len(six.text_type(splitted[7])) == 2 and len(six.text_type(splitted[8])) == 3) or \
-                not (splitted[5] != "UND" and splitted[6] != "UND") or \
-                not (splitted[3].isdigit() and splitted[4].isdigit()) or \
-                len(splitted) != 9 or \
-                len(six.text_type(splitted[1])) < 3 or \
-                len(six.text_type(splitted[0])) < 3:
-            continue
+        # if not (splitted[2] == "TRUE" or splitted[2] == "FALSE") or \
+        #         not (len(six.text_type(splitted[7])) == 2 and len(six.text_type(splitted[8])) == 3) or \
+        #         not (splitted[5] != "UND" and splitted[6] != "UND") or \
+        #         not (splitted[3].isdigit() and splitted[4].isdigit()) or \
+        #         len(splitted) != 9 or \
+        #         len(six.text_type(splitted[1])) < 3 or \
+        #         len(six.text_type(splitted[0])) < 3:
+        #     continue
         if '\tTRUE\t' in line:
             pos.append(line)
         else:
             neg.append(line)
+
     pos = random.sample(pos, len(pos))
     neg = random.sample(neg, len(neg))
     for i in range(min(num_instances, len(pos), len(neg))):
@@ -285,9 +372,10 @@ def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
     file.close()
 
 
-def build_dataset(dataset='allCountries.txt', encoding='global'):
-    build_dataset_from_geonames(dataset=dataset, only_latin=True if encoding.lower() == 'latin' else False)
-    # filter_dataset()
+def build_dataset(dataset='allCountries.txt', n_alternates=3, num_instances=2500000, encoding='global'):
+    # build_dataset_from_geonames(dataset=dataset, only_latin=True if encoding.lower() == 'latin' else False)
+    build_dataset_from_source(dataset, n_alternates)
+    filter_dataset(num_instances=num_instances)
 
 
 def skipgrams(sequence, n, k):
