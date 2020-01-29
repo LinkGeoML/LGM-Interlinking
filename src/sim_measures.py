@@ -346,7 +346,7 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
 def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
     pos = []
     neg = []
-    file = open(getRelativePathtoWorking(os.path.join("data", "dataset-string-similarity.txt")), "w+")
+    file = open(getRelativePathtoWorking(os.path.join("data", "dataset-string-similarity.csv")), "w+")
     print("Filtering for {0}...".format(num_instances * 2))
     for line in open(getRelativePathtoWorking(os.path.join("data", input))):
         splitted = line.split('\t')
