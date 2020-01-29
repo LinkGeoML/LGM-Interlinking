@@ -373,7 +373,7 @@ def filter_dataset(input='dataset-unfiltered.txt', output='dataset-string-simila
     file.close()
 
 
-def build_dataset(dataset='allCountries.txt', n_alternates=3, num_instances=2500000, encoding='global'):
+def build_dataset(dataset='allCountries.txt', n_alternates=3, num_instances=2500000, encoding='global', del_mid_file=True):
     # build_dataset_from_geonames(dataset=dataset, only_latin=True if encoding.lower() == 'latin' else False)
     tt = datetime.now()
     mid_output = 'dataset-unfiltered_{}_{}_{}.csv'.format(tt.hour, tt.minute, tt.second)
@@ -382,6 +382,9 @@ def build_dataset(dataset='allCountries.txt', n_alternates=3, num_instances=2500
         n_alternates if n_alternates > 0 else 'ALL', encoding, 'stratified' if 'stratified' in dataset else 'random',
         2 * (num_instances // 1000))
     filter_dataset(input=mid_output, output=final_output, num_instances=num_instances)
+
+    if os.path.exists(mid_output) and del_mid_file:
+        os.remove(mid_output)
 
 
 def skipgrams(sequence, n, k):
