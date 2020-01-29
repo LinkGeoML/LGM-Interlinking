@@ -343,10 +343,10 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
     file.close()
 
 
-def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
+def filter_dataset(input='dataset-unfiltered.txt', output='dataset-string-similarity.csv', num_instances=2500000):
     pos = []
     neg = []
-    file = open(getRelativePathtoWorking(os.path.join("data", "dataset-string-similarity.csv")), "w+")
+    file = open(getRelativePathtoWorking(os.path.join("data", output)), "w+")
     print("Filtering for {0}...".format(num_instances * 2))
     for line in open(getRelativePathtoWorking(os.path.join("data", input))):
         splitted = line.split('\t')
@@ -375,7 +375,9 @@ def filter_dataset(input='dataset-unfiltered.txt', num_instances=2500000):
 def build_dataset(dataset='allCountries.txt', n_alternates=3, num_instances=2500000, encoding='global'):
     # build_dataset_from_geonames(dataset=dataset, only_latin=True if encoding.lower() == 'latin' else False)
     build_dataset_from_source(dataset, n_alternates)
-    filter_dataset(num_instances=num_instances)
+    output = 'dataset-string-similarity_{}_{}_{}k.csv'.format(
+        n_alternates if n_alternates > 0 else 'ALL', encoding, 2 * (num_instances // 1000))
+    filter_dataset(output=output, num_instances=num_instances)
 
 
 def skipgrams(sequence, n, k):
