@@ -43,7 +43,7 @@ def getRelativePathtoWorking(ds):
 fields = ["geonameid",
           "name",
           "asciiname",
-          "alternatenames",
+          "alternate_names",
           "latitude",
           "longitude",
           "feature class",
@@ -264,11 +264,10 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
 
     csv.field_size_limit(sys.maxsize)
     lastnames = []
-
     skip = random.randint(10, 10000)
     file = open(getRelativePathtoWorking(os.path.join('data', output)), "w+")
     max_no_attempts = 300
-    totalrows = 0
+    tqdm_rows = 0
     str_length = 2
     negative_list_size = 10000
 
@@ -287,6 +286,9 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
         if has_header:
             next(reader)  # Skip header row.
         for row in reader:
+            tqdm_rows += 1
+            if len(lastnames) >= negative_list_size: continue
+
             skip = skip - 1
             if skip > 0: continue
             names = set([name.strip() for name in ("" + row['alternate_names']).split(",") if len(name.strip()) > str_length])
@@ -297,8 +299,6 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
             for n in names:
                 lastnames.append([n, lastid, firstcountry])
 
-            if len(lastnames) >= negative_list_size: break
-
     with open(input) as csvfile:
         # reader = csv.DictReader(csvfile, fieldnames=fields, delimiter='\t')
         first_line = csvfile.readline()
@@ -308,7 +308,7 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
         if has_header:
             next(reader)  # Skip header row.
 
-        with tqdm(total=totalrows) as pbar:
+        with tqdm(total=tqdm_rows) as pbar:
             for row in reader:
                 pbar.update(1)
 
