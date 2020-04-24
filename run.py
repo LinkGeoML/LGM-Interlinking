@@ -35,10 +35,10 @@ import os, sys
 # import codecs
 from docopt import docopt
 
-from src.core import StrategyEvaluator
-from src.helpers import getRelativePathtoWorking, StaticValues
-from src.sim_measures import LGMSimVars, build_dataset
-import src.config as config
+from interlinking.core import StrategyEvaluator
+from interlinking.helpers import getRelativePathtoWorking, StaticValues
+from interlinking.sim_measures import LGMSimVars, build_dataset
+import interlinking.config as config
 
 
 def main(args):
@@ -56,7 +56,7 @@ def main(args):
         LGMSimVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
         seval = StrategyEvaluator(args['-e'])
 
-        if args['--customparams']: seval.exec_classifiers(d_train, d_test)
+        if args['--customparams']: seval.evaluate(d_train, d_test)
         else: seval.hyperparamTuning(d_train, d_test)
     else:
         print("File {0} and/or {1} is not found!!!\n".format(d_test, d_train))

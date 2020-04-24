@@ -23,6 +23,8 @@ import itertools
 import re
 import __main__
 from datetime import datetime
+import pandas as pd
+import glob
 
 import numpy as np
 import unicodedata
@@ -31,6 +33,8 @@ import pycountry_convert
 import jellyfish
 import pyxdameraulevenshtein
 from tqdm import tqdm
+
+from interlinking import config
 
 
 def getBasePath():
@@ -153,7 +157,8 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
             for row in reader:
                 pbar.update(1)
 
-                names = set([name.strip() for name in ("" + row['alternate_names']).split(",") if len(name.strip()) > 3])
+                names = set([name.strip() for name in ("" + row['alternate_names']).split(",")
+                             if len(name.strip()) > 3])
                 if len(row['name'].strip()) > 2: names.add(row['name'].strip())
                 if len(six.text_type(row['asciiname']).strip()) > 2: names.add(six.text_type(row['asciiname']).strip())
 
@@ -184,7 +189,8 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
                     attempts = attempts - 1
                     randomname3 = random.sample(names, 1)[0]
                     if lastname is None or (
-                            jaccard(randomname3, lastname) > 0.0 and not (randomname3.lower() == lastname.lower())): break
+                            jaccard(randomname3, lastname) > 0.0 and not (randomname3.lower() == lastname.lower())):
+                        break
                     if damerau_levenshtein(randomname3, lastname) == 0.0 and random.random() < 0.5: break
                 if attempts <= 0:
                     auxl = lastname
@@ -212,8 +218,9 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
                 if not (lastid is None):
                     # print lastname + "\t" + randomname3 + "\tFALSE\t" + lastid + "\t" + id + "\t" + detect_alphabet(
                     # lastname) + "\t" + detect_alphabet(randomname3) + "\t" + firstcountry + "\t" + country
-                    file.write(lastname + "\t" + randomname3 + "\tFALSE\t" + lastid + "\t" + id + "\t" + detect_alphabet(
-                    lastname) + "\t" + detect_alphabet(randomname3) + "\t" + firstcountry + "\t" + country + "\n")
+                    file.write(lastname + "\t" + randomname3 + "\tFALSE\t" + lastid + "\t" + id + "\t" +
+                               detect_alphabet(lastname) + "\t" + detect_alphabet(randomname3) + "\t" +
+                               firstcountry + "\t" + country + "\n")
                 lastname = randomname1
                 if len(names) < max_altnames:
                     lastid = id
@@ -251,8 +258,9 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
                     if not (lastid is None):
                         # print lastname2 + "\t" + randomname5 + "\tFALSE\t" + lastid + "\t" + id + "\t" + detect_alphabet(
                         # lastname2) + "\t" + detect_alphabet(randomname5) + "\t" + firstcountry + "\t" + country
-                        file.write(lastname2 + "\t" + randomname5 + "\tFALSE\t" + lastid + "\t" + id + "\t" + detect_alphabet(
-                            lastname2) + "\t" + detect_alphabet(randomname5) + "\t" + firstcountry + "\t" + country + "\n")
+                        file.write(lastname2 + "\t" + randomname5 + "\tFALSE\t" + lastid + "\t" + id + "\t" +
+                                   detect_alphabet(lastname2) + "\t" + detect_alphabet(randomname5) + "\t" +
+                                   firstcountry + "\t" + country + "\n")
                 lastname2 = random.sample([randomname2, randomname4], 1)[0]
                 lastid = id
     file.close()
@@ -292,7 +300,8 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
 
             skip = skip - 1
             if skip > 0: continue
-            names = set([name.strip() for name in ("" + row['alternate_names']).split(",") if len(name.strip()) > str_length])
+            names = set([name.strip() for name in ("" + row['alternate_names']).split(",")
+                         if len(name.strip()) > str_length])
 
             if len(names) < n_alternates: continue
             lastid = row['geonameid']
@@ -313,9 +322,11 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
             for row in reader:
                 pbar.update(1)
 
-                names = set([name.strip() for name in ("" + row['alternate_names']).split(",") if len(name.strip()) > str_length])
+                names = set([name.strip() for name in ("" + row['alternate_names']).split(",")
+                             if len(name.strip()) > str_length])
                 if len(row['name'].strip()) > str_length: names.add(row['name'].strip())
-                if len(six.text_type(row['asciiname']).strip()) > str_length: names.add(six.text_type(row['asciiname']).strip())
+                if len(six.text_type(row['asciiname']).strip()) > str_length:
+                    names.add(six.text_type(row['asciiname']).strip())
 
                 if len(names) < n_alternates: continue
                 id = row['geonameid']
@@ -373,7 +384,8 @@ def filter_dataset(input='dataset-unfiltered.txt', output='dataset-string-simila
     file.close()
 
 
-def build_dataset(dataset='allCountries.txt', n_alternates=3, num_instances=2500000, encoding='global', del_mid_file=True):
+def build_dataset(dataset='allCountries.txt', n_alternates=3, num_instances=2500000, encoding='global',
+                  del_mid_file=True):
     # build_dataset_from_geonames(dataset=dataset, only_latin=True if encoding.lower() == 'latin' else False)
     tt = datetime.now()
     mid_output = 'dataset-unfiltered_{}_{}_{}.csv'.format(tt.hour, tt.minute, tt.second)
@@ -780,7 +792,7 @@ def _jaro_winkler(ying, yang, long_tolerance, winklerize):
     return weight
 
 
-def lgm_jaro_winkler(s1, s2, long_tolerance=False):
+def tuned_jaro_winkler(s1, s2, long_tolerance=False):
     """Implements LGM Jaro-Winkler metric.
 
     str1, str2: str
@@ -799,8 +811,21 @@ class LGMSimVars:
     weights = []
     per_metric_optValues = {}
 
+    def load_freq_terms(self):
+        print("Resetting any previously assigned frequent terms ...")
+        self.freq_ngrams['tokens'].clear()
+        self.freq_ngrams['chars'].clear()
 
-def termsim_split(s1, s2, thres):
+        for f in glob.iglob(os.path.join(config.default_data_path, '*gram*.csv')):
+            gram_type = 'tokens' if 'token' in os.path.basename(os.path.normpath(f)) else 'chars'
+
+            print("Loading frequent terms from file {} ...".format(f))
+            df = pd.read_csv(f, sep='\t', header=0, names=['term', 'no'], nrows=config.freq_term_size)
+            self.freq_ngrams[gram_type].update(df['term'].values.tolist())
+        print('Frequent terms successfully loaded.')
+
+
+def core_terms_split(s1, s2, thres):
     base = {'a': [], 'b': [], 'len': 0}
     mis = {'a': [], 'b': [], 'len': 0}
 
@@ -832,7 +857,7 @@ def termsim_split(s1, s2, thres):
     return base, mis
 
 
-def lgm_sim_lterms(s1, s2, split_thres):
+def lgm_sim_split(s1, s2, split_thres):
     """Splits each toponym-string, i.e., s1, s2, to tokens, builds three distinct lists per toponym-string, i.e., base,
     mismatch and frequent, and assigns the produced tokens to these lists. The *base* lists contains the terms that are
     similar to one of the other toponym's tokens, The *mismatch* contains the terms that have no similar pair to the
@@ -865,7 +890,7 @@ def lgm_sim_lterms(s1, s2, split_thres):
     if specialTerms['b']:
         s2 = re.sub("|".join(specialTerms['b']), ' ', s2).strip()
 
-    baseTerms, mismatchTerms = termsim_split(s1, s2, split_thres)
+    baseTerms, mismatchTerms = core_terms_split(s1, s2, split_thres)
 
     return baseTerms, mismatchTerms, specialTerms
 
@@ -891,15 +916,14 @@ def score_per_term(base_t, mis_t, special_t, metric):
             [base_t['a'], mis_t['a'], special_t['a']],
             [base_t['b'], mis_t['b'], special_t['b']]
     )):
-        if term_a or term_b: scores[idx] = algnms_to_func[metric](u' '.join(term_a), u' '.join(term_b))
+        if term_a or term_b: scores[idx] = sim_measures[metric](u' '.join(term_a), u' '.join(term_b))
 
     return scores[0], scores[1], scores[2]
 
 
-def recalculated_weights(base_t, mis_t, special_t, metric, avg=False, tmode=False):
+def recalculate_weights(base_t, mis_t, special_t, metric='damerau_levenshtein', avg=False, weights=None):
     lsim_variance = 'avg' if avg else 'simple'
-    weights = LGMSimVars.weights[:] if tmode \
-        else LGMSimVars.per_metric_optValues[metric][lsim_variance][1][:]
+    weights = LGMSimVars.per_metric_optValues[metric][lsim_variance][1][:] if weights is None else weights
 
     if base_t['len'] == 0:
         weights[1] += weights[0] * (float(mis_t['len']) / (mis_t['len'] + special_t['len']))
@@ -923,7 +947,7 @@ def recalculated_weights(base_t, mis_t, special_t, metric, avg=False, tmode=Fals
     return [w / denominator for w in weights]
 
 
-def weighted_sim(base_t, mis_t, special_t, metric, avg, test_mode=False):
+def weighted_sim(base_t, mis_t, special_t, metric, avg):
     """Re-calculates the significance weights for each list of terms taking into account their lengths.
 
     Parameters
@@ -942,10 +966,10 @@ def weighted_sim(base_t, mis_t, special_t, metric, avg, test_mode=False):
     float
         A similarity score normalized in range [0,1].
     """
-    baseTerms_val, mismatchTerms_val, specialTerms_val = score_per_term(base_t, mis_t, special_t, metric)
-    lweights = recalculated_weights(base_t, mis_t, special_t, metric, avg, tmode=test_mode)
+    base_score, mis_score, special_score = score_per_term(base_t, mis_t, special_t, metric)
+    lweights = recalculate_weights(base_t, mis_t, special_t, metric, avg)
 
-    return baseTerms_val * lweights[0] + mismatchTerms_val * lweights[1] + specialTerms_val * lweights[2]
+    return base_score * lweights[0] + mis_score * lweights[1] + special_score * lweights[2]
 
 
 def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
@@ -958,7 +982,7 @@ def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
     metric: str, optional
         Similarity metric used, as internal one, to split toponyms in the two distinct lists that contains base and
         mismatch terms respectively. Each of the above supported metrics can be used as input.
-        Default metric is :attr:`~src.sim_measures.damerau_levenshtein`.
+        Default metric is :attr:`~interlinking.sim_measures.damerau_levenshtein`.
     avg: bool, optional
         If value is True, the three individual similarity scores (for each term list) are properly weighted, otherwise
         each term list' score is of equal significance to the final score. Default value is False.
@@ -971,7 +995,7 @@ def lgm_sim(str1, str2, metric='damerau_levenshtein', avg=False):
     lsim_variance = 'avg' if avg else 'simple'
     split_thres = LGMSimVars.per_metric_optValues[metric][lsim_variance][0]
 
-    baseTerms, mismatchTerms, specialTerms = lgm_sim_lterms(str1, str2, split_thres)
+    baseTerms, mismatchTerms, specialTerms = lgm_sim_split(str1, str2, split_thres)
     thres = weighted_sim(baseTerms, mismatchTerms, specialTerms, metric, avg)
 
     return thres
@@ -987,7 +1011,7 @@ def avg_lgm_sim(str1, str2, metric='damerau_levenshtein'):
     metric: str, optional
         Similarity metric used, as internal one, to split toponyms in the two distinct lists that contains base and
         mismatch terms respectively. Each of the above supported metrics can be used as input.
-        Default metric is :attr:`~src.sim_measures.damerau_levenshtein`.
+        Default metric is :attr:`~interlinking.sim_measures.damerau_levenshtein`.
 
     Returns
     -------
@@ -996,7 +1020,8 @@ def avg_lgm_sim(str1, str2, metric='damerau_levenshtein'):
     """
     return lgm_sim(str1, str2, metric, True)
 
-algnms_to_func = {
+
+sim_measures = {
     'damerau_levenshtein': damerau_levenshtein,
     'davies': davies,
     'skipgram': skipgram,
@@ -1009,7 +1034,7 @@ algnms_to_func = {
     'jaro_winkler': jaro_winkler,
     'jaro': jaro,
     'jaccard': jaccard,
-    'lgm_jaro_winkler': lgm_jaro_winkler,
-    'lgm_sim': lgm_sim,
-    'avg_lgm_sim': avg_lgm_sim,
+    'tuned_jaro_winkler': tuned_jaro_winkler,
+    # 'lgm_sim': lgm_sim,
+    # 'avg_lgm_sim': avg_lgm_sim,
 }

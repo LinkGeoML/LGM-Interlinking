@@ -1,7 +1,7 @@
 # Author: vkaff
 # E-mail: vkaffes@imis.athena-innovation.gr
 
-from src import config
+from interlinking import config
 import numpy as np
 
 from sklearn.svm import SVC
@@ -59,23 +59,23 @@ class ParamTuning:
         achieves the best avg accuracy score for all evaluations. The supported search methods are:
 
         * *GridSearchCV*: Exhaustive search over specified parameter values for supported estimators.
-          The following variables are defined in :func:`~src.config.MLConf` :
+          The following variables are defined in :func:`~interlinking.config.MLConf` :
 
-         * :attr:`~src.config.MLConf.MLP_hyperparameters`
-         * :attr:`~src.config.MLConf.RandomForests_hyperparameters`
-         * :attr:`~src.config.MLConf.XGBoost_hyperparameters`
-         * :attr:`~src.config.MLConf.SVM_hyperparameters`
-         * :attr:`~src.config.MLConf.DecisionTree_hyperparameters`
+         * :attr:`~interlinking.config.MLConf.MLP_hyperparameters`
+         * :attr:`~interlinking.config.MLConf.RandomForests_hyperparameters`
+         * :attr:`~interlinking.config.MLConf.XGBoost_hyperparameters`
+         * :attr:`~interlinking.config.MLConf.SVM_hyperparameters`
+         * :attr:`~interlinking.config.MLConf.DecisionTree_hyperparameters`
 
-        * *RandomizedSearchCV*: Randomized search over continuous distribution space. :attr:`~src.config.MLConf.max_iter`
-          defines the number of parameter settings that are sampled. :py:attr:`~src.config.MLConf.max_iter` trades off
-          runtime vs quality of the solution. The following variables are defined in :func:`~src.config.MLConf` :
+        * *RandomizedSearchCV*: Randomized search over continuous distribution space. :attr:`~interlinking.config.MLConf.max_iter`
+          defines the number of parameter settings that are sampled. :py:attr:`~interlinking.config.MLConf.max_iter` trades off
+          runtime vs quality of the solution. The following variables are defined in :func:`~interlinking.config.MLConf` :
 
-         * :attr:`~src.config.MLConf.MLP_hyperparameters_dist`
-         * :attr:`~src.config.MLConf.RandomForests_hyperparameters_dist`
-         * :attr:`~src.config.MLConf.XGBoost_hyperparameters_dist`
-         * :attr:`~src.config.MLConf.SVM_hyperparameters_dist`
-         * :attr:`~src.config.MLConf.DecisionTree_hyperparameters_dist`
+         * :attr:`~interlinking.config.MLConf.MLP_hyperparameters_dist`
+         * :attr:`~interlinking.config.MLConf.RandomForests_hyperparameters_dist`
+         * :attr:`~interlinking.config.MLConf.XGBoost_hyperparameters_dist`
+         * :attr:`~interlinking.config.MLConf.SVM_hyperparameters_dist`
+         * :attr:`~interlinking.config.MLConf.DecisionTree_hyperparameters_dist`
 
         Parameters
         ----------

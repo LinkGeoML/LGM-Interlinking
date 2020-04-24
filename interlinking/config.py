@@ -5,6 +5,12 @@ import numpy as np
 from scipy.stats import randint as sp_randint, expon, truncnorm, uniform
 
 
+default_data_path = 'data'
+freq_term_size = 400
+
+fieldnames = ["s1", "s2", "res", "c1", "c2", "a1", "a2", "cc1", "cc2"]
+delimiter = '\t'
+
 raw_dataset = 'allCountries.txt'
 #: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.
 train_dataset = 'data/dataset-string-similarity_global_1k.csv'
@@ -66,7 +72,7 @@ class MLConf:
 
     See Also
     --------
-    :class:`~src.featuresConstruction.Features`. Details on available inputs.    
+    :class:`~interlinking.featuresConstruction.Features`. Details on available inputs.    
     """
 
     # accepted values: randomized, grid, hyperband - not yet implemented!!!
@@ -75,7 +81,7 @@ class MLConf:
     
     See Also
     --------
-    :func:`~src.param_tuning.ParamTuning.getBestClassifier`, :func:`~src.param_tuning.ParamTuning.fineTuneClassifier` 
+    :func:`~interlinking.param_tuning.ParamTuning.getBestClassifier`, :func:`~interlinking.param_tuning.ParamTuning.fineTuneClassifier` 
     Details on available inputs.       
     """
     #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_

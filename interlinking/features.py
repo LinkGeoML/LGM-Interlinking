@@ -4,13 +4,13 @@
 
 import pandas as pd
 import numpy as np
-from src import config
+from interlinking import config
 from itertools import chain
 import os
 import glob
 
-from src.helpers import transform, getBasePath
-from src.sim_measures import LGMSimVars, lgm_sim_lterms, score_per_term, weighted_sim, algnms_to_func
+from interlinking.helpers import transform, getBasePath
+from interlinking.sim_measures import LGMSimVars, lgm_sim_split, score_per_term, weighted_sim, sim_measures
 
 
 class Features:
@@ -62,7 +62,7 @@ class Features:
         self._get_freqterms(encoding)
 
     def build(self):
-        """Build features depending on the assignment of parameter :py:attr:`~src.config.MLConf.classification_method`
+        """Build features depending on the assignment of parameter :py:attr:`~interlinking.config.MLConf.classification_method`
         and return values (fX, y) as ndarray of floats.
 
         Returns
@@ -88,26 +88,26 @@ class Features:
 
     def compute_features(self, s1, s2, sorted=True, lgm_sims=True):
         """
-        Depending on the group assigned to parameter :py:attr:`~src.config.MLConf.classification_method`,
+        Depending on the group assigned to parameter :py:attr:`~interlinking.config.MLConf.classification_method`,
         this method builds an ndarray of the following groups of features:
 
         * *basic*: various similarity measures, i.e.,
-          :func:`~src.sim_measures.damerau_levenshtein`,
-          :func:`~src.sim_measures.jaro`,
-          :func:`~src.sim_measures.jaro_winkler` and the reversed one,
-          :func:`~src.sim_measures.sorted_winkler`,
-          :func:`~src.sim_measures.cosine`,
-          :func:`~src.sim_measures.jaccard`,
-          :func:`~src.sim_measures.strike_a_match`,
-          :func:`~src.sim_measures.monge_elkan`,
-          :func:`~src.sim_measures.soft_jaccard`,
-          :func:`~src.sim_measures.davies`,
-          :func:`~src.sim_measures.lgm_jaro_winkler` and the reversed one,
-          :func:`~src.sim_measures.skipgrams`.
+          :func:`~interlinking.sim_measures.damerau_levenshtein`,
+          :func:`~interlinking.sim_measures.jaro`,
+          :func:`~interlinking.sim_measures.jaro_winkler` and the reversed one,
+          :func:`~interlinking.sim_measures.sorted_winkler`,
+          :func:`~interlinking.sim_measures.cosine`,
+          :func:`~interlinking.sim_measures.jaccard`,
+          :func:`~interlinking.sim_measures.strike_a_match`,
+          :func:`~interlinking.sim_measures.monge_elkan`,
+          :func:`~interlinking.sim_measures.soft_jaccard`,
+          :func:`~interlinking.sim_measures.davies`,
+          :func:`~interlinking.sim_measures.tuned_jaro_winkler` and the reversed one,
+          :func:`~interlinking.sim_measures.skipgrams`.
         * *basic_sorted*: sorted versions of similarity measures utilized in *basic* group, except for the
-          :func:`~src.sim_measures.sorted_winkler`.
+          :func:`~interlinking.sim_measures.sorted_winkler`.
         * *lgm*: LGM-Sim variations that integrate, as internal, the similarity measures utilized in *basic* group,
-          except for the :func:`~src.sim_measures.sorted_winkler`.
+          except for the :func:`~interlinking.sim_measures.sorted_winkler`.
 
         Parameters
         ----------
@@ -127,21 +127,21 @@ class Features:
         for status in list({False, sorted}):
             a, b = transform(s1, s2, sorting=status, canonical=status)
 
-            sim1 = algnms_to_func['damerau_levenshtein'](a, b)
-            sim8 = algnms_to_func['jaccard'](a, b)
-            sim2 = algnms_to_func['jaro'](a, b)
-            sim3 = algnms_to_func['jaro_winkler'](a, b)
-            sim4 = algnms_to_func['jaro_winkler'](a[::-1], b[::-1])
-            sim11 = algnms_to_func['monge_elkan'](a, b)
-            sim7 = algnms_to_func['cosine'](a, b)
-            sim9 = algnms_to_func['strike_a_match'](a, b)
-            sim12 = algnms_to_func['soft_jaccard'](a, b)
-            if not status: sim5 = algnms_to_func['sorted_winkler'](a, b)
-            sim10 = algnms_to_func['skipgram'](a, b)
-            sim13 = algnms_to_func['davies'](a, b)
+            sim1 = sim_measures['damerau_levenshtein'](a, b)
+            sim8 = sim_measures['jaccard'](a, b)
+            sim2 = sim_measures['jaro'](a, b)
+            sim3 = sim_measures['jaro_winkler'](a, b)
+            sim4 = sim_measures['jaro_winkler'](a[::-1], b[::-1])
+            sim11 = sim_measures['monge_elkan'](a, b)
+            sim7 = sim_measures['cosine'](a, b)
+            sim9 = sim_measures['strike_a_match'](a, b)
+            sim12 = sim_measures['soft_jaccard'](a, b)
+            if not status: sim5 = sim_measures['sorted_winkler'](a, b)
+            sim10 = sim_measures['skipgram'](a, b)
+            sim13 = sim_measures['davies'](a, b)
             if status:
-                sim14 = algnms_to_func['lgm_jaro_winkler'](a, b)
-                sim15 = algnms_to_func['lgm_jaro_winkler'](a[::-1], b[::-1])
+                sim14 = sim_measures['tuned_jaro_winkler'](a, b)
+                sim15 = sim_measures['tuned_jaro_winkler'](a[::-1], b[::-1])
 
             if status: f.append([sim1, sim2, sim3, sim4, sim7, sim8, sim9, sim10, sim11, sim12, sim13, sim14, sim15])
             else: f.append([sim1, sim2, sim3, sim4, sim5, sim7, sim8, sim9, sim10, sim11, sim12, sim13])
@@ -160,11 +160,13 @@ class Features:
             sim9 = self._compute_lgm_sim(a, b, 'jaro_winkler')
             sim10 = self._compute_lgm_sim(a, b, 'jaro')
             sim11 = self._compute_lgm_sim(a, b, 'jaro_winkler_r')
-            sim12 = self._compute_lgm_sim(a, b, 'lgm_jaro_winkler')
-            sim13 = self._compute_lgm_sim(a, b, 'lgm_jaro_winkler_r')
+            sim12 = self._compute_lgm_sim(a, b, 'tuned_jaro_winkler')
+            sim13 = self._compute_lgm_sim(a, b, 'tuned_jaro_winkler_r')
             sim14, sim15, sim16 = self._compute_lgm_sim_base_scores(a, b, 'damerau_levenshtein')
 
-            f.append([sim1, sim2, sim3, sim4, sim5, sim6, sim7, sim8, sim9, sim10, sim11, sim12, sim13, sim14, sim15, sim16])
+            f.append([
+                sim1, sim2, sim3, sim4, sim5, sim6, sim7, sim8, sim9, sim10, sim11, sim12, sim13, sim14, sim15, sim16
+            ])
 
         f = list(chain.from_iterable(f))
 
@@ -178,10 +180,10 @@ class Features:
 
     @staticmethod
     def _compute_lgm_sim(s1, s2, metric, w_type='avg'):
-        baseTerms, mismatchTerms, specialTerms = lgm_sim_lterms(
+        baseTerms, mismatchTerms, specialTerms = lgm_sim_split(
             s1, s2, LGMSimVars.per_metric_optValues[metric][w_type][0])
 
-        if metric in ['jaro_winkler_r', 'lgm_jaro_winkler_r']:
+        if metric in ['jaro_winkler_r', 'tuned_jaro_winkler_r']:
             return weighted_sim(
                 {'a': [x[::-1] for x in baseTerms['a']], 'b': [x[::-1] for x in baseTerms['b']],
                  'len': baseTerms['len'], 'char_len': baseTerms['char_len']},
@@ -196,7 +198,7 @@ class Features:
 
     @staticmethod
     def _compute_lgm_sim_base_scores(s1, s2, metric, w_type='avg'):
-        base_t, mis_t, special_t = lgm_sim_lterms(s1, s2, LGMSimVars.per_metric_optValues[metric][w_type][0])
+        base_t, mis_t, special_t = lgm_sim_split(s1, s2, LGMSimVars.per_metric_optValues[metric][w_type][0])
         return score_per_term(base_t, mis_t, special_t, metric)
 
     def _get_freqterms(self, encoding):

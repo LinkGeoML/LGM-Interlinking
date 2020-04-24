@@ -2,14 +2,18 @@
 # Author: vkaff
 # E-mail: vkaffes@imis.athena-innovation.gr
 
-import six
 import os
 import re
 from text_unidecode import unidecode
 import __main__
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem.snowball import SnowballStemmer
+import pycountry
+from langdetect import detect, lang_detect_exception
 
-from src.sim_measures import strip_accents, algnms_to_func
-from src import config
+from interlinking.sim_measures import strip_accents, sim_measures
+from interlinking import config
 
 
 punctuation_regex = re.compile(u'[‘’“”\'"!?;/⧸⁄‹›«»`ʿ,.-]')
@@ -25,27 +29,28 @@ def ascii_transliteration_and_punctuation_strip(s):
     return s
 
 
-def transform(s1, s2, sorting=False, canonical=False, delimiter=' ', thres=config.sort_thres, only_sorting=False):
-    a = six.text_type(s1) #.lower()
-    b = six.text_type(s2)
+def transform(s1, s2, sorting=False, canonical=False, delimiter=' ', thres=config.sort_thres, simple_sorting=False):
+    # a = six.text_type(s1) #.lower()
+    a = s1
+    b = s2
 
     if canonical:
         a = ascii_transliteration_and_punctuation_strip(a)
         b = ascii_transliteration_and_punctuation_strip(b)
 
-    if sorting:
+    if simple_sorting:
+        a = " ".join(sorted_nicely(a.split(delimiter)))
+        b = " ".join(sorted_nicely(b.split(delimiter)))
+    elif sorting:
         tmp_a = a.replace(' ', '')
         tmp_b = b.replace(' ', '')
 
-        if algnms_to_func['damerau_levenshtein'](tmp_a, tmp_b) < thres:
+        if sim_measures['damerau_levenshtein'](tmp_a, tmp_b) < thres:
             a = " ".join(sorted_nicely(a.split(delimiter)))
             b = " ".join(sorted_nicely(b.split(delimiter)))
-        elif algnms_to_func['damerau_levenshtein'](tmp_a, tmp_b) > algnms_to_func['damerau_levenshtein'](a, b):
+        elif sim_measures['damerau_levenshtein'](tmp_a, tmp_b) > sim_measures['damerau_levenshtein'](a, b):
             a = tmp_a
             b = tmp_b
-    elif only_sorting:
-        a = " ".join(sorted_nicely(a.split(delimiter)))
-        b = " ".join(sorted_nicely(b.split(delimiter)))
 
     return a, b
 
@@ -60,6 +65,32 @@ def sorted_nicely(l):
     convert = lambda text: int(text) if text.isdigit() else text
     alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
     return sorted(l, key=alphanum_key)
+
+
+def get_langnm(s, lang_detect=False):
+    lname = 'english'
+    try:
+        lname = pycountry.languages.get(alpha_2=detect(s)).name.lower() if lang_detect else 'english'
+    except lang_detect_exception.LangDetectException as e:
+        print(e)
+
+    return lname
+
+
+# Clean the string from stopwords based on language detections feature
+# Returned values #1: non-stopped words, #2: stopped words
+def normalize_str(s, lang_detect=False):
+    lname = get_langnm(s, lang_detect)
+    stemmer = SnowballStemmer(lname)
+    tokens = word_tokenize(s)
+    # words = [word.lower() for word in tokens if word.isalpha()]
+    stopwords_set = set(stopwords.words(lname))
+
+    stopped_words = set(filter(lambda token: token in stopwords_set, tokens))
+    filtered_words = list(filter(lambda token: token not in stopped_words, tokens))
+    filtered_stemmed_words = list(map(lambda token: stemmer.stem(token), filtered_words))
+
+    return filtered_words, filtered_stemmed_words, stopped_words
 
 
 def getBasePath():
@@ -162,8 +193,8 @@ class StaticValues:
             'monge_elkan': {'simple': [0.6, [0.7, 0.2, 0.1]], 'avg': [0.8, [0.6, 0.1, 0.3]]},
             'soft_jaccard': {'simple': [0.8, [0.6, 0.1, 0.3]], 'avg': [0.8, [0.5, 0.1, 0.4]]},
             'davies': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.6, 0.1, 0.3]]},
-            'lgm_jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.6, 0.1, 0.3]]},
-            'lgm_jaro_winkler_r': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.7, 0.1, 0.2]]},
+            'tuned_jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.6, 0.1, 0.3]]},
+            'tuned_jaro_winkler_r': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.7, 0.1, 0.2]]},
         },
         'global': {
             'damerau_levenshtein': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
@@ -179,7 +210,27 @@ class StaticValues:
             'monge_elkan': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
             'soft_jaccard': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.7, [0.4, 0.5, 0.1]]},
             'davies': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.7, [0.4, 0.5, 0.1]]},
-            'lgm_jaro_winkler': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
-            'lgm_jaro_winkler_r': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
+            'tuned_jaro_winkler': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
+            'tuned_jaro_winkler_r': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
         }
+    }
+
+    sim_metrics = {
+        'damerau_levenshtein': ['basic', 'sorted', 'lgm'],
+        'jaro': ['basic', 'sorted', 'lgm'],
+        'jaro_winkler': ['basic', 'sorted', 'lgm'],
+        'jaro_winkler_reversed': ['basic', 'sorted', 'lgm'],
+        'sorted_winkler': ['basic'],
+        'permuted_winkler': [],
+        'cosine': ['basic', 'sorted', 'lgm'],
+        'jaccard': ['basic', 'sorted', 'lgm'],
+        'strike_a_match': ['basic', 'sorted', 'lgm'],
+        'skipgram': ['basic', 'sorted', 'lgm'],
+        'monge_elkan': ['basic', 'sorted', 'lgm'],
+        'soft_jaccard': ['basic', 'sorted', 'lgm'],
+        'davies': ['basic', 'sorted', 'lgm'],
+        'tuned_jaro_winkler': ['basic', 'sorted', 'lgm'],
+        'tuned_jaro_winkler_reversed': ['basic', 'sorted', 'lgm'],
+        # 'lgm_sim': ['lgm'],
+        # 'avg_lgm_sim': ['lgm'],
     }

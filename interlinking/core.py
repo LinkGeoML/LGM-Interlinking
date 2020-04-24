@@ -2,12 +2,12 @@
 # Author: vkaff
 # E-mail: vkaffes@imis.athena-innovation.gr
 
-from __future__ import print_function
 import time
 
-from src import param_tuning
-from src import config
-from src.features import Features
+from interlinking import param_tuning
+from interlinking import config, helpers
+from interlinking.features import Features
+from interlinking.sim_measures import LGMSimVars
 
 
 class StrategyEvaluator:
@@ -17,7 +17,8 @@ class StrategyEvaluator:
     def __init__(self, encoding='latin'):
         self.encoding = encoding
 
-    def hyperparamTuning(self, train_data='data/dataset-string-similarity_global_1k.csv', test_data='data/dataset-string-similarity.txt'):
+    def hyperparamTuning(self, train_data='data/dataset-string-similarity_global_1k.csv',
+                         test_data='data/dataset-string-similarity.txt'):
         """A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to
         toponym interlinking problem.
 
@@ -26,8 +27,10 @@ class StrategyEvaluator:
         :param test_data: Relative path to the test dataset.
         :type test_data: str
         """
-        pt = param_tuning.ParamTuning()
+        LGMSimVars.per_metric_optValues = helpers.StaticValues.opt_values[self.encoding.lower()]
+
         f = Features()
+        pt = param_tuning.ParamTuning()
 
         tot_time = time.time(); start_time = time.time()
         f.load_data(train_data, self.encoding)
@@ -62,9 +65,12 @@ class StrategyEvaluator:
 
         print("The whole process took {} sec.".format(time.time() - tot_time))
 
-    def exec_classifiers(self, train_data='data/dataset-string-similarity_global_1k.csv', test_data='data/dataset-string-similarity.txt'):
+    def evaluate(self, train_data='data/dataset-string-similarity_global_1k.csv',
+                 test_data='data/dataset-string-similarity.txt'):
         """Train and evaluate selected ML algorithms with custom hyper-parameters on dataset.
         """
+        LGMSimVars.per_metric_optValues = helpers.StaticValues.opt_values[self.encoding.lower()]
+
         f = Features()
         pt = param_tuning.ParamTuning()
 
@@ -94,7 +100,8 @@ class StrategyEvaluator:
             # 2nd phase: test each classifier on the test dataset
             acc, pre, rec, f1 = pt.testClassifier(fX_test, y_test, estimator)
             self._print_stats({
-                'classifier': clf, 'accuracy': acc, 'precision': pre, 'recall': rec, 'f1_score': f1, 'time': start_time
+                'classifier': clf, 'accuracy': acc, 'precision': pre, 'recall': rec, 'f1_score': f1,
+                'time': start_time
             })
 
             print("The whole process took {} sec.\n".format(time.time() - tot_time))
