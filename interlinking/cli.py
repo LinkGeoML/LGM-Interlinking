@@ -1,5 +1,5 @@
 import click
-import os
+
 from interlinking import pre_process
 from interlinking.learning import learn_thres, learn_params_for_lgm
 from interlinking import core
