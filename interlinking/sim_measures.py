@@ -923,28 +923,70 @@ def score_per_term(base_t, mis_t, special_t, metric):
 
 def recalculate_weights(base_t, mis_t, special_t, metric='damerau_levenshtein', avg=False, weights=None):
     lsim_variance = 'avg' if avg else 'simple'
-    weights = LGMSimVars.per_metric_optValues[metric][lsim_variance][1][:] if weights is None else weights
+    local_weights = LGMSimVars.per_metric_optValues[metric][lsim_variance][1][:] if weights is None else weights
 
     if base_t['len'] == 0:
-        weights[1] += weights[0] * (float(mis_t['len']) / (mis_t['len'] + special_t['len']))
-        weights[2] += weights[0] * (1 - float(mis_t['len']) / (mis_t['len'] + special_t['len']))
-        weights[0] = 0
+        local_weights[1] += local_weights[0] * float(mis_t['len'] / (mis_t['len'] + special_t['len']))
+        local_weights[2] += local_weights[0] * (1 - float(mis_t['len'] / (mis_t['len'] + special_t['len'])))
+        local_weights[0] = 0
     if mis_t['len'] == 0:
-        weights[0] += weights[1] * (float(base_t['len']) / (base_t['len'] + special_t['len']))
-        weights[2] += weights[1] * (1 - float(base_t['len']) / (base_t['len'] + special_t['len']))
-        weights[1] = 0
+        local_weights[0] += local_weights[1] * float(base_t['len'] / (base_t['len'] + special_t['len']))
+        local_weights[2] += local_weights[1] * (1 - float(base_t['len'] / (base_t['len'] + special_t['len'])))
+        local_weights[1] = 0
     if special_t['len'] == 0:
-        weights[0] += weights[2] * (float(base_t['len']) / (base_t['len'] + mis_t['len']))
-        weights[1] += weights[2] * (1 - float(base_t['len']) / (base_t['len'] + mis_t['len']))
-        weights[2] = 0
+        local_weights[0] += local_weights[2] * float(base_t['len'] / (base_t['len'] + mis_t['len']))
+        local_weights[1] += local_weights[2] * (1 - float(base_t['len'] / (base_t['len'] + mis_t['len'])))
+        local_weights[2] = 0
 
     if avg:
-        weights[0] = weights[0] * base_t['char_len'] / 2
-        weights[1] = weights[1] * mis_t['char_len'] / 2
-        weights[2] = weights[2] * special_t['char_len'] / 2
-    denominator = weights[0] + weights[1] + weights[2]
+        local_weights[0] *= base_t['char_len'] / 2
+        local_weights[1] *= mis_t['char_len'] / 2
+        local_weights[2] *= special_t['char_len'] / 2
+    denominator = local_weights[0] + local_weights[1] + local_weights[2]
 
-    return [w / denominator for w in weights]
+    return [w / denominator for w in local_weights]
+
+
+def recalculate_weights_opt(base_t, mis_t, special_t, metric='damerau_levenshtein', avg=False, weights=None):
+    lsim_variance = 'avg' if avg else 'simple'
+    local_weights = LGMSimVars.per_metric_optValues[metric][lsim_variance][1][:] if weights is None else weights
+
+    # # if base_t['len'] == 0:
+    # valid = base_t[:, 0] == 0
+    # local_weights[:, 1][valid] += local_weights[:, 0][valid] * (
+    #     mis_t[:, 0][valid] / (mis_t[:, 0][valid] + special_t[:, 0][valid]))
+    # local_weights[:, 2][valid] += local_weights[:, 0][valid] * (1 - (
+    #     mis_t[:, 0][valid] / (mis_t[:, 0][valid] + special_t[:, 0][valid])))
+    # local_weights[:, 0][valid] = 0
+    # # if mis_t['len'] == 0:
+    # valid = mis_t[:, 0] == 0
+    # local_weights[:, 0][valid] += local_weights[:, 1][valid] * (
+    #     base_t[:, 0][valid] / (base_t[:, 0][valid] + special_t[:, 0][valid]))
+    # local_weights[:, 2][valid] += local_weights[:, 1][valid] * (1 - (
+    #     base_t[:, 0][valid] / (base_t[:, 0][valid] + special_t[:, 0][valid])))
+    # local_weights[:, 1][valid] = 0
+    #
+    # # if special_t['len'] == 0:
+    # valid = special_t[:, 0] == 0
+    # local_weights[:, 0][valid] += local_weights[:, 2][valid] * (
+    #     base_t[:, 0][valid] / (base_t[:, 0][valid] + mis_t[:, 0][valid]))
+    # local_weights[:, 1][valid] += local_weights[:, 2][valid] * (1 - (
+    #     base_t[:, 0][valid] / (base_t[:, 0][valid] + mis_t[:, 0][valid])))
+    # local_weights[:, 2][valid] = 0
+
+    if avg:
+        local_weights[:, 0] *= base_t[:, 1]
+        local_weights[:, 1] *= mis_t[:, 1]
+        local_weights[:, 2] *= special_t[:, 1]
+    denominator = local_weights[:, 0] + local_weights[:, 1] + local_weights[:, 2]
+
+    res = local_weights / denominator[:, np.newaxis]
+
+    assert (np.all(np.abs(np.sum(res,  axis=1) - np.ones(local_weights.shape[0])) < 10 * sys.float_info.epsilon)), \
+        f'per row sum of re-adjusted weights is not equal to 1.0, e.g., ' \
+        f'\n{res[np.abs(np.sum(res,  axis=1) - np.ones(local_weights.shape[0])) >= 10 * sys.float_info.epsilon][:5]}'
+
+    return res
 
 
 def weighted_sim(base_t, mis_t, special_t, metric, avg):

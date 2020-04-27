@@ -45,14 +45,14 @@ def learn_thres(fname, sim_group='basic'):
                 res[sim].append([acc, float(i / 100.0)])
                 idx += 1
 
-    print('\nThe process took {0:.2f} sec'.format(time.time() - start_time))
+    print('\nThe process took {0:.2f} sec\n'.format(time.time() - start_time))
 
-    for k, val in res.items():
+    for key, val in res.items():
         if len(val) == 0:
-            print('{0} is empty'.format(k))
+            print('{0} is empty'.format(key))
             continue
 
-        print(k, max(val, key=lambda x: x[0]))
+        print(key, max(val, key=lambda x: x[0]))
 
 
 def learn_params_for_lgm(fname, sim_group='lgm'):
@@ -63,19 +63,17 @@ def learn_params_for_lgm(fname, sim_group='lgm'):
     high_split_thres = 81
     split_step = 10
 
-    start_time = time.time()
+    gstart_time = time.time()
 
     data_df = pd.read_csv(os.path.join(config.default_data_path, fname), sep=config.delimiter, names=config.fieldnames,
                           na_filter=False, encoding='utf8')
     sim_measures.LGMSimVars().load_freq_terms()
 
-    print(f'The train data and frequent terms loaded in {(time.time() - start_time):.2f} sec.')
+    print(f'The train data and frequent terms loaded in {(time.time() - gstart_time):.2f} sec.')
 
     res = {}
     for m in helpers.StaticValues.sim_metrics.keys(): res[m] = []
 
-    separator = ''
-    # separator = ' split thres:'
     for s in range(low_split_thres, high_split_thres, split_step):
         split_thres = float(s / 100.0)
 
@@ -110,17 +108,14 @@ def learn_params_for_lgm(fname, sim_group='lgm'):
                     idx = 0
                     for sim, val in helpers.StaticValues.sim_metrics.items():
                         if sim_group in val:
-                            lweights = []
                             scols = [idx*9 + 1, idx*9 + 2, idx*9 + 4, idx*9 + 5, idx*9 + 7, idx*9 + 8]
-                            for b_len, b_char, m_len, m_char, s_len, s_char in sim_res[:, scols]:
-                                base_t = dict(len=b_len, char_len=b_char)
-                                mis_t = dict(len=m_len, char_len=m_char)
-                                special_t = dict(len=s_len, char_len=s_char)
-                                lweights.append(
-                                    sim_measures.recalculate_weights(
-                                        base_t, mis_t, special_t, avg=True, weights=list(w))
-                                )
-                            lweights = np.asarray(lweights)
+
+                            lweights = sim_measures.recalculate_weights_opt(
+                                sim_res[:, scols[0:2]],
+                                sim_res[:, scols[2:4]],
+                                sim_res[:, scols[4:6]],
+                                avg=True, weights=np.full((sim_res.shape[0], 3), list(w))
+                            )
                             fscore = sim_res[:, idx*9] * lweights[:, 0] + \
                                      sim_res[:, idx*9 + 3] * lweights[:, 1] + \
                                      sim_res[:, idx*9 + 6] * lweights[:, 2]
@@ -128,9 +123,9 @@ def learn_params_for_lgm(fname, sim_group='lgm'):
                             acc = accuracy_score(data_df['res'], fscore >= sim_thres)
                             res[sim].append([acc, float(i / 100.0), [split_thres, list(w)]])
                             idx += 1
-                # separator = '\t split thres:'
-                # print()
         print()
+
+    print('\nThe process took {0:.2f} sec\n'.format(time.time() - gstart_time))
 
     for key, val in res.items():
         if len(val) == 0:
@@ -142,16 +137,11 @@ def learn_params_for_lgm(fname, sim_group='lgm'):
 
 
 def compute_basic_similarities(a, b):
-    a, b = helpers.transform(a, b, sorting=False, canonical=False)
-
     f = []
     for sim, val in helpers.StaticValues.sim_metrics.items():
-        if '_reversed' in sim:
-            sim = sim[:-len('_reversed')]
-            a = a[::-1]
-            b = b[::-1]
-        if 'basic' in val: f.append(getattr(sim_measures, sim)(a, b))
-
+        if 'basic' in val:
+            if '_reversed' in sim: f.append(getattr(sim_measures, sim[:-len('_reversed')])(a[::-1], b[::-1]))
+            else: f.append(getattr(sim_measures, sim)(a, b))
     return f
 
 
@@ -160,11 +150,9 @@ def compute_sorted_similarities(a, b):
 
     f = []
     for sim, val in helpers.StaticValues.sim_metrics.items():
-        if '_reversed' in sim:
-            sim = sim[:-len('_reversed')]
-            a = a[::-1]
-            b = b[::-1]
-        if 'sorted' in val: f.append(getattr(sim_measures, sim)(a, b))
+        if 'sorted' in val:
+            if '_reversed' in sim: f.append(getattr(sim_measures, sim[:-len('_reversed')])(a[::-1], b[::-1]))
+            else: f.append(getattr(sim_measures, sim)(a, b))
 
     return f
 
@@ -174,13 +162,14 @@ def compute_lgm_similarities(a, b, split_thres):
 
     f = []
     for sim, val in helpers.StaticValues.sim_metrics.items():
-        if '_reversed' in sim:
-            sim = sim[:-len('_reversed')]
-            a = a[::-1]
-            b = b[::-1]
         if 'lgm' in val:
-            base_t, mis_t, special_t = sim_measures.lgm_sim_split(a, b, split_thres)
-            base_score, mis_score, special_score = sim_measures.score_per_term(base_t, mis_t, special_t, sim)
+            if '_reversed' in sim:
+                base_t, mis_t, special_t = sim_measures.lgm_sim_split(a[::-1], b[::-1], split_thres)
+                base_score, mis_score, special_score = sim_measures.score_per_term(
+                    base_t, mis_t, special_t, sim[:-len('_reversed')])
+            else:
+                base_t, mis_t, special_t = sim_measures.lgm_sim_split(a, b, split_thres)
+                base_score, mis_score, special_score = sim_measures.score_per_term(base_t, mis_t, special_t, sim)
             f.extend([
                 base_score, base_t['len'], base_t['char_len'],
                 mis_score, mis_t['len'], mis_t['char_len'],
