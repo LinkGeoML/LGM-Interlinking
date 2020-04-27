@@ -41,7 +41,7 @@ def learn_thres(fname, sim_group='basic'):
         idx = 0
         for sim, val in helpers.StaticValues.sim_metrics.items():
             if sim_group in val:
-                acc = accuracy_score(data_df['res'], sim_res[:, idx] >= sim_thres)
+                acc = accuracy_score(data_df['status'], sim_res[:, idx] >= sim_thres)
                 res[sim].append([acc, float(i / 100.0)])
                 idx += 1
 
@@ -120,7 +120,7 @@ def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
                                      sim_res[:, idx*9 + 3] * lweights[:, 1] + \
                                      sim_res[:, idx*9 + 6] * lweights[:, 2]
 
-                            acc = accuracy_score(data_df['res'], fscore >= sim_thres)
+                            acc = accuracy_score(data_df['status'], fscore >= sim_thres)
                             res[sim].append([acc, float(i / 100.0), [split_thres, list(w)]])
                             idx += 1
         print()

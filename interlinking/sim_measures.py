@@ -821,7 +821,9 @@ class LGMSimVars:
 
             print("Loading frequent terms from file {} ...".format(f))
             df = pd.read_csv(f, sep='\t', header=0, names=['term', 'no'], nrows=config.freq_term_size)
-            self.freq_ngrams[gram_type].update(df['term'].values.tolist())
+            self.freq_ngrams[gram_type].update(
+                pd.concat([df['term'], df['term'].apply(lambda x: x[::-1])]).tolist())
+
         print('Frequent terms successfully loaded.')
 
 
