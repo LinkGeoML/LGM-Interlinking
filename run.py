@@ -31,7 +31,7 @@ Command line::
 
 """
 
-import os, sys
+import sys
 # import codecs
 
 from interlinking.sim_measures import build_dataset
