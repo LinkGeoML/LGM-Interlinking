@@ -17,7 +17,6 @@ def cli():
 @click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
               help='specify the alphabet encoding of toponyms in dataset.')
 def freq_terms(train_set, encoding):
-    assert (os.path.isfile(train_set)), f'{train_set} dataset does not exist'
     pre_process.extract_freqterms(train_set, encoding)
 
 
@@ -30,7 +29,6 @@ def freq_terms(train_set, encoding):
 @click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
               help='specify the alphabet encoding of toponyms in dataset.')
 def learn_params(train_set, sim_type, encoding):
-    assert (os.path.isfile(train_set)), f'{train_set} dataset does not exist'
     if sim_type == 'lgm':
         learn_params_for_lgm(train_set, encoding)
     else: learn_thres(train_set, sim_type)
@@ -44,8 +42,6 @@ def learn_params(train_set, sim_type, encoding):
 @click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
               help='specify the alphabet encoding of toponyms in dataset.')
 def hyperparams_learn(train_set, test_set, encoding):
-    assert (os.path.isfile(train_set)), f'{train_set} dataset does not exist'
-    assert (os.path.isfile(test_set)), f'{test_set} dataset does not exist'
     core.StrategyEvaluator(encoding).hyperparamTuning(train_set, test_set)
 
 
@@ -55,8 +51,6 @@ def hyperparams_learn(train_set, test_set, encoding):
 @click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
               help='specify the encoding of toponyms in dataset.')
 def eval_classifiers(train_set, test_set, encoding):
-    assert (os.path.isfile(train_set)), f'{train_set} dataset does not exist'
-    assert (os.path.isfile(test_set)), f'{test_set} dataset does not exist'
     core.StrategyEvaluator(encoding).evaluate(train_set, test_set)
 
 

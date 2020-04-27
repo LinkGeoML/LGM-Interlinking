@@ -3,6 +3,7 @@
 # E-mail: vkaffes@imis.athena-innovation.gr
 
 import time
+import os
 
 from interlinking import param_tuning
 from interlinking import config, helpers
@@ -17,8 +18,7 @@ class StrategyEvaluator:
     def __init__(self, encoding='latin'):
         self.encoding = encoding
 
-    def hyperparamTuning(self, train_data='data/dataset-string-similarity_global_1k.csv',
-                         test_data='data/dataset-string-similarity.txt'):
+    def hyperparamTuning(self, train_data, test_data):
         """A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to
         toponym interlinking problem.
 
@@ -28,12 +28,16 @@ class StrategyEvaluator:
         :type test_data: str
         """
         LGMSimVars.per_metric_optValues = helpers.StaticValues.opt_values[self.encoding.lower()]
+        assert (os.path.isfile(os.path.join(config.default_data_path, train_data))), \
+            f'{train_data} dataset does not exist'
+        assert (os.path.isfile(os.path.join(config.default_data_path, test_data))), \
+            f'{test_data} dataset does not exist'
 
         f = Features()
         pt = param_tuning.ParamTuning()
 
         tot_time = time.time(); start_time = time.time()
-        f.load_data(train_data, self.encoding)
+        f.load_data(os.path.join(config.default_data_path, train_data), self.encoding)
         fX, y = f.build()
         print("Loaded train dataset and build features for {} setup; {} sec.".format(
             config.MLConf.classification_method, time.time() - start_time))
@@ -51,7 +55,7 @@ class StrategyEvaluator:
         print("Finished training model on the dataset; {} sec.".format(time.time() - start_time))
 
         start_time = time.time()
-        f.load_data(test_data, self.encoding)
+        f.load_data(os.path.join(config.default_data_path, test_data), self.encoding)
         fX, y = f.build()
         print("Loaded test dataset and build features; {} sec".format(time.time() - start_time))
 
@@ -65,23 +69,26 @@ class StrategyEvaluator:
 
         print("The whole process took {} sec.".format(time.time() - tot_time))
 
-    def evaluate(self, train_data='data/dataset-string-similarity_global_1k.csv',
-                 test_data='data/dataset-string-similarity.txt'):
+    def evaluate(self, train_data, test_data):
         """Train and evaluate selected ML algorithms with custom hyper-parameters on dataset.
         """
         LGMSimVars.per_metric_optValues = helpers.StaticValues.opt_values[self.encoding.lower()]
+        assert (os.path.isfile(os.path.join(config.default_data_path, train_data))), \
+            f'{train_data} dataset does not exist'
+        assert (os.path.isfile(os.path.join(config.default_data_path, test_data))), \
+            f'{test_data} dataset does not exist'
 
         f = Features()
         pt = param_tuning.ParamTuning()
 
         start_time = time.time()
-        f.load_data(train_data, self.encoding)
+        f.load_data(os.path.join(config.default_data_path, train_data), self.encoding)
         fX_train, y_train = f.build()
         print("Loaded train dataset and build features for {} setup; {} sec.".format(
             config.MLConf.classification_method, time.time() - start_time))
 
         start_time = time.time()
-        f.load_data(test_data, self.encoding)
+        f.load_data(os.path.join(config.default_data_path, test_data), self.encoding)
         fX_test, y_test = f.build()
         print("Loaded test dataset and build features; {} sec".format(time.time() - start_time))
 

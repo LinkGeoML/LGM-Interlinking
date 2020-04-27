@@ -953,28 +953,28 @@ def recalculate_weights_opt(base_t, mis_t, special_t, metric='damerau_levenshtei
     lsim_variance = 'avg' if avg else 'simple'
     local_weights = LGMSimVars.per_metric_optValues[metric][lsim_variance][1][:] if weights is None else weights
 
-    # # if base_t['len'] == 0:
-    # valid = base_t[:, 0] == 0
-    # local_weights[:, 1][valid] += local_weights[:, 0][valid] * (
-    #     mis_t[:, 0][valid] / (mis_t[:, 0][valid] + special_t[:, 0][valid]))
-    # local_weights[:, 2][valid] += local_weights[:, 0][valid] * (1 - (
-    #     mis_t[:, 0][valid] / (mis_t[:, 0][valid] + special_t[:, 0][valid])))
-    # local_weights[:, 0][valid] = 0
-    # # if mis_t['len'] == 0:
-    # valid = mis_t[:, 0] == 0
-    # local_weights[:, 0][valid] += local_weights[:, 1][valid] * (
-    #     base_t[:, 0][valid] / (base_t[:, 0][valid] + special_t[:, 0][valid]))
-    # local_weights[:, 2][valid] += local_weights[:, 1][valid] * (1 - (
-    #     base_t[:, 0][valid] / (base_t[:, 0][valid] + special_t[:, 0][valid])))
-    # local_weights[:, 1][valid] = 0
-    #
-    # # if special_t['len'] == 0:
-    # valid = special_t[:, 0] == 0
-    # local_weights[:, 0][valid] += local_weights[:, 2][valid] * (
-    #     base_t[:, 0][valid] / (base_t[:, 0][valid] + mis_t[:, 0][valid]))
-    # local_weights[:, 1][valid] += local_weights[:, 2][valid] * (1 - (
-    #     base_t[:, 0][valid] / (base_t[:, 0][valid] + mis_t[:, 0][valid])))
-    # local_weights[:, 2][valid] = 0
+    # if base_t['len'] == 0:
+    valid = base_t[:, 0] == 0
+    local_weights[:, 1][valid] += local_weights[:, 0][valid] * (
+        mis_t[:, 0][valid] / (mis_t[:, 0][valid] + special_t[:, 0][valid]))
+    local_weights[:, 2][valid] += local_weights[:, 0][valid] * (1 - (
+        mis_t[:, 0][valid] / (mis_t[:, 0][valid] + special_t[:, 0][valid])))
+    local_weights[:, 0][valid] = 0
+    # if mis_t['len'] == 0:
+    valid = mis_t[:, 0] == 0
+    local_weights[:, 0][valid] += local_weights[:, 1][valid] * (
+        base_t[:, 0][valid] / (base_t[:, 0][valid] + special_t[:, 0][valid]))
+    local_weights[:, 2][valid] += local_weights[:, 1][valid] * (1 - (
+        base_t[:, 0][valid] / (base_t[:, 0][valid] + special_t[:, 0][valid])))
+    local_weights[:, 1][valid] = 0
+
+    # if special_t['len'] == 0:
+    valid = special_t[:, 0] == 0
+    local_weights[:, 0][valid] += local_weights[:, 2][valid] * (
+        base_t[:, 0][valid] / (base_t[:, 0][valid] + mis_t[:, 0][valid]))
+    local_weights[:, 1][valid] += local_weights[:, 2][valid] * (1 - (
+        base_t[:, 0][valid] / (base_t[:, 0][valid] + mis_t[:, 0][valid])))
+    local_weights[:, 2][valid] = 0
 
     if avg:
         local_weights[:, 0] *= base_t[:, 1]

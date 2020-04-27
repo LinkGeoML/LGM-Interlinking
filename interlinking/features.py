@@ -58,8 +58,8 @@ class Features:
         self.data_df = None
 
     def load_data(self, fname, encoding):
-        self.data_df = pd.read_csv(os.path.join(config.default_data_path, fname), sep=config.delimiter,
-                                   names=config.fieldnames, dtype=self.dtypes, na_filter=False, encoding='utf8')
+        self.data_df = pd.read_csv(fname, sep=config.delimiter, names=config.fieldnames, dtype=self.dtypes,
+                                   na_filter=False, encoding='utf8')
         LGMSimVars().load_freq_terms(encoding)
 
     def build(self):

@@ -14,6 +14,8 @@ def learn_thres(fname, sim_group='basic'):
     high_thres = 91
     step = 5
 
+    assert (os.path.isfile(os.path.join(config.default_data_path, fname))), f'{fname} dataset does not exist'
+
     start_time = time.time()
 
     data_df = pd.read_csv(os.path.join(config.default_data_path, fname), sep=config.delimiter, names=config.fieldnames,
@@ -62,6 +64,8 @@ def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
     low_split_thres = 40
     high_split_thres = 81
     split_step = 10
+
+    assert (os.path.isfile(os.path.join(config.default_data_path, fname))), f'{fname} dataset does not exist'
 
     gstart_time = time.time()
 
