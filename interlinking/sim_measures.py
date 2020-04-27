@@ -878,21 +878,21 @@ def lgm_sim_split(s1, s2, split_thres):
         Three lists of terms identified as base, mismatch or frequent respectively per toponym, i.e., *a* for s1 and
         *b* for s2.
     """
-    specialTerms = dict(a=[], b=[], len=0)
+    special_terms = dict(a=[], b=[], len=0)
 
-    specialTerms['a'] = list(set(s1.split()) & LGMSimVars.freq_ngrams['tokens'])
-    specialTerms['b'] = list(set(s2.split()) & LGMSimVars.freq_ngrams['tokens'])
-    specialTerms['len'] = len(specialTerms['a']) + len(specialTerms['b'])
-    specialTerms['char_len'] = sum(len(s) for s in specialTerms['a']) + sum(len(s) for s in specialTerms['b'])
+    special_terms['a'] = list(set(s1.split()) & LGMSimVars.freq_ngrams['tokens'])
+    special_terms['b'] = list(set(s2.split()) & LGMSimVars.freq_ngrams['tokens'])
+    special_terms['len'] = len(special_terms['a']) + len(special_terms['b'])
+    special_terms['char_len'] = sum(len(s) for s in special_terms['a']) + sum(len(s) for s in special_terms['b'])
 
-    if specialTerms['a']:  # check if list is empty
-        s1 = re.sub("|".join(specialTerms['a']), ' ', s1).strip()
-    if specialTerms['b']:
-        s2 = re.sub("|".join(specialTerms['b']), ' ', s2).strip()
+    if special_terms['a']:  # check if list is empty
+        s1 = re.sub("|".join(special_terms['a']), ' ', s1).strip()
+    if special_terms['b']:
+        s2 = re.sub("|".join(special_terms['b']), ' ', s2).strip()
 
-    baseTerms, mismatchTerms = core_terms_split(s1, s2, split_thres)
+    base_terms, mismatch_terms = core_terms_split(s1, s2, split_thres)
 
-    return baseTerms, mismatchTerms, specialTerms
+    return base_terms, mismatch_terms, special_terms
 
 
 def score_per_term(base_t, mis_t, special_t, metric):
