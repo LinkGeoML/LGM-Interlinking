@@ -55,7 +55,7 @@ def learn_thres(fname, sim_group='basic'):
         print(key, max(val, key=lambda x: x[0]))
 
 
-def learn_params_for_lgm(fname, sim_group='lgm'):
+def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
     low_thres = 30
     high_thres = 91
     step = 5
@@ -67,7 +67,7 @@ def learn_params_for_lgm(fname, sim_group='lgm'):
 
     data_df = pd.read_csv(os.path.join(config.default_data_path, fname), sep=config.delimiter, names=config.fieldnames,
                           na_filter=False, encoding='utf8')
-    sim_measures.LGMSimVars().load_freq_terms()
+    sim_measures.LGMSimVars().load_freq_terms(encoding)
 
     print(f'The train data and frequent terms loaded in {(time.time() - gstart_time):.2f} sec.')
 

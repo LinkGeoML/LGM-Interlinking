@@ -8,7 +8,7 @@ from scipy.stats import randint as sp_randint, expon, truncnorm, uniform
 default_data_path = 'data'
 freq_term_size = 400
 
-fieldnames = ["s1", "s2", "res", "c1", "c2", "a1", "a2", "cc1", "cc2"]
+fieldnames = ["s1", "s2", "status", "c1", "c2", "a1", "a2", "cc1", "cc2"]
 delimiter = '\t'
 
 raw_dataset = 'allCountries.txt'

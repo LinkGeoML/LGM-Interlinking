@@ -43,8 +43,7 @@ class ParamTuning:
 
     def __init__(self):
         # To be used in outer CV
-        self.outer_cv = StratifiedKFold(n_splits=config.MLConf.kfold_parameter, shuffle=False,
-                                        random_state=config.seed_no)
+        self.outer_cv = StratifiedKFold(n_splits=config.MLConf.kfold_parameter, shuffle=False)
 
         self.kfold = config.MLConf.kfold_parameter
         self.n_jobs = config.MLConf.n_jobs

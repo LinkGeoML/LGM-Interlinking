@@ -13,8 +13,10 @@ def cli():
 @click.option('--train_set', default='dataset-string-similarity_global_1k.csv',
               help='Train dataset to extract frequent terms from. '
                    'It requires once to run: python -m nltk.downloader \'punkt\'')
-def freq_terms(train_set):
-    pre_process.extract_freqterms(train_set)
+@click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
+              help='specify the alphabet encoding of toponyms in dataset.')
+def freq_terms(train_set, encoding):
+    pre_process.extract_freqterms(train_set, encoding)
 
 
 @cli.command('learn_sim_params', help='Learn parameters, i.e., weights/thresholds, on a train dataset for '
@@ -23,9 +25,11 @@ def freq_terms(train_set):
               help='Train dataset to learn parameters.')
 @click.option('--sim_type', default='basic', type=click.Choice(['basic', 'sorted', 'lgm']),
               help='Group of similarities to train. Valid options are: basic, sorted, lgm')
-def learn_params(train_set, sim_type):
+@click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
+              help='specify the alphabet encoding of toponyms in dataset.')
+def learn_params(train_set, sim_type, encoding):
     if sim_type == 'lgm':
-        learn_params_for_lgm(train_set)
+        learn_params_for_lgm(train_set, encoding)
     else: learn_thres(train_set, sim_type)
 
 
@@ -35,7 +39,7 @@ def learn_params(train_set, sim_type):
               help='Train dataset to learn parameters.')
 @click.option('--test_set', default='dataset-string-similarity.txt', help='Test dataset to evaluate the models.')
 @click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
-              help='specify the encoding of toponyms in dataset.')
+              help='specify the alphabet encoding of toponyms in dataset.')
 def hyperparams_learn(train_set, test_set, encoding):
     core.StrategyEvaluator(encoding).hyperparamTuning(train_set, test_set)
 

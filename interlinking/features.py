@@ -58,8 +58,9 @@ class Features:
         self.data_df = None
 
     def load_data(self, fname, encoding):
-        self.data_df = pd.read_csv(fname, sep='\t', names=self.fields, dtype=self.dtypes, na_filter=False, encoding='utf8')
-        self._get_freqterms(encoding)
+        self.data_df = pd.read_csv(os.path.join(config.default_data_path, fname), sep=config.delimiter,
+                                   names=config.fieldnames, dtype=self.dtypes, na_filter=False, encoding='utf8')
+        LGMSimVars().load_freq_terms(encoding)
 
     def build(self):
         """Build features depending on the assignment of parameter :py:attr:`~interlinking.config.MLConf.classification_method`
@@ -200,21 +201,3 @@ class Features:
     def _compute_lgm_sim_base_scores(s1, s2, metric, w_type='avg'):
         base_t, mis_t, special_t = lgm_sim_split(s1, s2, LGMSimVars.per_metric_optValues[metric][w_type][0])
         return score_per_term(base_t, mis_t, special_t, metric)
-
-    def _get_freqterms(self, encoding):
-        print("Resetting any previously assigned frequent terms ...")
-        LGMSimVars.freq_ngrams['tokens'].clear()
-        LGMSimVars.freq_ngrams['chars'].clear()
-
-        input_path = (True, os.path.join(getBasePath(), 'data/input/')) \
-            if os.path.isdir(os.path.join(getBasePath(), 'data/input/')) \
-            else (os.path.isdir(os.path.join(getBasePath(), '../data/input/')), os.path.join(getBasePath(), '../input/'))
-        if input_path[0]:
-            for f in glob.iglob(os.path.join(input_path[1], '*gram*{}{}.csv'.format('_', encoding))):
-                gram_type = 'tokens' if 'token' in os.path.basename(os.path.normpath(f)) else 'chars'
-
-                print("Loading frequent terms from file {} ...".format(f))
-                df = pd.read_csv(f, sep='\t', header=0, names=['term', 'no'], nrows=self.max_freq_terms)
-                LGMSimVars.freq_ngrams[gram_type].update(df['term'].values.tolist())
-            print('Frequent terms loaded.')
-        else: print("Folder 'input' does not exist")

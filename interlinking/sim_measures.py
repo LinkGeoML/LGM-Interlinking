@@ -811,12 +811,12 @@ class LGMSimVars:
     weights = []
     per_metric_optValues = {}
 
-    def load_freq_terms(self):
+    def load_freq_terms(self, encoding):
         print("Resetting any previously assigned frequent terms ...")
         self.freq_ngrams['tokens'].clear()
         self.freq_ngrams['chars'].clear()
 
-        for f in glob.iglob(os.path.join(config.default_data_path, '*gram*.csv')):
+        for f in glob.iglob(os.path.join(config.default_data_path, f'*gram*_{encoding}.csv')):
             gram_type = 'tokens' if 'token' in os.path.basename(os.path.normpath(f)) else 'chars'
 
             print("Loading frequent terms from file {} ...".format(f))

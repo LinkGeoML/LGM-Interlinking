@@ -8,7 +8,7 @@ from interlinking import config
 from interlinking import helpers
 
 
-def extract_freqterms(fname):
+def extract_freqterms(fname, encoding):
     pattern = re.compile("^[a-zA-Z]+")
 
     ngram_stats = {
@@ -55,7 +55,7 @@ def extract_freqterms(fname):
                 #         ngram_stats['4gram'][gram] += 1
 
     for gram in ngram_stats.keys():
-        with open(os.path.join(config.default_data_path, "{0}s.csv".format(gram)), "w+") as f:
+        with open(os.path.join(config.default_data_path, "{0}s_{1}.csv".format(gram, encoding)), "w+") as f:
             f.write('gram\tcount\n')
             for value, count in ngram_stats[gram].most_common():
                 for t in dstemmed.get(value):
