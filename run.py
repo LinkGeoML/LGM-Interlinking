@@ -33,11 +33,8 @@ Command line::
 
 import os, sys
 # import codecs
-from docopt import docopt
 
-from interlinking.core import StrategyEvaluator
-from interlinking.helpers import getRelativePathtoWorking, StaticValues
-from interlinking.sim_measures import LGMSimVars, build_dataset
+from interlinking.sim_measures import build_dataset
 import interlinking.config as config
 
 
@@ -48,20 +45,7 @@ def main(args):
         build_dataset(config.raw_dataset, int(args['--n_alternates']), int(args['--num_instances']), args['-e'])
         sys.exit(0)
 
-    d_test = getRelativePathtoWorking(config.test_dataset) if args['--dtest'] is None \
-        else getRelativePathtoWorking(args['--dtest'])
-    d_train = getRelativePathtoWorking(config.train_dataset) if args['--dtrain'] is None \
-        else getRelativePathtoWorking(args['--dtrain'])
-    if os.path.isfile(d_test) and os.path.isfile(d_train):
-        LGMSimVars.per_metric_optValues = StaticValues.opt_values[args["-e"].lower()]
-        seval = StrategyEvaluator(args['-e'])
 
-        if args['--customparams']: seval.evaluate(d_train, d_test)
-        else: seval.hyperparamTuning(d_train, d_test)
-    else:
-        print("File {0} and/or {1} is not found!!!\n".format(d_test, d_train))
-
-
-if __name__ == "__main__":
-    arguments = docopt(__doc__, version='LGM-Interlinking 0.2.1')
-    main(arguments)
+# if __name__ == "__main__":
+#     arguments = docopt(__doc__, version='LGM-Interlinking 0.2.1')
+#     main(arguments)
