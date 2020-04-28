@@ -11,7 +11,6 @@ freq_term_size = 400
 fieldnames = ["s1", "s2", "status", "c1", "c2", "a1", "a2", "cc1", "cc2"]
 delimiter = '\t'
 
-raw_dataset = 'allCountries.txt'
 # #: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.
 # train_dataset = 'data/dataset-string-similarity_global_1k.csv'
 # # train_dataset = 'data/dataset-string-similarity_latin_EU_NA_1k.txt'

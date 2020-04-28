@@ -1,13 +1,30 @@
+# -*- coding: utf-8 -*-
+# Author: vkaff
+# E-mail: vkaffes@athenarc.gr
+
 import click
 
 from interlinking import pre_process
 from interlinking.learning import learn_thres, learn_params_for_lgm
+from interlinking.sim_measures import build_dataset
 from interlinking import core
 
 
 @click.group()
 def cli():
     pass
+
+
+@cli.command('build', help='Tune various classifiers and select the best hyper-parameters on a '
+                                           'train dataset')
+@click.option('--dataset', default='allCountries.txt', help='.')
+@click.option('--n_alternates', default='3', help='Min number of alternative names in order to process the record.')
+@click.option('--num_instances', default='5000000',
+              help='total number of toponym pairs to create per flag (true/false).')
+@click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
+              help='specify the alphabet encoding of toponyms in dataset.')
+def build(dataset, n_alternates, num_instances, encoding):
+    build_dataset(dataset, n_alternates, num_instances, encoding)
 
 
 @cli.command('extract_frequent_terms', help='Create a file with ranked frequent terms found in corpus')
