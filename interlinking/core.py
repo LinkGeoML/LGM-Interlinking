@@ -5,8 +5,8 @@
 import time
 import os
 
-from interlinking import param_tuning
-from interlinking import config, helpers
+from interlinking import param_tuning, config
+from interlinking.helpers import StaticValues
 from interlinking.features import Features
 from interlinking.sim_measures import LGMSimVars
 
@@ -27,7 +27,7 @@ class StrategyEvaluator:
         :param test_data: Relative path to the test dataset.
         :type test_data: str
         """
-        LGMSimVars.per_metric_optValues = helpers.StaticValues.opt_values[self.encoding.lower()]
+        LGMSimVars.per_metric_optValues = StaticValues.opt_values[self.encoding.lower()]
         assert (os.path.isfile(os.path.join(config.default_data_path, train_data))), \
             f'{train_data} dataset does not exist'
         assert (os.path.isfile(os.path.join(config.default_data_path, test_data))), \
@@ -72,7 +72,7 @@ class StrategyEvaluator:
     def evaluate(self, train_data, test_data):
         """Train and evaluate selected ML algorithms with custom hyper-parameters on dataset.
         """
-        LGMSimVars.per_metric_optValues = helpers.StaticValues.opt_values[self.encoding.lower()]
+        LGMSimVars.per_metric_optValues = StaticValues.opt_values[self.encoding.lower()]
         assert (os.path.isfile(os.path.join(config.default_data_path, train_data))), \
             f'{train_data} dataset does not exist'
         assert (os.path.isfile(os.path.join(config.default_data_path, test_data))), \
