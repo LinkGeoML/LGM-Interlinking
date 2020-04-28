@@ -61,8 +61,8 @@ def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
     low_thres = 30
     high_thres = 91
     step = 5
-    low_split_thres = 40
-    high_split_thres = 81
+    low_split_thres = 50
+    high_split_thres = 91
     split_step = 10
 
     assert (os.path.isfile(os.path.join(config.default_data_path, fname))), f'{fname} dataset does not exist'

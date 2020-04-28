@@ -97,10 +97,6 @@ def getBasePath():
     return os.path.abspath(os.path.dirname(__main__.__file__))
 
 
-def getRelativePathtoWorking(ds):
-    return os.path.join(getBasePath(), 'data', ds)
-
-
 class StaticValues:
     featureColumns = [
         "Damerau-Levenshtein",
@@ -180,20 +176,20 @@ class StaticValues:
     opt_values = {
         'latin': {
             # Only latin dataset 100k lines
-            'damerau_levenshtein': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.5, 0.1, 0.4]]},
-            'jaro': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.7, 0.1, 0.2]]},
-            'jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.6, 0.1, 0.3]]},
+            'damerau_levenshtein': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.5, 0.2, 0.3]]},
+            'jaro': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.7, 0.1, 0.2]]},
+            'jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
             'jaro_winkler_r': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.7, 0.1, 0.2]]},
             # 'permuted_winkler': [],
             # 'sorted_winkler': [],
-            'cosine': {'simple': [0.6, [0.6, 0.2, 0.2]], 'avg': [0.8, [0.4, 0.2, 0.4]]},
-            'jaccard': {'simple': [0.6, [0.6, 0.1, 0.3]], 'avg': [0.8, [0.334, 0.333, 0.333]]},
-            'strike_a_match': {'simple': [0.6, [0.6, 0.1, 0.3]], 'avg': [0.8, [0.4, 0.2, 0.4]]},
-            'skipgram': {'simple': [0.6, [0.6, 0.2, 0.2]], 'avg': [0.8, [0.334, 0.333, 0.333]]},
-            'monge_elkan': {'simple': [0.6, [0.7, 0.2, 0.1]], 'avg': [0.8, [0.6, 0.1, 0.3]]},
-            'soft_jaccard': {'simple': [0.8, [0.6, 0.1, 0.3]], 'avg': [0.8, [0.5, 0.1, 0.4]]},
-            'davies': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.6, 0.1, 0.3]]},
-            'tuned_jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.6, 0.1, 0.3]]},
+            'cosine': {'simple': [0.6, [0.6, 0.2, 0.2]], 'avg': [0.9, [0.4, 0.2, 0.4]]},
+            'jaccard': {'simple': [0.6, [0.6, 0.1, 0.3]], 'avg': [0.9, [0.3, 0.3, 0.4]]},
+            'strike_a_match': {'simple': [0.6, [0.6, 0.1, 0.3]], 'avg': [0.9, [0.5, 0.1, 0.4]]},
+            'skipgram': {'simple': [0.6, [0.6, 0.2, 0.2]], 'avg': [0.9, [0.3, 0.3, 0.4]]},
+            'monge_elkan': {'simple': [0.6, [0.7, 0.2, 0.1]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
+            'soft_jaccard': {'simple': [0.8, [0.6, 0.1, 0.3]], 'avg': [0.9, [0.5, 0.1, 0.4]]},
+            'davies': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
+            'tuned_jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
             'tuned_jaro_winkler_r': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.7, 0.1, 0.2]]},
         },
         'global': {
@@ -231,6 +227,4 @@ class StaticValues:
         'davies': ['basic', 'sorted', 'lgm'],
         'tuned_jaro_winkler': ['basic', 'sorted', 'lgm'],
         'tuned_jaro_winkler_reversed': ['basic', 'sorted', 'lgm'],
-        # 'lgm_sim': ['lgm'],
-        # 'avg_lgm_sim': ['lgm'],
     }
