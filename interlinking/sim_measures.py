@@ -10,7 +10,6 @@ developed by Rui Santos and Alexandre Marinho for their work in
 """
 
 # Python 2 and 3
-from builtins import range
 from io import open
 import six
 
@@ -21,7 +20,6 @@ import math
 import random
 import itertools
 import re
-import __main__
 from datetime import datetime
 import pandas as pd
 import glob
@@ -35,14 +33,6 @@ import pyxdameraulevenshtein
 from tqdm import tqdm
 
 from interlinking import config
-
-
-def getBasePath():
-    return os.path.abspath(os.path.dirname(__main__.__file__))
-
-
-def getRelativePathtoWorking(ds):
-    return os.path.join(getBasePath(), ds)
 
 
 fields = ["geonameid",
@@ -97,13 +87,13 @@ def build_dataset_from_geonames(dataset='allCountries.txt', output='dataset-unfi
     lastid = None
     # country = None
     skip = random.randint(10, 10000)
-    file = open(getRelativePathtoWorking(os.path.join('data', output)), "w+")
+    file = open(os.path.join(config.default_data_path, output), "w+")
     max_no_attempts = 300
     totalrows = 0
     min_altnames = 3
     max_altnames = 4
 
-    input = getRelativePathtoWorking(os.path.join('data', dataset))
+    input = os.path.join(config.default_data_path, dataset)
     if not os.path.isfile(input):
         print("File {0} does not exist".format(input))
         exit()
@@ -274,13 +264,13 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
     csv.field_size_limit(sys.maxsize)
     lastnames = []
     skip = random.randint(10, 10000)
-    file = open(getRelativePathtoWorking(os.path.join('data', output)), "w+")
+    file = open(os.path.join(config.default_data_path, output), "w+")
     max_no_attempts = 300
     tqdm_rows = 0
     str_length = 2
     negative_list_size = 10000
 
-    input = getRelativePathtoWorking(os.path.join('data', dataset))
+    input = os.path.join(config.default_data_path, dataset)
     if not os.path.isfile(input):
         print("File {0} does not exist".format(input))
         exit()
@@ -358,9 +348,9 @@ def build_dataset_from_source(dataset='allCountries.txt', n_alternates=3, output
 def filter_dataset(input='dataset-unfiltered.txt', output='dataset-string-similarity.csv', num_instances=2500000):
     pos = []
     neg = []
-    file = open(getRelativePathtoWorking(os.path.join("data", output)), "w+")
+    file = open(os.path.join(config.default_data_path, output), "w+")
     print("Filtering for {0}...".format(num_instances * 2))
-    for line in open(getRelativePathtoWorking(os.path.join("data", input))):
+    for line in open(os.path.join(config.default_data_path, input)):
         # splitted = line.split('\t')
         # if not (splitted[2] == "TRUE" or splitted[2] == "FALSE") or \
         #         not (len(six.text_type(splitted[7])) == 2 and len(six.text_type(splitted[8])) == 3) or \
