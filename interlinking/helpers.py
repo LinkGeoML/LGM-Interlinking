@@ -5,6 +5,7 @@
 import os
 import re
 from text_unidecode import unidecode
+import unicodedata
 import __main__
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -12,11 +13,14 @@ from nltk.stem.snowball import SnowballStemmer
 import pycountry
 from langdetect import detect, lang_detect_exception
 
-from interlinking.sim_measures import strip_accents, sim_measures
 from interlinking import config
 
 
 punctuation_regex = re.compile(u'[‘’“”\'"!?;/⧸⁄‹›«»`ʿ,.-]')
+
+
+def strip_accents(s):
+    return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
 
 
 def ascii_transliteration_and_punctuation_strip(s):
@@ -45,10 +49,11 @@ def transform(s1, s2, sorting=False, canonical=False, delimiter=' ', thres=confi
         tmp_a = a.replace(' ', '')
         tmp_b = b.replace(' ', '')
 
-        if sim_measures['damerau_levenshtein'](tmp_a, tmp_b) < thres:
+        if getattr(StaticValues.sim_metrics, 'damerau_levenshtein')(tmp_a, tmp_b) < thres:
             a = " ".join(sorted_nicely(a.split(delimiter)))
             b = " ".join(sorted_nicely(b.split(delimiter)))
-        elif sim_measures['damerau_levenshtein'](tmp_a, tmp_b) > sim_measures['damerau_levenshtein'](a, b):
+        elif getattr(StaticValues.sim_metrics, 'damerau_levenshtein')(tmp_a, tmp_b) > \
+                getattr(StaticValues.sim_metrics, 'damerau_levenshtein')(a, b):
             a = tmp_a
             b = tmp_b
 

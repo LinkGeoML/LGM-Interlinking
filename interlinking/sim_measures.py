@@ -25,14 +25,13 @@ import pandas as pd
 import glob
 
 import numpy as np
-import unicodedata
 from alphabet_detector import AlphabetDetector
 import pycountry_convert
 import jellyfish
 import pyxdameraulevenshtein
 from tqdm import tqdm
 
-from interlinking import config
+from interlinking import config, helpers
 
 
 fields = ["geonameid",
@@ -430,10 +429,6 @@ def skipgram(str1, str2):
             return 0.0
 
 
-def strip_accents(s):
-    return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
-
-
 def davies(str1, str2):
     """Implements Davies de Salles metric.
 
@@ -445,8 +440,8 @@ def davies(str1, str2):
     float
         A similarity score normalized in range [0,1].
     """
-    a = strip_accents(str1.lower()).replace(u'-', u' ').split(' ')
-    b = strip_accents(str2.lower()).replace(u'-', u' ').split(' ')
+    a = helpers.strip_accents(str1.lower()).replace(u'-', u' ').split(' ')
+    b = helpers.strip_accents(str2.lower()).replace(u'-', u' ').split(' ')
     for i in range(len(a)):
         if len(a[i]) > 1 or not (a[i].endswith(u'.')): continue
         replacement = len(str2)
@@ -908,7 +903,8 @@ def score_per_term(base_t, mis_t, special_t, metric):
             [base_t['a'], mis_t['a'], special_t['a']],
             [base_t['b'], mis_t['b'], special_t['b']]
     )):
-        if term_a or term_b: scores[idx] = sim_measures[metric](u' '.join(term_a), u' '.join(term_b))
+        if term_a or term_b:
+            scores[idx] = getattr(helpers.StaticValues.sim_metrics, metric)(u' '.join(term_a), u' '.join(term_b))
 
     return scores[0], scores[1], scores[2]
 
@@ -1053,22 +1049,3 @@ def avg_lgm_sim(str1, str2, metric='damerau_levenshtein'):
         A similarity score normalized in range [0,1].
     """
     return lgm_sim(str1, str2, metric, True)
-
-
-sim_measures = {
-    'damerau_levenshtein': damerau_levenshtein,
-    'davies': davies,
-    'skipgram': skipgram,
-    'permuted_winkler': permuted_winkler,
-    'sorted_winkler': sorted_winkler,
-    'soft_jaccard': soft_jaccard,
-    'strike_a_match': strike_a_match,
-    'cosine': cosine,
-    'monge_elkan': monge_elkan,
-    'jaro_winkler': jaro_winkler,
-    'jaro': jaro,
-    'jaccard': jaccard,
-    'tuned_jaro_winkler': tuned_jaro_winkler,
-    # 'lgm_sim': lgm_sim,
-    # 'avg_lgm_sim': avg_lgm_sim,
-}
