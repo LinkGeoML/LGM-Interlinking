@@ -13,3 +13,4 @@ scipy==1.4.1
 text-unidecode==1.2
 tqdm==4.45.0
 xgboost==1.0.2
+# install `pyxDamerauLevenshtein` from source since 'pip install pyxDamerauLevenshtein' does not work
