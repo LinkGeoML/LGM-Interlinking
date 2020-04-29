@@ -903,8 +903,7 @@ def score_per_term(base_t, mis_t, special_t, metric):
             [base_t['a'], mis_t['a'], special_t['a']],
             [base_t['b'], mis_t['b'], special_t['b']]
     )):
-        if term_a or term_b:
-            scores[idx] = getattr(helpers.StaticValues.sim_metrics, metric)(u' '.join(term_a), u' '.join(term_b))
+        if term_a or term_b: scores[idx] = globals()[metric](u' '.join(term_a), u' '.join(term_b))
 
     return scores[0], scores[1], scores[2]
 

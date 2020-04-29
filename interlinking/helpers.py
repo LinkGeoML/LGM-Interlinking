@@ -14,6 +14,7 @@ import pycountry
 from langdetect import detect, lang_detect_exception
 
 from interlinking import config
+from interlinking import sim_measures
 
 
 punctuation_regex = re.compile(u'[‘’“”\'"!?;/⧸⁄‹›«»`ʿ,.-]')
@@ -49,11 +50,11 @@ def transform(s1, s2, sorting=False, canonical=False, delimiter=' ', thres=confi
         tmp_a = a.replace(' ', '')
         tmp_b = b.replace(' ', '')
 
-        if getattr(StaticValues.sim_metrics, 'damerau_levenshtein')(tmp_a, tmp_b) < thres:
+        if getattr(sim_measures, 'damerau_levenshtein')(tmp_a, tmp_b) < thres:
             a = " ".join(sorted_nicely(a.split(delimiter)))
             b = " ".join(sorted_nicely(b.split(delimiter)))
-        elif getattr(StaticValues.sim_metrics, 'damerau_levenshtein')(tmp_a, tmp_b) > \
-                getattr(StaticValues.sim_metrics, 'damerau_levenshtein')(a, b):
+        elif getattr(sim_measures, 'damerau_levenshtein')(tmp_a, tmp_b) > \
+                getattr(sim_measures, 'damerau_levenshtein')(a, b):
             a = tmp_a
             b = tmp_b
 

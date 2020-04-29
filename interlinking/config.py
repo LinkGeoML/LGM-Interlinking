@@ -9,6 +9,7 @@ default_data_path = 'data'
 freq_term_size = 400
 
 fieldnames = ["s1", "s2", "status", "c1", "c2", "a1", "a2", "cc1", "cc2"]
+use_cols = dict(s1='s1', s2='s2', status='status')
 delimiter = '\t'
 
 # #: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.

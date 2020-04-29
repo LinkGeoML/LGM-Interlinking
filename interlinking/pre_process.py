@@ -17,14 +17,14 @@ def extract_freqterms(fname, encoding):
     }
 
     dstemmed = defaultdict(set)
-    with open(os.path.join(config.default_data_path, fname)) as csvfile:
-        reader = csv.DictReader(csvfile, fieldnames=config.fieldnames, delimiter=config.delimiter)
+    with open(os.path.join(config.default_data_path, fname)) as csv_file:
+        reader = csv.DictReader(csv_file, fieldnames=config.fieldnames, delimiter=config.delimiter)
 
         for row in reader:
-            row['s1'], row['s2'] = helpers.transform(row['s1'], row['s2'], canonical=True)
+            a, b = helpers.transform(row[config.use_cols['s1']], row[config.use_cols['s2']], canonical=True)
 
-            for s in ['s1', 's2']:
-                ngram_tokens, ngram_tokens_stemmed, _ = helpers.normalize_str(row[s])
+            for s in [a, b]:
+                ngram_tokens, ngram_tokens_stemmed, _ = helpers.normalize_str(s)
 
                 for term, stem in zip(ngram_tokens, ngram_tokens_stemmed):
                     if len(term) < 3 or not pattern.match(term): continue

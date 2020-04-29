@@ -24,9 +24,13 @@ def learn_thres(fname, sim_group='basic'):
 
     sim_res = None
     if sim_group == 'basic':
-        sim_res = np.asarray(list(map(compute_basic_similarities, data_df['s1'], data_df['s2'])), dtype=float)
+        sim_res = np.asarray(list(
+            map(compute_basic_similarities, data_df[config.use_cols['s1']], data_df[config.use_cols['s2']])
+        ), dtype=float)
     elif sim_group == 'sorted':
-        sim_res = np.asarray(list(map(compute_sorted_similarities, data_df['s1'], data_df['s2'])), dtype=float)
+        sim_res = np.asarray(list(
+            map(compute_sorted_similarities, data_df[config.use_cols['s1']], data_df[config.use_cols['s2']])
+        ), dtype=float)
 
     print(f'The similarity scores were computed in {(time.time() - start_time):.2f}.')
 
@@ -43,7 +47,7 @@ def learn_thres(fname, sim_group='basic'):
         idx = 0
         for sim, val in helpers.StaticValues.sim_metrics.items():
             if sim_group in val:
-                acc = accuracy_score(data_df['status'], sim_res[:, idx] >= sim_thres)
+                acc = accuracy_score(data_df[config.use_cols['status']], sim_res[:, idx] >= sim_thres)
                 res[sim].append([acc, float(i / 100.0)])
                 idx += 1
 
@@ -85,7 +89,8 @@ def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
 
         sim_res = np.asarray(
             list(map(
-                compute_lgm_similarities, data_df['s1'], data_df['s2'], [split_thres]*len(data_df.index))
+                compute_lgm_similarities, data_df[config.use_cols['s1']], data_df[config.use_cols['s2']],
+                [split_thres]*len(data_df.index))
             ), dtype=float
         )
         fscore = np.zeros(sim_res.shape[0])
@@ -124,7 +129,7 @@ def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
                                      sim_res[:, idx*9 + 3] * lweights[:, 1] + \
                                      sim_res[:, idx*9 + 6] * lweights[:, 2]
 
-                            acc = accuracy_score(data_df['status'], fscore >= sim_thres)
+                            acc = accuracy_score(data_df[config.use_cols['status']], fscore >= sim_thres)
                             res[sim].append([acc, float(i / 100.0), [split_thres, list(w)]])
                             idx += 1
         print()
