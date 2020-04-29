@@ -40,7 +40,7 @@ def freq_terms(train_set, encoding):
                                       'similarity metrics')
 @click.option('--train_set', default='dataset-string-similarity_global_1k.csv',
               help='Train dataset to learn parameters.')
-@click.option('--sim_type', default='basic', type=click.Choice(['basic', 'sorted', 'lgm']),
+@click.option('--sim_type', default='lgm', type=click.Choice(['basic', 'sorted', 'lgm']),
               help='Group of similarities to train. Valid options are: basic, sorted, lgm')
 @click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
               help='Specify the alphabet encoding of toponyms in dataset.')
