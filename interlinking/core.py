@@ -5,7 +5,7 @@
 import time
 import os
 
-from interlinking import param_tuning, config
+from interlinking import hyperparam_tuning, config
 from interlinking.helpers import StaticValues
 from interlinking.features import Features
 from interlinking.sim_measures import LGMSimVars
@@ -34,7 +34,7 @@ class StrategyEvaluator:
             f'{test_data} dataset does not exist'
 
         f = Features()
-        pt = param_tuning.ParamTuning()
+        pt = hyperparam_tuning.ParamTuning()
 
         tot_time = time.time(); start_time = time.time()
         f.load_data(os.path.join(config.default_data_path, train_data), self.encoding)
@@ -79,7 +79,7 @@ class StrategyEvaluator:
             f'{test_data} dataset does not exist'
 
         f = Features()
-        pt = param_tuning.ParamTuning()
+        pt = hyperparam_tuning.ParamTuning()
 
         start_time = time.time()
         f.load_data(os.path.join(config.default_data_path, train_data), self.encoding)
