@@ -4,8 +4,7 @@ import itertools
 import os
 import re
 
-from interlinking import config
-from interlinking import helpers
+from interlinking import config, helpers
 
 
 def extract_freqterms(fname, encoding):
