@@ -131,7 +131,7 @@ class Features:
         """
         f = []
         for status in list({False, sorted}):
-            sim_group = 'basic' if status == False else 'sorted'
+            sim_group = 'basic' if status is False else 'sorted'
 
             a, b = transform(s1, s2, sorting=status, canonical=status)
 
@@ -153,25 +153,6 @@ class Features:
                     else:
                         f.append(self._compute_lgm_sim(a, b, sim))
             f.extend(list(self._compute_lgm_sim_base_scores(a, b, 'damerau_levenshtein')))
-
-            # sim1 = self._compute_lgm_sim(a, b, 'damerau_levenshtein')
-            # sim2 = self._compute_lgm_sim(a, b, 'davies')
-            # sim3 = self._compute_lgm_sim(a, b, 'skipgram')
-            # sim4 = self._compute_lgm_sim(a, b, 'soft_jaccard')
-            # sim5 = self._compute_lgm_sim(a, b, 'strike_a_match')
-            # sim6 = self._compute_lgm_sim(a, b, 'cosine')
-            # sim7 = self._compute_lgm_sim(a, b, 'jaccard')
-            # sim8 = self._compute_lgm_sim(a, b, 'monge_elkan')
-            # sim9 = self._compute_lgm_sim(a, b, 'jaro_winkler')
-            # sim10 = self._compute_lgm_sim(a, b, 'jaro')
-            # sim11 = self._compute_lgm_sim(a, b, 'jaro_winkler_r')
-            # sim12 = self._compute_lgm_sim(a, b, 'tuned_jaro_winkler')
-            # sim13 = self._compute_lgm_sim(a, b, 'tuned_jaro_winkler_r')
-            # sim14, sim15, sim16 = self._compute_lgm_sim_base_scores(a, b, 'damerau_levenshtein')
-
-            # f.append([
-            #     sim1, sim2, sim3, sim4, sim5, sim6, sim7, sim8, sim9, sim10, sim11, sim12, sim13, sim14, sim15, sim16
-            # ])
 
         # f = list(chain.from_iterable(f))
 
