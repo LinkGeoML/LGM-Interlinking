@@ -8,7 +8,7 @@ from interlinking import config
 from itertools import chain
 
 from interlinking.helpers import transform, StaticValues
-from interlinking import sim_measures # import LGMSimVars, lgm_sim_split, score_per_term, weighted_sim, sim_measures
+from interlinking import sim_measures
 
 
 class Features:
@@ -39,9 +39,9 @@ class Features:
     dtypes = {
         's1': str, 's2': str,
         'status': str,
-        'gid1': np.int32, 'gid2': np.int32,
-        'alphabet1': str, 'alphabet2': str,
-        'alpha2_cc1': str, 'alpha2_cc2': str
+        # 'gid1': np.int32, 'gid2': np.int32,
+        # 'alphabet1': str, 'alphabet2': str,
+        # 'alpha2_cc1': str, 'alpha2_cc2': str
     }
 
     d = {
@@ -54,7 +54,8 @@ class Features:
         self.data_df = None
 
     def load_data(self, fname, encoding):
-        self.data_df = pd.read_csv(fname, sep=config.delimiter, names=config.fieldnames, dtype=self.dtypes,
+        self.data_df = pd.read_csv(fname, sep=config.delimiter, names=config.fieldnames,
+                                   usecols=config.use_cols.values(), dtype=self.dtypes,
                                    na_filter=False, encoding='utf8')
         sim_measures.LGMSimVars().load_freq_terms(encoding)
 
@@ -73,13 +74,21 @@ class Features:
 
         fX = None
         if self.clf_method.lower() == 'basic':
-            fX = np.asarray(
-                list(map(self._compute_basic_features, self.data_df['s1'], self.data_df['s2'])), dtype=float)
+            fX = np.asarray(list(
+                map(self._compute_basic_features,
+                    self.data_df[config.use_cols['s1']],
+                    self.data_df[config.use_cols['s2']])
+            ), dtype=float)
         elif self.clf_method.lower() == 'basic_sorted':
-            fX = np.asarray(
-                list(map(self._compute_sorted_features, self.data_df['s1'], self.data_df['s2'])), dtype=float)
+            fX = np.asarray(list(
+                map(self._compute_sorted_features,
+                    self.data_df[config.use_cols['s1']],
+                    self.data_df[config.use_cols['s2']])
+            ), dtype=float)
         else:  # lgm
-            fX = np.asarray(list(map(self.compute_features, self.data_df['s1'], self.data_df['s2'])), dtype=float)
+            fX = np.asarray(list(
+                map(self.compute_features, self.data_df[config.use_cols['s1']], self.data_df[config.use_cols['s2']])
+            ), dtype=float)
 
         return fX, y
 
