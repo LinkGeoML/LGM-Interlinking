@@ -61,9 +61,10 @@ class StrategyEvaluator:
 
         start_time = time.time()
         # 3th phase: test the fine tuned best classifier on the test dataset
-        acc, pre, rec, f1 = pt.testClassifier(fX, y, estimator)
+        metrics = pt.testClassifier(fX, y, estimator)
         self._print_stats({
-            'classifier': best_clf['classifier'], 'accuracy': acc, 'precision': pre, 'recall': rec, 'f1_score': f1,
+            'classifier': best_clf['classifier'],
+            **metrics,
             'time': start_time
         })
 
@@ -105,9 +106,10 @@ class StrategyEvaluator:
 
             start_time = time.time()
             # 2nd phase: test each classifier on the test dataset
-            acc, pre, rec, f1 = pt.testClassifier(fX_test, y_test, estimator)
+            metrics = pt.testClassifier(fX_test, y_test, estimator)
             self._print_stats({
-                'classifier': clf, 'accuracy': acc, 'precision': pre, 'recall': rec, 'f1_score': f1,
+                'classifier': clf,
+                **metrics,
                 'time': start_time
             })
 

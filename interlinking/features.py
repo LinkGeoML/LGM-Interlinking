@@ -4,11 +4,10 @@
 
 import pandas as pd
 import numpy as np
-from interlinking import config
-from itertools import chain
+# from itertools import chain
 
 from interlinking.helpers import transform, StaticValues
-from interlinking import sim_measures
+from interlinking import sim_measures, config
 
 
 class Features:
