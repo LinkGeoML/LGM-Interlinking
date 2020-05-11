@@ -62,11 +62,7 @@ class StrategyEvaluator:
         start_time = time.time()
         # 3th phase: test the fine tuned best classifier on the test dataset
         metrics = pt.testClassifier(fX, y, estimator)
-        self._print_stats({
-            'classifier': best_clf['classifier'],
-            **metrics,
-            'time': start_time
-        })
+        self._print_stats({'classifier': best_clf['classifier'], **metrics, 'time': start_time})
 
         print("The whole process took {} sec.".format(time.time() - tot_time))
 
@@ -109,11 +105,7 @@ class StrategyEvaluator:
             start_time = time.time()
             # 2nd phase: test each classifier on the test dataset
             metrics = pt.testClassifier(fX_test, y_test, estimator)
-            self._print_stats({
-                'classifier': clf,
-                **metrics,
-                'time': start_time
-            })
+            self._print_stats({'classifier': clf, **metrics, 'time': start_time})
 
         print("The whole process took {} sec.\n".format(time.time() - tot_time))
 
