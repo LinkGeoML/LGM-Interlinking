@@ -72,7 +72,7 @@ def learn_thres(fname, sim_group='basic'):
 
 
 def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
-    """Compute optimal thresholds and weights for each similarity metric in the **LGM-Sim** group only regarding the
+    """Compute optimal thresholds and weights for each similarity metric in the ``LGM-Sim`` group only regarding the
     `fname` dataset.
 
     :param fname: File name of the dataset.

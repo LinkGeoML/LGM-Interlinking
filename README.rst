@@ -67,22 +67,26 @@ fields/columns:
 The library implements the following distinct processes:
 
 #. Features extraction
-    The :meth:`~interlinking.features.Features.build` function builds a set of training features to use within
-    classifiers for toponym interlinking.
+    The `build <https://linkgeoml.github.io/LGM-Interlinking/features.html#interlinking.features.Features>`_ function
+    constructs a set of training features to use within classifiers for toponym interlinking.
 
 #. Algorithm and model selection
-    The functionality of the :meth:`~interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers` function is twofold.
+    The functionality of the
+    `fineTuneClassifiers <https://linkgeoml.github.io/LGM-Interlinking/tuning.html#interlinking.hyperparam_tuning.
+    ParamTuning.fineTuneClassifiers>`_ function is twofold.
     Firstly, it chooses among a list of supported machine learning algorithms the one that achieves the highest average
     accuracy score on the examined dataset. Secondly, it searches for the best model, i.e., the best hyper-parameters
     for the best identified algorithm in the first step.
 
 #. Model training
-    The :meth:`~interlinking.hyperparam_tuning.ParamTuning.trainClassifier` trains the best selected model on previous
+    The `trainClassifier <https://linkgeoml.github.io/LGM-Interlinking/tuning.html#interlinking.hyperparam_tuning.
+    ParamTuning.trainClassifier>`_ trains the best selected model on previous
     process, i.e., an ML algorithm with tuned hyperparameters that best fits data, on the whole train dataset, without
     splitting it in folds.
 
 #. Model deployment
-    The :func:`~interlinking.hyperparam_tuning.ParamTuning.testClassifier` applies the trained model on new untested data.
+    The `testClassifier <https://linkgeoml.github.io/LGM-Interlinking/tuning.html#interlinking.hyperparam_tuning.
+    ParamTuning.testClassifier>`_ applies the trained model on new untested data.
 
 A complete pipeline of the above processes, i.e., features extraction, training and evaluating state-of-the-art
 classifiers, for toponym interlinking can be executed with the following command:

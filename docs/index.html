@@ -201,13 +201,14 @@ fields/columns:</p>
 <p>The library implements the following distinct processes:</p>
 <ol class="arabic simple">
 <li><dl class="simple">
-<dt>Features extraction</dt><dd><p>The <a class="reference internal" href="features.html#interlinking.features.Features.build" title="interlinking.features.Features.build"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build()</span></code></a> function builds a set of training features to use within
-classifiers for toponym interlinking.</p>
+<dt>Features extraction</dt><dd><p>The <a class="reference external" href="https://linkgeoml.github.io/LGM-Interlinking/features.html#interlinking.features.Features">build</a> function
+constructs a set of training features to use within classifiers for toponym interlinking.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Algorithm and model selection</dt><dd><p>The functionality of the <a class="reference internal" href="tuning.html#interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers" title="interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fineTuneClassifiers()</span></code></a> function is twofold.
+<dt>Algorithm and model selection</dt><dd><p>The functionality of the
+<a class="reference external" href="https://linkgeoml.github.io/LGM-Interlinking/tuning.html#interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers">fineTuneClassifiers</a> function is twofold.
 Firstly, it chooses among a list of supported machine learning algorithms the one that achieves the highest average
 accuracy score on the examined dataset. Secondly, it searches for the best model, i.e., the best hyper-parameters
 for the best identified algorithm in the first step.</p>
@@ -215,14 +216,14 @@ for the best identified algorithm in the first step.</p>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Model training</dt><dd><p>The <a class="reference internal" href="tuning.html#interlinking.hyperparam_tuning.ParamTuning.trainClassifier" title="interlinking.hyperparam_tuning.ParamTuning.trainClassifier"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trainClassifier()</span></code></a> trains the best selected model on previous
+<dt>Model training</dt><dd><p>The <a class="reference external" href="https://linkgeoml.github.io/LGM-Interlinking/tuning.html#interlinking.hyperparam_tuning.ParamTuning.trainClassifier">trainClassifier</a> trains the best selected model on previous
 process, i.e., an ML algorithm with tuned hyperparameters that best fits data, on the whole train dataset, without
 splitting it in folds.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Model deployment</dt><dd><p>The <a class="reference internal" href="tuning.html#interlinking.hyperparam_tuning.ParamTuning.testClassifier" title="interlinking.hyperparam_tuning.ParamTuning.testClassifier"><code class="xref py py-func docutils literal notranslate"><span class="pre">testClassifier()</span></code></a> applies the trained model on new untested data.</p>
+<dt>Model deployment</dt><dd><p>The <a class="reference external" href="https://linkgeoml.github.io/LGM-Interlinking/tuning.html#interlinking.hyperparam_tuning.ParamTuning.testClassifier">testClassifier</a> applies the trained model on new untested data.</p>
 </dd>
 </dl>
 </li>
