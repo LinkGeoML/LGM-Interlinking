@@ -61,9 +61,10 @@ def hyperparams_learn(train_set, test_set, encoding):
     core.StrategyEvaluator(encoding).hyperparamTuning(train_set, test_set)
 
 
-@cli.command('evaluate', help='')
+@cli.command('evaluate', help='evaluate the effectiveness of the proposed methods')
 @click.option('--train_set', default='', help='the dataset to train the models.')
-@click.option('--test_set', default='dataset-string-similarity.txt', help='the dataset to apply/evaluate trained models.')
+@click.option('--test_set', default='dataset-string-similarity.txt',
+              help='the dataset to apply/evaluate trained models.')
 @click.option('--encoding', default='latin', type=click.Choice(['latin', 'global']),
               help='Specify the encoding of toponyms in dataset.')
 def eval_classifiers(train_set, test_set, encoding):

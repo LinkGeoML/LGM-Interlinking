@@ -8,12 +8,6 @@ Welcome to LGM-Interlinking's documentation!
 
 .. include:: ../../README.rst
 
-How to use
-^^^^^^^^^^
-   
-.. automodule:: run
-   :members:
-
 API Reference
 ^^^^^^^^^^^^^^
 
@@ -24,6 +18,8 @@ View the auto-generated API documentation for information on a specific function
    :name: mastertoc
 
    config
+   pre_process
+   learning
    measures
    features
    tuning

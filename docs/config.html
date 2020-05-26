@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,7 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="metrics" href="measures.html" />
+    <link rel="next" title="pre_process" href="pre_process.html" />
     <link rel="prev" title="Welcome to LGM-Interlinking’s documentation!" href="index.html" /> 
 </head>
 
@@ -82,9 +83,11 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pre_process.html">pre_process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning.html">learn parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="measures.html">metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features.html">features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">tune hyperparameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html">core</a></li>
 </ul>
 
@@ -154,54 +157,112 @@
   <div class="section" id="config">
 <h1>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h1>
 <blockquote>
-<div><span class="target" id="module-src.config"></span><dl class="data">
-<dt id="src.config.train_dataset">
-<code class="sig-prename descclassname">src.config.</code><code class="sig-name descname">train_dataset</code><em class="property"> = 'data/dataset-string-similarity_global_1k.csv'</em><a class="headerlink" href="#src.config.train_dataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Relative path to the train dataset. This value is used only when the <em>dtrain</em> cmd argument is None.</p>
+<div><span class="target" id="module-interlinking.config"></span><dl class="py data">
+<dt id="interlinking.config.default_data_path">
+<code class="sig-prename descclassname">interlinking.config.</code><code class="sig-name descname">default_data_path</code><em class="property"> = 'data'</em><a class="headerlink" href="#interlinking.config.default_data_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The folder name, relative to root path, that contains all required input files, e.g., train/test dataset,
+frequent terms etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="data">
-<dt id="src.config.test_dataset">
-<code class="sig-prename descclassname">src.config.</code><code class="sig-name descname">test_dataset</code><em class="property"> = 'data/dataset-string-similarity.txt'</em><a class="headerlink" href="#src.config.test_dataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Relative path to the test dataset. This value is used only when the <em>dtest</em> cmd argument is None.</p>
+<dl class="py data">
+<dt id="interlinking.config.freq_term_size">
+<code class="sig-prename descclassname">interlinking.config.</code><code class="sig-name descname">freq_term_size</code><em class="property"> = 400</em><a class="headerlink" href="#interlinking.config.freq_term_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The proportion of frequent terms to utilize.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="data">
-<dt id="src.config.sort_thres">
-<code class="sig-prename descclassname">src.config.</code><code class="sig-name descname">sort_thres</code><em class="property"> = 0.55</em><a class="headerlink" href="#src.config.sort_thres" title="Permalink to this definition">¶</a></dt>
+<dl class="py data">
+<dt id="interlinking.config.fieldnames">
+<code class="sig-prename descclassname">interlinking.config.</code><code class="sig-name descname">fieldnames</code><em class="property"> = ['s1', 's2', 'status', 'c1', 'c2', 'a1', 'a2', 'cc1', 'cc2']</em><a class="headerlink" href="#interlinking.config.fieldnames" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of names assigned to each column in train/test dataset. If a header exists, it should be set to
+None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="interlinking.config.use_cols">
+<code class="sig-prename descclassname">interlinking.config.</code><code class="sig-name descname">use_cols</code><em class="property"> = {'label': 'status', 's1': 's1', 's2': 's2'}</em><a class="headerlink" href="#interlinking.config.use_cols" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary of useful column names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s1</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Denote the column name assigned to the first name of each of the toponym pair.</p></li>
+<li><p><strong>s2</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Denote the column name assigned to the second name of each of the toponym pair.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – The true labels for the toponym pairs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="interlinking.config.delimiter">
+<code class="sig-prename descclassname">interlinking.config.</code><code class="sig-name descname">delimiter</code><em class="property"> = '\t'</em><a class="headerlink" href="#interlinking.config.delimiter" title="Permalink to this definition">¶</a></dt>
+<dd><p>The delimiter used to separate each column in CSV input files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>char</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="interlinking.config.sort_thres">
+<code class="sig-prename descclassname">interlinking.config.</code><code class="sig-name descname">sort_thres</code><em class="property"> = 0.55</em><a class="headerlink" href="#interlinking.config.sort_thres" title="Permalink to this definition">¶</a></dt>
 <dd><p>Similarity threshold on whether sorting on toponym tokens is applied or not. It is triggered on a score
 below the assigned threshold.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="data">
-<dt id="src.config.seed_no">
-<code class="sig-prename descclassname">src.config.</code><code class="sig-name descname">seed_no</code><em class="property"> = 13</em><a class="headerlink" href="#src.config.seed_no" title="Permalink to this definition">¶</a></dt>
+<dl class="py data">
+<dt id="interlinking.config.seed_no">
+<code class="sig-prename descclassname">interlinking.config.</code><code class="sig-name descname">seed_no</code><em class="property"> = 13</em><a class="headerlink" href="#interlinking.config.seed_no" title="Permalink to this definition">¶</a></dt>
 <dd><p>Seed used by each of the random number generators.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="class">
-<dt id="src.config.MLConf">
-<em class="property">class </em><code class="sig-prename descclassname">src.config.</code><code class="sig-name descname">MLConf</code><a class="reference internal" href="_modules/src/config.html#MLConf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.config.MLConf" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt id="interlinking.config.MLConf">
+<em class="property">class </em><code class="sig-prename descclassname">interlinking.config.</code><code class="sig-name descname">MLConf</code><a class="reference internal" href="_modules/interlinking/config.html#MLConf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interlinking.config.MLConf" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class initializes parameters that correspond to the machine learning part of the framework.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opt_values</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of dicts) – A list of learned parameters for LGM-Sim meta-similarity function. <span class="math notranslate nohighlight">\(θ_{split}, w_b, w_m, w_f\)</span>.</p></li>
+<li><p><strong>clf_custom_params</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of dicts) – A list of custom hyper-parameters to utilize for specified classifiers. These parameters
+are used when <cite>evaluate</cite> command is executed in cli.</p></li>
+</ul>
+</dd>
+</dl>
 <p>These variables define the parameter grid for GridSearchCV:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>SVM_hyperparameters</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>) – Defines the search space for SVM.</p></li>
-<li><p><strong>MLP_hyperparameters</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for MLP.</p></li>
-<li><p><strong>DecisionTree_hyperparameters</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for Decision Trees.</p></li>
-<li><p><strong>RandomForest_hyperparameters</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for Random Forests and Extra-Trees.</p></li>
-<li><p><strong>XGBoost_hyperparameters</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for XGBoost.</p></li>
+<li><p><strong>SVM_hyperparameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – Defines the search space for SVM.</p></li>
+<li><p><strong>MLP_hyperparameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for MLP.</p></li>
+<li><p><strong>DecisionTree_hyperparameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for Decision Trees.</p></li>
+<li><p><strong>RandomForest_hyperparameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for Random Forests and Extra-Trees.</p></li>
+<li><p><strong>XGBoost_hyperparameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for XGBoost.</p></li>
 </ul>
 </dd>
 </dl>
@@ -210,93 +271,75 @@ continuous parameters (whenever this is feasible):</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>SVM_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for SVM.</p></li>
-<li><p><strong>MLP_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for MLP.</p></li>
-<li><p><strong>DecisionTree_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for Decision Trees.</p></li>
-<li><p><strong>RandomForest_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for Random Forests and Extra-Trees.</p></li>
-<li><p><strong>XGBoost_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for XGBoost.</p></li>
+<li><p><strong>SVM_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for SVM.</p></li>
+<li><p><strong>MLP_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for MLP.</p></li>
+<li><p><strong>DecisionTree_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for Decision Trees.</p></li>
+<li><p><strong>RandomForest_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for Random Forests and Extra-Trees.</p></li>
+<li><p><strong>XGBoost_hyperparameters_dist</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Defines the search space for XGBoost.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="attribute">
-<dt id="src.config.MLConf.kfold_parameter">
-<code class="sig-name descname">kfold_parameter</code><em class="property"> = 5</em><a class="headerlink" href="#src.config.MLConf.kfold_parameter" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt id="interlinking.config.MLConf.kfold_no">
+<code class="sig-name descname">kfold_no</code><em class="property"> = 5</em><a class="headerlink" href="#interlinking.config.MLConf.kfold_no" title="Permalink to this definition">¶</a></dt>
 <dd><p>The number of outer folds that splits the dataset for the k-fold cross-validation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="src.config.MLConf.kfold_inner_parameter">
-<code class="sig-name descname">kfold_inner_parameter</code><em class="property"> = 4</em><a class="headerlink" href="#src.config.MLConf.kfold_inner_parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>The number of inner folds that splits the dataset for the k-fold cross-validation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)">int</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="src.config.MLConf.n_jobs">
-<code class="sig-name descname">n_jobs</code><em class="property"> = 4</em><a class="headerlink" href="#src.config.MLConf.n_jobs" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt id="interlinking.config.MLConf.n_jobs">
+<code class="sig-name descname">n_jobs</code><em class="property"> = 4</em><a class="headerlink" href="#interlinking.config.MLConf.n_jobs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of parallel jobs to be initiated. -1 means to utilize all available processors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="src.config.MLConf.classification_method">
-<code class="sig-name descname">classification_method</code><em class="property"> = 'lgm'</em><a class="headerlink" href="#src.config.MLConf.classification_method" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt id="interlinking.config.MLConf.classification_method">
+<code class="sig-name descname">classification_method</code><em class="property"> = 'lgm'</em><a class="headerlink" href="#interlinking.config.MLConf.classification_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>The classification group of features to use. (<em>basic</em> | <em>basic_sorted</em> | <em>lgm</em>).</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><code class="xref py py-class docutils literal notranslate"><span class="pre">Features</span></code>. Details on available inputs.</p>
+<dl class="simple">
+<dt><a class="reference internal" href="features.html#interlinking.features.Features" title="interlinking.features.Features"><code class="xref py py-class docutils literal notranslate"><span class="pre">Features</span></code></a></dt><dd><p>Details on available inputs.</p>
+</dd>
+</dl>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="src.config.MLConf.hyperparams_search_method">
-<code class="sig-name descname">hyperparams_search_method</code><em class="property"> = 'randomized'</em><a class="headerlink" href="#src.config.MLConf.hyperparams_search_method" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt id="interlinking.config.MLConf.hyperparams_search_method">
+<code class="sig-name descname">hyperparams_search_method</code><em class="property"> = 'randomized'</em><a class="headerlink" href="#interlinking.config.MLConf.hyperparams_search_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search Method to use for finding best hyperparameters. (<em>randomized</em> | <em>grid</em>).</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">getBestClassifier()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">fineTuneClassifier()</span></code>
-Details on available inputs.</p>
+<dl class="simple">
+<dt><a class="reference internal" href="tuning.html#interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers" title="interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers"><code class="xref py py-func docutils literal notranslate"><span class="pre">fineTuneClassifiers()</span></code></a></dt><dd><p>Details on available inputs.</p>
+</dd>
+</dl>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="src.config.MLConf.max_iter">
-<code class="sig-name descname">max_iter</code><em class="property"> = 250</em><a class="headerlink" href="#src.config.MLConf.max_iter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of iterations that RandomizedSearchCV should execute. It applies only when <code class="xref py py-class docutils literal notranslate"><span class="pre">hyperparams_</span>
-<span class="pre">search_method</span></code> equals to ‘randomized’.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)">int</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="src.config.MLConf.classifiers">
-<code class="sig-name descname">classifiers</code><em class="property"> = ['RandomForest']</em><a class="headerlink" href="#src.config.MLConf.classifiers" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt id="interlinking.config.MLConf.classifiers">
+<code class="sig-name descname">classifiers</code><em class="property"> = ['RandomForest']</em><a class="headerlink" href="#interlinking.config.MLConf.classifiers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define the classifiers to apply on code execution. Accepted values are:</p>
 <ul class="simple">
 <li><p>SVM</p></li>
@@ -313,13 +356,13 @@ Details on available inputs.</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="src.config.MLConf.score">
-<code class="sig-name descname">score</code><em class="property"> = 'accuracy'</em><a class="headerlink" href="#src.config.MLConf.score" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt id="interlinking.config.MLConf.score">
+<code class="sig-name descname">score</code><em class="property"> = 'accuracy'</em><a class="headerlink" href="#interlinking.config.MLConf.score" title="Permalink to this definition">¶</a></dt>
 <dd><p>The metric to optimize on hyper-parameter tuning. Possible valid values presented on <a class="reference external" href="https://scikit-learn.org/stable/modules/model_evaluation.html#common-cases-predefined-values">Scikit predefined values</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -342,7 +385,7 @@ Details on available inputs.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="measures.html" class="btn btn-neutral float-right" title="metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pre_process.html" class="btn btn-neutral float-right" title="pre_process" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to LGM-Interlinking’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

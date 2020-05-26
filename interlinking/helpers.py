@@ -179,44 +179,6 @@ class StaticValues:
         # "posOfHigherSim_str2_end",
     ]
 
-    opt_values = {
-        'latin': {
-            # Only latin dataset 100k lines
-            'damerau_levenshtein': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.5, 0.2, 0.3]]},
-            'jaro': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.7, 0.1, 0.2]]},
-            'jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
-            'jaro_winkler_r': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.7, 0.1, 0.2]]},
-            # 'permuted_winkler': [],
-            # 'sorted_winkler': [],
-            'cosine': {'simple': [0.6, [0.6, 0.2, 0.2]], 'avg': [0.9, [0.4, 0.2, 0.4]]},
-            'jaccard': {'simple': [0.6, [0.6, 0.1, 0.3]], 'avg': [0.9, [0.3, 0.3, 0.4]]},
-            'strike_a_match': {'simple': [0.6, [0.6, 0.1, 0.3]], 'avg': [0.9, [0.5, 0.1, 0.4]]},
-            'skipgram': {'simple': [0.6, [0.6, 0.2, 0.2]], 'avg': [0.9, [0.3, 0.3, 0.4]]},
-            'monge_elkan': {'simple': [0.6, [0.7, 0.2, 0.1]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
-            'soft_jaccard': {'simple': [0.8, [0.6, 0.1, 0.3]], 'avg': [0.9, [0.5, 0.1, 0.4]]},
-            'davies': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
-            'tuned_jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
-            'tuned_jaro_winkler_r': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.7, 0.1, 0.2]]},
-        },
-        'global': {
-            'damerau_levenshtein': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
-            'jaro': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
-            'jaro_winkler': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
-            'jaro_winkler_r': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
-            # 'permuted_winkler': [],
-            # 'sorted_winkler': [],
-            'cosine': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
-            'jaccard': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
-            'strike_a_match': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.65, [0.4, 0.5, 0.1]]},
-            'skipgram': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
-            'monge_elkan': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
-            'soft_jaccard': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.7, [0.4, 0.5, 0.1]]},
-            'davies': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.7, [0.4, 0.5, 0.1]]},
-            'tuned_jaro_winkler': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
-            'tuned_jaro_winkler_r': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
-        }
-    }
-
     sim_metrics = {
         'damerau_levenshtein': ['basic', 'sorted', 'lgm'],
         'jaro': ['basic', 'sorted', 'lgm'],

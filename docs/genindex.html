@@ -22,10 +22,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -81,9 +82,11 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pre_process.html">pre_process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning.html">learn parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="measures.html">metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features.html">features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">tune hyperparameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html">core</a></li>
 </ul>
 
@@ -159,22 +162,23 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
  | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
- | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="measures.html#src.sim_measures.avg_lgm_sim">avg_lgm_sim() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.avg_lgm_sim">avg_lgm_sim() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -182,7 +186,7 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="features.html#src.features.Features.build">build() (src.features.Features method)</a>
+      <li><a href="features.html#interlinking.features.Features.build">build() (interlinking.features.Features method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -190,15 +194,15 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.MLConf.classification_method">classification_method (src.config.MLConf attribute)</a>
+      <li><a href="config.html#interlinking.config.MLConf.classification_method">classification_method (interlinking.config.MLConf attribute)</a>
 </li>
-      <li><a href="config.html#src.config.MLConf.classifiers">classifiers (src.config.MLConf attribute)</a>
+      <li><a href="config.html#interlinking.config.MLConf.classifiers">classifiers (interlinking.config.MLConf attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="features.html#src.features.Features.compute_features">compute_features() (src.features.Features method)</a>
+      <li><a href="features.html#interlinking.features.Features.compute_features">compute_features() (interlinking.features.Features method)</a>
 </li>
-      <li><a href="measures.html#src.sim_measures.cosine">cosine() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.cosine">cosine() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -206,11 +210,15 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="measures.html#src.sim_measures.damerau_levenshtein">damerau_levenshtein() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.damerau_levenshtein">damerau_levenshtein() (in module interlinking.sim_measures)</a>
+</li>
+      <li><a href="measures.html#interlinking.sim_measures.davies">davies() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="measures.html#src.sim_measures.davies">davies() (in module src.sim_measures)</a>
+      <li><a href="config.html#interlinking.config.default_data_path">default_data_path (in module interlinking.config)</a>
+</li>
+      <li><a href="config.html#interlinking.config.delimiter">delimiter (in module interlinking.config)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -218,7 +226,11 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#src.core.StrategyEvaluator.exec_classifiers">exec_classifiers() (src.core.StrategyEvaluator method)</a>
+      <li><a href="core.html#interlinking.core.StrategyEvaluator.evaluate">evaluate() (interlinking.core.StrategyEvaluator method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pre_process.html#interlinking.pre_process.extract_freqterms">extract_freqterms() (in module interlinking.pre_process)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -226,11 +238,15 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="features.html#src.features.Features">Features (class in src.features)</a>
+      <li><a href="features.html#interlinking.features.Features">Features (class in interlinking.features)</a>
+</li>
+      <li><a href="config.html#interlinking.config.fieldnames">fieldnames (in module interlinking.config)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="tuning.html#src.param_tuning.ParamTuning.fineTuneClassifiers">fineTuneClassifiers() (src.param_tuning.ParamTuning method)</a>
+      <li><a href="tuning.html#interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers">fineTuneClassifiers() (interlinking.hyperparam_tuning.ParamTuning method)</a>
+</li>
+      <li><a href="config.html#interlinking.config.freq_term_size">freq_term_size (in module interlinking.config)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -238,25 +254,61 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.MLConf.hyperparams_search_method">hyperparams_search_method (src.config.MLConf attribute)</a>
+      <li><a href="config.html#interlinking.config.MLConf.hyperparams_search_method">hyperparams_search_method (interlinking.config.MLConf attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.html#src.core.StrategyEvaluator.hyperparamTuning">hyperparamTuning() (src.core.StrategyEvaluator method)</a>
+      <li><a href="core.html#interlinking.core.StrategyEvaluator.hyperparamTuning">hyperparamTuning() (interlinking.core.StrategyEvaluator method)</a>
 </li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    interlinking.config
+
+      <ul>
+        <li><a href="config.html#module-interlinking.config">module</a>
+</li>
+      </ul></li>
+      <li>
+    interlinking.learning
+
+      <ul>
+        <li><a href="learning.html#module-interlinking.learning">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    interlinking.pre_process
+
+      <ul>
+        <li><a href="pre_process.html#module-interlinking.pre_process">module</a>
+</li>
+      </ul></li>
+      <li>
+    interlinking.sim_measures
+
+      <ul>
+        <li><a href="measures.html#module-interlinking.sim_measures">module</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="J">J</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="measures.html#src.sim_measures.jaccard">jaccard() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.jaccard">jaccard() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="measures.html#src.sim_measures.jaro">jaro() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.jaro">jaro() (in module interlinking.sim_measures)</a>
 </li>
-      <li><a href="measures.html#src.sim_measures.jaro_winkler">jaro_winkler() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.jaro_winkler">jaro_winkler() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -264,11 +316,7 @@
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.MLConf.kfold_inner_parameter">kfold_inner_parameter (src.config.MLConf attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.MLConf.kfold_parameter">kfold_parameter (src.config.MLConf attribute)</a>
+      <li><a href="config.html#interlinking.config.MLConf.kfold_no">kfold_no (interlinking.config.MLConf attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -276,13 +324,15 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="measures.html#src.sim_measures.lgm_jaro_winkler">lgm_jaro_winkler() (in module src.sim_measures)</a>
+      <li><a href="learning.html#interlinking.learning.learn_params_for_lgm">learn_params_for_lgm() (in module interlinking.learning)</a>
+</li>
+      <li><a href="learning.html#interlinking.learning.learn_thres">learn_thres() (in module interlinking.learning)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="measures.html#src.sim_measures.lgm_sim">lgm_sim() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.lgm_sim">lgm_sim() (in module interlinking.sim_measures)</a>
 </li>
-      <li><a href="measures.html#src.sim_measures.lgm_sim_lterms">lgm_sim_lterms() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.lgm_sim_split">lgm_sim_split() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -290,13 +340,24 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.MLConf.max_iter">max_iter (src.config.MLConf attribute)</a>
+      <li><a href="config.html#interlinking.config.MLConf">MLConf (class in interlinking.config)</a>
 </li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="config.html#module-interlinking.config">interlinking.config</a>
+</li>
+        <li><a href="learning.html#module-interlinking.learning">interlinking.learning</a>
+</li>
+        <li><a href="pre_process.html#module-interlinking.pre_process">interlinking.pre_process</a>
+</li>
+        <li><a href="measures.html#module-interlinking.sim_measures">interlinking.sim_measures</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.MLConf">MLConf (class in src.config)</a>
-</li>
-      <li><a href="measures.html#src.sim_measures.monge_elkan">monge_elkan() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.monge_elkan">monge_elkan() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -304,7 +365,7 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.MLConf.n_jobs">n_jobs (src.config.MLConf attribute)</a>
+      <li><a href="config.html#interlinking.config.MLConf.n_jobs">n_jobs (interlinking.config.MLConf attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -312,15 +373,7 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="tuning.html#src.param_tuning.ParamTuning">ParamTuning (class in src.param_tuning)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#module-run">run (module)</a>
+      <li><a href="tuning.html#interlinking.hyperparam_tuning.ParamTuning">ParamTuning (class in interlinking.hyperparam_tuning)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -328,29 +381,25 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.MLConf.score">score (src.config.MLConf attribute)</a>
+      <li><a href="config.html#interlinking.config.MLConf.score">score (interlinking.config.MLConf attribute)</a>
 </li>
-      <li><a href="measures.html#src.sim_measures.score_per_term">score_per_term() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.score_per_term">score_per_term() (in module interlinking.sim_measures)</a>
 </li>
-      <li><a href="config.html#src.config.seed_no">seed_no (in module src.config)</a>
+      <li><a href="config.html#interlinking.config.seed_no">seed_no (in module interlinking.config)</a>
 </li>
-      <li><a href="measures.html#src.sim_measures.skipgram">skipgram() (in module src.sim_measures)</a>
-</li>
-      <li><a href="measures.html#src.sim_measures.soft_jaccard">soft_jaccard() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.skipgram">skipgram() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.sort_thres">sort_thres (in module src.config)</a>
+      <li><a href="measures.html#interlinking.sim_measures.soft_jaccard">soft_jaccard() (in module interlinking.sim_measures)</a>
 </li>
-      <li><a href="measures.html#src.sim_measures.sorted_winkler">sorted_winkler() (in module src.sim_measures)</a>
+      <li><a href="config.html#interlinking.config.sort_thres">sort_thres (in module interlinking.config)</a>
 </li>
-      <li><a href="config.html#module-src.config">src.config (module)</a>
+      <li><a href="measures.html#interlinking.sim_measures.sorted_winkler">sorted_winkler() (in module interlinking.sim_measures)</a>
 </li>
-      <li><a href="measures.html#module-src.sim_measures">src.sim_measures (module)</a>
+      <li><a href="core.html#interlinking.core.StrategyEvaluator">StrategyEvaluator (class in interlinking.core)</a>
 </li>
-      <li><a href="core.html#src.core.StrategyEvaluator">StrategyEvaluator (class in src.core)</a>
-</li>
-      <li><a href="measures.html#src.sim_measures.strike_a_match">strike_a_match() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.strike_a_match">strike_a_match() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -358,15 +407,21 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.test_dataset">test_dataset (in module src.config)</a>
-</li>
-      <li><a href="tuning.html#src.param_tuning.ParamTuning.testClassifier">testClassifier() (src.param_tuning.ParamTuning method)</a>
+      <li><a href="tuning.html#interlinking.hyperparam_tuning.ParamTuning.testClassifier">testClassifier() (interlinking.hyperparam_tuning.ParamTuning method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="config.html#src.config.train_dataset">train_dataset (in module src.config)</a>
+      <li><a href="tuning.html#interlinking.hyperparam_tuning.ParamTuning.trainClassifier">trainClassifier() (interlinking.hyperparam_tuning.ParamTuning method)</a>
 </li>
-      <li><a href="tuning.html#src.param_tuning.ParamTuning.trainClassifier">trainClassifier() (src.param_tuning.ParamTuning method)</a>
+      <li><a href="measures.html#interlinking.sim_measures.tuned_jaro_winkler">tuned_jaro_winkler() (in module interlinking.sim_measures)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#interlinking.config.use_cols">use_cols (in module interlinking.config)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -374,7 +429,7 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="measures.html#src.sim_measures.weighted_sim">weighted_sim() (in module src.sim_measures)</a>
+      <li><a href="measures.html#interlinking.sim_measures.weighted_sim">weighted_sim() (in module interlinking.sim_measures)</a>
 </li>
   </ul></td>
 </tr></table>

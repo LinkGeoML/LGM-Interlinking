@@ -8,6 +8,14 @@ from interlinking import config, helpers
 
 
 def extract_freqterms(fname, encoding):
+    """Extract frequent terms found in the `fname` dataset and save them to a file under
+    :data:`~interlinking.config.default_data_path`.
+
+    :param fname: File name of the dataset.
+    :type fname: str
+    :param encoding: Encoding of the input dataset (*global* | *latin*).
+    :type encoding: str
+    """
     pattern = re.compile("^[a-zA-Z]+")
 
     ngram_stats = {

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tuning &mdash; LGM-Interlinking 0.1.0 documentation</title>
+  <title>tune hyperparameters &mdash; LGM-Interlinking 0.1.0 documentation</title>
   
 
   
@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -82,9 +83,11 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pre_process.html">pre_process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning.html">learn parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="measures.html">metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features.html">features</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">tuning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tune hyperparameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html">core</a></li>
 </ul>
 
@@ -131,7 +134,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>tuning</li>
+      <li>tune hyperparameters</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -151,12 +154,12 @@
 
            <div itemprop="articleBody">
             
-  <div class="section" id="tuning">
-<h1>tuning<a class="headerlink" href="#tuning" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tune-hyperparameters">
+<h1>tune hyperparameters<a class="headerlink" href="#tune-hyperparameters" title="Permalink to this headline">¶</a></h1>
 <blockquote>
-<div><dl class="class">
-<dt id="src.param_tuning.ParamTuning">
-<em class="property">class </em><code class="sig-prename descclassname">src.param_tuning.</code><code class="sig-name descname">ParamTuning</code><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning" title="Permalink to this definition">¶</a></dt>
+<div><dl class="py class">
+<dt id="interlinking.hyperparam_tuning.ParamTuning">
+<em class="property">class </em><code class="sig-prename descclassname">interlinking.hyperparam_tuning.</code><code class="sig-name descname">ParamTuning</code><a class="reference internal" href="_modules/interlinking/hyperparam_tuning.html#ParamTuning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interlinking.hyperparam_tuning.ParamTuning" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class provides all main methods for selecting, fine tuning hyperparameters, training and testing the best
 classifier for toponym matching. The following classifiers are examined:</p>
 <ul class="simple">
@@ -167,15 +170,15 @@ classifier for toponym matching. The following classifiers are examined:</p>
 <li><p>Extra-Trees</p></li>
 <li><p>eXtreme Gradient Boosting (XGBoost)</p></li>
 </ul>
-<dl class="method">
-<dt id="src.param_tuning.ParamTuning.fineTuneClassifiers">
-<code class="sig-name descname">fineTuneClassifiers</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.fineTuneClassifiers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.fineTuneClassifiers" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers">
+<code class="sig-name descname">fineTuneClassifiers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interlinking/hyperparam_tuning.html#ParamTuning.fineTuneClassifiers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search over specified parameter values for various estimators/classifiers and choose the best one.</p>
 <p>This method searches over specified values and selects the classifier that
 achieves the best avg accuracy score for all evaluations. The supported search methods are:</p>
 <ul class="simple">
 <li><p><em>GridSearchCV</em>: Exhaustive search over specified parameter values for supported estimators.
-The following variables are defined in <a class="reference internal" href="config.html#src.config.MLConf" title="src.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</p></li>
+The following variables are defined in <a class="reference internal" href="config.html#interlinking.config.MLConf" title="interlinking.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</p></li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -187,9 +190,9 @@ The following variables are defined in <a class="reference internal" href="confi
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li><p><em>RandomizedSearchCV</em>: Randomized search over continuous distribution space. <a class="reference internal" href="config.html#src.config.MLConf.max_iter" title="src.config.MLConf.max_iter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code></a>
-defines the number of parameter settings that are sampled. <a class="reference internal" href="config.html#src.config.MLConf.max_iter" title="src.config.MLConf.max_iter"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code></a> trades off
-runtime vs quality of the solution. The following variables are defined in <a class="reference internal" href="config.html#src.config.MLConf" title="src.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</p></li>
+<li><p><em>RandomizedSearchCV</em>: Randomized search over continuous distribution space. <code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code>
+defines the number of parameter settings that are sampled. <code class="xref py py-attr docutils literal notranslate"><span class="pre">max_iter</span></code> trades off
+runtime vs quality of the solution. The following variables are defined in <a class="reference internal" href="config.html#interlinking.config.MLConf" title="interlinking.config.MLConf"><code class="xref py py-func docutils literal notranslate"><span class="pre">MLConf()</span></code></a> :</p></li>
 </ul>
 <blockquote>
 <div><ul class="simple">
@@ -212,14 +215,14 @@ runtime vs quality of the solution. The following variables are defined in <a cl
 the name of the model in reference.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of {<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>}</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of {<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>: <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>}</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="src.param_tuning.ParamTuning.trainClassifier">
-<code class="sig-name descname">trainClassifier</code><span class="sig-paren">(</span><em class="sig-param">X_train</em>, <em class="sig-param">y_train</em>, <em class="sig-param">model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.trainClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.trainClassifier" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="interlinking.hyperparam_tuning.ParamTuning.trainClassifier">
+<code class="sig-name descname">trainClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X_train</span></em>, <em class="sig-param"><span class="n">y_train</span></em>, <em class="sig-param"><span class="n">model</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interlinking/hyperparam_tuning.html#ParamTuning.trainClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interlinking.hyperparam_tuning.ParamTuning.trainClassifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a classifier from the training set (X_train, y_train).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -238,9 +241,9 @@ the name of the model in reference.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="src.param_tuning.ParamTuning.testClassifier">
-<code class="sig-name descname">testClassifier</code><span class="sig-paren">(</span><em class="sig-param">X_test</em>, <em class="sig-param">y_test</em>, <em class="sig-param">model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/param_tuning.html#ParamTuning.testClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.param_tuning.ParamTuning.testClassifier" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="interlinking.hyperparam_tuning.ParamTuning.testClassifier">
+<code class="sig-name descname">testClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X_test</span></em>, <em class="sig-param"><span class="n">y_test</span></em>, <em class="sig-param"><span class="n">model</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interlinking/hyperparam_tuning.html#ParamTuning.testClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interlinking.hyperparam_tuning.ParamTuning.testClassifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate a classifier on a testing set (X_test, y_test).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -255,7 +258,7 @@ the name of the model in reference.</p>
 dataset.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>tuple of (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>, <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)">float</a>)</p>
+<dd class="field-odd"><p>tuple of (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)">float</a>, <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)">float</a>, <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)">float</a>, <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)">float</a>)</p>
 </dd>
 </dl>
 </dd></dl>

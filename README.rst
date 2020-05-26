@@ -5,21 +5,20 @@
 ================
 LGM-Interlinking
 ================
-
 This Python code implements and evaluates the proposed LinkGeoML models for Toponym classification-based interlinking.
 
 In this setting, we consider the names of the toponyms as the only source of information that can be used to decide
 whether two toponyms refer to the same real-world entity.
 Specifically, we build a meta-similarity function, called *LGM-Sim*, that takes into account
-and incorporates within its processing steps the specificities of toponym names. Consequently, we derive training features
-from **LGM-Sim** that are used in various classification models. The proposed method and its derived features are robust
-enough to handle variations in the distribution of toponyms and demonstrate a significant increase in interlinking
-accuracy compared to baseline models widely used in the literature (see `References`_). Indicatively, we succeed a 85.6% accuracy with
-the Gradient Boosting Trees classifier compared to the best baseline model that achieves accuracy of 78.6% with Random
-Forests.
+and incorporates within its processing steps the specificities of toponym names. Consequently, we derive training
+features from **LGM-Sim** that are used in various classification models. The proposed method and its derived features
+are robust enough to handle variations in the distribution of toponyms and demonstrate a significant increase in
+interlinking accuracy compared to baseline models widely used in the literature (see `References`_). Indicatively, we
+succeed a 85.6% accuracy with the Gradient Boosting Trees classifier compared to the best baseline model that achieves
+accuracy of 78.6% with Random Forests.
 
-The *data* folder contains the train datasets, which are used to build the classifiers, and files containing frequent terms,
-extracted from train datasets. For evaluation, we used the dataset from
+The *data* folder contains the train datasets, which are used to build the classifiers, and files containing frequent
+terms, extracted from train datasets. For evaluation, we used the dataset from
 the `Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_ work (see `Setup procedure`_).
 
 ..
@@ -33,15 +32,14 @@ the `Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_ work (see `
       - `./scripts/basic_test_100kglobal_parameter_based.sh`: collect the effectiveness values for the **basic** setup on the global dataset with hyper parameters obtained on the **100k global train** dataset;
       - `./scripts/lgm_test_100kglobal_parameter_based.sh`: collect the effectiveness values for the **LGM** setup on the global dataset with hyper parameters obtained on the **100k global train** dataset.
 
-The source code was tested using Python 2.7, 3.5 and 3.6 and Scikit-Learn 0.20.3 on a Linux server.
+The source code was tested using Python 3 (>=3.6) and Scikit-Learn 0.22.2.post1 on a Linux server.
 
 Setup procedure
 ---------------
-
 Download the latest version from the `GitHub repository <https://github.com/LinkGeoML/LGM-Interlinking.git>`_, change to
 the main directory and run:
 
-.. code:: bash
+.. code-block:: bash
 
    pip install -r pip_requirements.txt
 
@@ -57,17 +55,73 @@ Change to the **data** folder, download the test dataset and unzip it:
    zip -FF dataset.zip  --out dataset.zip.fixed
    unzip dataset.zip.fixed
 
+
+How to use
+----------
+The input dataset need to be in CSV format. Specifically, a valid dataset should have at least the following
+fields/columns:
+
+* The names for each of the candidate toponym pairs.
+* The label, i.e., {True, False}, assigned to each toponym pair.
+
+The library implements the following distinct processes:
+
+#. Features extraction
+    The :meth:`~interlinking.features.Features.build` function builds a set of training features to use within
+    classifiers for toponym interlinking.
+
+#. Algorithm and model selection
+    The functionality of the :meth:`~interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers` function is twofold.
+    Firstly, it chooses among a list of supported machine learning algorithms the one that achieves the highest average
+    accuracy score on the examined dataset. Secondly, it searches for the best model, i.e., the best hyper-parameters
+    for the best identified algorithm in the first step.
+
+#. Model training
+    The :meth:`~interlinking.hyperparam_tuning.ParamTuning.trainClassifier` trains the best selected model on previous
+    process, i.e., an ML algorithm with tuned hyperparameters that best fits data, on the whole train dataset, without
+    splitting it in folds.
+
+#. Model deployment
+    The :func:`~interlinking.hyperparam_tuning.ParamTuning.testClassifier` applies the trained model on new untested data.
+
+A complete pipeline of the above processes, i.e., features extraction, training and evaluating state-of-the-art
+classifiers, for toponym interlinking can be executed with the following command:
+
+.. code-block:: bash
+
+    $ python -m interlinking.cli hyperparameter_tuning --train_set <path/to/train-dataset>
+    --test_set <path/to/test-dataset>
+
+Additionally, *help* is available on the command line interface (*CLI*). Enter the following to list all supported
+commands or options for a given command with a short description.
+
+.. code-block:: bash
+
+    $ python -m interlinking.cli -h
+    Usage: cli.py [OPTIONS] COMMAND [ARGS]...
+
+    Options:
+      -h, --help  Show this message and exit.
+
+    Commands:
+      build                   build a candidate pairs of toponyms dataset for evaluation from Geonames
+      evaluate                evaluate the effectiveness of the proposed methods
+      extract_frequent_terms  create a file with ranked frequent terms found in corpus
+      hyperparameter_tuning   tune various classifiers and select the best hyper-parameters on a train dataset
+      learn_sim_params        learn parameters, i.e., weights/thresholds, on a train dataset for similarity metrics
+
 Documentation
 -------------
 Source code documentation is available from `linkgeoml.github.io`__.
 
 __ https://linkgeoml.github.io/LGM-Interlinking/
 
+
 Acknowledgements
 -------------------
-The *sim_measures.py* file, which is used to generate the train/test datasets and to compute the string similarity measures,
-is a slightly modified version of the *datasetcreator.py* file used in `Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_
-work, which is under the MIT license.
+The *sim_measures.py* file, which is used to generate the train/test datasets and to compute the string similarity
+measures, is a slightly modified version of the *datasetcreator.py* file used in
+`Toponym-Matching <https://github.com/ruipds/Toponym-Matching>`_ work, which is under the MIT license.
 
 References
 ----------
@@ -77,7 +131,7 @@ References
 
 License
 -------
-LGM-Interlinking is available under the MIT License.
+LGM-Interlinking is available under the `MIT <https://opensource.org/licenses/MIT>`_ License.
 
 ..
     .. |Documentation Status| image:: https://readthedocs.org/projects/coala/badge/?version=latest

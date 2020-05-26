@@ -6,7 +6,6 @@ import time
 import os
 
 from interlinking import hyperparam_tuning, config
-from interlinking.helpers import StaticValues
 from interlinking.features import Features
 from interlinking.sim_measures import LGMSimVars
 
@@ -22,12 +21,12 @@ class StrategyEvaluator:
         """A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to
         toponym interlinking problem.
 
-        :param train_data: Relative path to the train dataset.
+        :param train_data: Train dataset filename.
         :type train_data: str
-        :param test_data: Relative path to the test dataset.
+        :param test_data: Test dataset filename.
         :type test_data: str
         """
-        LGMSimVars.per_metric_optValues = StaticValues.opt_values[self.encoding.lower()]
+        LGMSimVars.per_metric_optValues = config.MLConf.opt_values[self.encoding.lower()]
         assert (os.path.isfile(os.path.join(config.default_data_path, train_data))), \
             f'{train_data} dataset does not exist'
         assert (os.path.isfile(os.path.join(config.default_data_path, test_data))), \
@@ -68,10 +67,15 @@ class StrategyEvaluator:
 
     def evaluate(self, train_data, test_data):
         """Train and evaluate selected ML algorithms with custom hyper-parameters on dataset.
+
+        :param train_data: Train dataset filename.
+        :type train_data: str
+        :param test_data: Test dataset filename.
+        :type test_data: str
         """
         tot_time = time.time()
 
-        LGMSimVars.per_metric_optValues = StaticValues.opt_values[self.encoding.lower()]
+        LGMSimVars.per_metric_optValues = config.MLConf.opt_values[self.encoding.lower()]
         assert (os.path.isfile(os.path.join(config.default_data_path, train_data))), \
             f'{train_data} dataset does not exist'
         assert (os.path.isfile(os.path.join(config.default_data_path, test_data))), \

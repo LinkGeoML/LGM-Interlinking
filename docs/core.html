@@ -21,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,7 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="tuning" href="tuning.html" /> 
+    <link rel="prev" title="tune hyperparameters" href="tuning.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,9 +82,11 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pre_process.html">pre_process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning.html">learn parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="measures.html">metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features.html">features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">tune hyperparameters</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">core</a></li>
 </ul>
 
@@ -153,29 +156,37 @@
   <div class="section" id="core">
 <h1>core<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h1>
 <blockquote>
-<div><dl class="class">
-<dt id="src.core.StrategyEvaluator">
-<em class="property">class </em><code class="sig-prename descclassname">src.core.</code><code class="sig-name descname">StrategyEvaluator</code><span class="sig-paren">(</span><em class="sig-param">encoding='latin'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/core.html#StrategyEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.core.StrategyEvaluator" title="Permalink to this definition">¶</a></dt>
+<div><dl class="py class">
+<dt id="interlinking.core.StrategyEvaluator">
+<em class="property">class </em><code class="sig-prename descclassname">interlinking.core.</code><code class="sig-name descname">StrategyEvaluator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">'latin'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interlinking/core.html#StrategyEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interlinking.core.StrategyEvaluator" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class implements the pipeline for various strategies.</p>
-<dl class="method">
-<dt id="src.core.StrategyEvaluator.hyperparamTuning">
-<code class="sig-name descname">hyperparamTuning</code><span class="sig-paren">(</span><em class="sig-param">train_data='data/dataset-string-similarity_global_1k.csv'</em>, <em class="sig-param">test_data='data/dataset-string-similarity.txt'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/core.html#StrategyEvaluator.hyperparamTuning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.core.StrategyEvaluator.hyperparamTuning" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="interlinking.core.StrategyEvaluator.hyperparamTuning">
+<code class="sig-name descname">hyperparamTuning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_data</span></em>, <em class="sig-param"><span class="n">test_data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interlinking/core.html#StrategyEvaluator.hyperparamTuning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interlinking.core.StrategyEvaluator.hyperparamTuning" title="Permalink to this definition">¶</a></dt>
 <dd><p>A complete process of distinct steps in figuring out the best ML algorithm with best hyperparameters to
 toponym interlinking problem.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>train_data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Relative path to the train dataset.</p></li>
-<li><p><strong>test_data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Relative path to the test dataset.</p></li>
+<li><p><strong>train_data</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Train dataset filename.</p></li>
+<li><p><strong>test_data</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Test dataset filename.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="src.core.StrategyEvaluator.exec_classifiers">
-<code class="sig-name descname">exec_classifiers</code><span class="sig-paren">(</span><em class="sig-param">train_data='data/dataset-string-similarity_global_1k.csv'</em>, <em class="sig-param">test_data='data/dataset-string-similarity.txt'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/core.html#StrategyEvaluator.exec_classifiers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#src.core.StrategyEvaluator.exec_classifiers" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt id="interlinking.core.StrategyEvaluator.evaluate">
+<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_data</span></em>, <em class="sig-param"><span class="n">test_data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/interlinking/core.html#StrategyEvaluator.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interlinking.core.StrategyEvaluator.evaluate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Train and evaluate selected ML algorithms with custom hyper-parameters on dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_data</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Train dataset filename.</p></li>
+<li><p><strong>test_data</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Test dataset filename.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -197,7 +208,7 @@ toponym interlinking problem.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="tuning.html" class="btn btn-neutral float-left" title="tuning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tuning.html" class="btn btn-neutral float-left" title="tune hyperparameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

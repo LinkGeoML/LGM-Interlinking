@@ -1,7 +1,7 @@
-tuning
-======
+tune hyperparameters
+====================
 
-    .. autoclass:: src.param_tuning.ParamTuning
+    .. autoclass:: interlinking.hyperparam_tuning.ParamTuning
        :members:
 
 :ref:`Return Home <mastertoc>`

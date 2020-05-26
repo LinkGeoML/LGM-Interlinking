@@ -5,11 +5,26 @@ import numpy as np
 from scipy.stats import randint as sp_randint, expon, truncnorm, uniform
 
 
+#: str: The folder name, relative to root path, that contains all required input files, e.g., train/test dataset,
+#: frequent terms etc.
 default_data_path = 'data'
+#: int: The proportion of frequent terms to utilize.
 freq_term_size = 400
-
+#: list of str: A list of names assigned to each column in train/test dataset. If a header exists, it should be set to
+#: None.
 fieldnames = ["s1", "s2", "status", "c1", "c2", "a1", "a2", "cc1", "cc2"]
-use_cols = dict(s1='s1', s2='s2', status='status')
+
+use_cols = dict(s1='s1', s2='s2', label='status')
+"""A dictionary of useful column names.
+
+    :var s1: Denote the column name assigned to the first name of each of the toponym pair.
+    :vartype s1: :obj:`str`
+    :var s2: Denote the column name assigned to the second name of each of the toponym pair.
+    :vartype s2: :obj:`str`
+    :var label: The true labels for the toponym pairs.
+    :vartype label: :obj:`str`
+"""
+#: char: The delimiter used to separate each column in CSV input files.
 delimiter = '\t'
 
 # #: Relative path to the train dataset. This value is used only when the *dtrain* cmd argument is None.
@@ -31,6 +46,12 @@ seed_no = 13
 class MLConf:
     """
     This class initializes parameters that correspond to the machine learning part of the framework.
+
+    :cvar opt_values: A list of learned parameters for LGM-Sim meta-similarity function. :math:`θ_{split}, w_b, w_m, w_f`.
+    :vartype opt_values: :obj:`dict` of dicts
+    :cvar clf_custom_params: A list of custom hyper-parameters to utilize for specified classifiers. These parameters
+        are used when `evaluate` command is executed in cli.
+    :vartype clf_custom_params: :obj:`dict` of dicts
 
     These variables define the parameter grid for GridSearchCV:
 
@@ -60,10 +81,7 @@ class MLConf:
     :vartype XGBoost_hyperparameters_dist: :obj:`dict`
     """
 
-    kfold_parameter = 5  #: int: The number of outer folds that splits the dataset for the k-fold cross-validation.
-
-    #: int: The number of inner folds that splits the dataset for the k-fold cross-validation.
-    kfold_inner_parameter = 4
+    kfold_no = 5  #: int: The number of outer folds that splits the dataset for the k-fold cross-validation.
 
     n_jobs = 4  #: int: Number of parallel jobs to be initiated. -1 means to utilize all available processors.
 
@@ -72,7 +90,7 @@ class MLConf:
 
     See Also
     --------
-    :class:`~interlinking.featuresConstruction.Features`. Details on available inputs.    
+    :class:`~interlinking.features.Features`: Details on available inputs.    
     """
 
     # accepted values: randomized, grid, hyperband - not yet implemented!!!
@@ -81,11 +99,10 @@ class MLConf:
     
     See Also
     --------
-    :func:`~interlinking.param_tuning.ParamTuning.getBestClassifier`, :func:`~interlinking.param_tuning.ParamTuning.fineTuneClassifier` 
-    Details on available inputs.       
+    :func:`~interlinking.hyperparam_tuning.ParamTuning.fineTuneClassifiers`: Details on available inputs.       
     """
-    #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when :class:`hyperparams_
-    #: search_method` equals to 'randomized'.
+    #: int: Number of iterations that RandomizedSearchCV should execute. It applies only when
+    # :class:`hyperparams_search_method` equals to 'randomized'.
     max_iter = 250
 
     classifiers = [
@@ -146,6 +163,44 @@ class MLConf:
             'solver': 'lbfgs',
             'random_state': seed_no,
         },
+    }
+
+    opt_values = {
+        'latin': {
+            # Only latin dataset 100k lines
+            'damerau_levenshtein': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.5, 0.2, 0.3]]},
+            'jaro': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.7, 0.1, 0.2]]},
+            'jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
+            'jaro_winkler_r': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.7, 0.1, 0.2]]},
+            # 'permuted_winkler': [],
+            # 'sorted_winkler': [],
+            'cosine': {'simple': [0.6, [0.6, 0.2, 0.2]], 'avg': [0.9, [0.4, 0.2, 0.4]]},
+            'jaccard': {'simple': [0.6, [0.6, 0.1, 0.3]], 'avg': [0.9, [0.3, 0.3, 0.4]]},
+            'strike_a_match': {'simple': [0.6, [0.6, 0.1, 0.3]], 'avg': [0.9, [0.5, 0.1, 0.4]]},
+            'skipgram': {'simple': [0.6, [0.6, 0.2, 0.2]], 'avg': [0.9, [0.3, 0.3, 0.4]]},
+            'monge_elkan': {'simple': [0.6, [0.7, 0.2, 0.1]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
+            'soft_jaccard': {'simple': [0.8, [0.6, 0.1, 0.3]], 'avg': [0.9, [0.5, 0.1, 0.4]]},
+            'davies': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
+            'tuned_jaro_winkler': {'simple': [0.8, [0.7, 0.1, 0.2]], 'avg': [0.9, [0.6, 0.1, 0.3]]},
+            'tuned_jaro_winkler_r': {'simple': [0.6, [0.7, 0.1, 0.2]], 'avg': [0.8, [0.7, 0.1, 0.2]]},
+        },
+        'global': {
+            'damerau_levenshtein': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
+            'jaro': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
+            'jaro_winkler': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
+            'jaro_winkler_r': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
+            # 'permuted_winkler': [],
+            # 'sorted_winkler': [],
+            'cosine': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
+            'jaccard': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
+            'strike_a_match': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.65, [0.4, 0.5, 0.1]]},
+            'skipgram': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
+            'monge_elkan': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
+            'soft_jaccard': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.7, [0.4, 0.5, 0.1]]},
+            'davies': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.7, [0.4, 0.5, 0.1]]},
+            'tuned_jaro_winkler': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.6, [0.4, 0.5, 0.1]]},
+            'tuned_jaro_winkler_r': {'simple': [0.6, [0.4, 0.5, 0.1]], 'avg': [0.8, [0.4, 0.5, 0.1]]},
+        }
     }
 
     # These parameters constitute the search space for GridSearchCV in our experiments.

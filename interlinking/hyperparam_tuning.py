@@ -43,9 +43,9 @@ class ParamTuning:
 
     def __init__(self):
         # To be used in outer CV
-        self.outer_cv = StratifiedKFold(n_splits=config.MLConf.kfold_parameter, shuffle=False)
+        self.outer_cv = StratifiedKFold(n_splits=config.MLConf.kfold_no, shuffle=False)
 
-        self.kfold = config.MLConf.kfold_parameter
+        self.kfold = config.MLConf.kfold_no
         self.n_jobs = config.MLConf.n_jobs
 
         self.search_method = config.MLConf.hyperparams_search_method

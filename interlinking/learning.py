@@ -10,6 +10,16 @@ from interlinking import sim_measures
 
 
 def learn_thres(fname, sim_group='basic'):
+    """Compute optimal thresholds for each similarity metric in specified group regarding the `fname` dataset.
+
+    Parameters
+    -----------
+    fname: :obj:`str`
+        File name of the dataset.
+    sim_group: :obj:`str`
+        Name of the group of the similarity metrics. Accepted values are *basic* or *basic_sorted*.
+
+    """
     low_thres = 30
     high_thres = 91
     step = 5
@@ -25,11 +35,11 @@ def learn_thres(fname, sim_group='basic'):
     sim_res = None
     if sim_group == 'basic':
         sim_res = np.asarray(list(
-            map(compute_basic_similarities, data_df[config.use_cols['s1']], data_df[config.use_cols['s2']])
+            map(_compute_basic_similarities, data_df[config.use_cols['s1']], data_df[config.use_cols['s2']])
         ), dtype=float)
     elif sim_group == 'sorted':
         sim_res = np.asarray(list(
-            map(compute_sorted_similarities, data_df[config.use_cols['s1']], data_df[config.use_cols['s2']])
+            map(_compute_sorted_similarities, data_df[config.use_cols['s1']], data_df[config.use_cols['s2']])
         ), dtype=float)
 
     print(f'The similarity scores were computed in {(time.time() - start_time):.2f}.')
@@ -62,6 +72,16 @@ def learn_thres(fname, sim_group='basic'):
 
 
 def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
+    """Compute optimal thresholds and weights for each similarity metric in the **LGM-Sim** group only regarding the
+    `fname` dataset.
+
+    :param fname: File name of the dataset.
+    :type fname: str
+    :param encoding: Encoding of the `fname` dataset.
+    :type encoding: str
+    :param sim_group: Name of the group of the similarity metrics.
+    :type sim_group: str
+    """
     low_thres = 30
     high_thres = 91
     step = 5
@@ -89,7 +109,7 @@ def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
 
         sim_res = np.asarray(
             list(map(
-                compute_lgm_similarities, data_df[config.use_cols['s1']], data_df[config.use_cols['s2']],
+                _compute_lgm_similarities, data_df[config.use_cols['s1']], data_df[config.use_cols['s2']],
                 [split_thres]*len(data_df.index))
             ), dtype=float
         )
@@ -145,7 +165,7 @@ def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
         print('{}: {}'.format(key, list(max_val)))
 
 
-def compute_basic_similarities(a, b):
+def _compute_basic_similarities(a, b):
     f = []
     for sim, val in helpers.StaticValues.sim_metrics.items():
         if 'basic' in val:
@@ -154,7 +174,7 @@ def compute_basic_similarities(a, b):
     return f
 
 
-def compute_sorted_similarities(a, b):
+def _compute_sorted_similarities(a, b):
     a, b = helpers.transform(a, b, sorting=True, canonical=True, simple_sorting=True)
 
     f = []
@@ -166,7 +186,7 @@ def compute_sorted_similarities(a, b):
     return f
 
 
-def compute_lgm_similarities(a, b, split_thres):
+def _compute_lgm_similarities(a, b, split_thres):
     a, b = helpers.transform(a, b, sorting=True, canonical=True)
 
     f = []
