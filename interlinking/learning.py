@@ -71,7 +71,7 @@ def learn_thres(fname, sim_group='basic'):
         print(key, max(val, key=lambda x: x[0]))
 
 
-def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
+def learn_params_for_lgm(fname, encoding):
     """Compute optimal thresholds and weights for each similarity metric in the ``LGM-Sim`` group only regarding the
     `fname` dataset.
 
@@ -79,8 +79,6 @@ def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
     :type fname: str
     :param encoding: Encoding of the `fname` dataset.
     :type encoding: str
-    :param sim_group: Name of the group of the similarity metrics.
-    :type sim_group: str
     """
     low_thres = 30
     high_thres = 91
@@ -88,6 +86,7 @@ def learn_params_for_lgm(fname, encoding, sim_group='lgm'):
     low_split_thres = 50
     high_split_thres = 91
     split_step = 10
+    sim_group = 'lgm'
 
     assert (os.path.isfile(os.path.join(config.default_data_path, fname))), f'{fname} dataset does not exist'
 

@@ -14,8 +14,8 @@ and incorporates within its processing steps the specificities of toponym names.
 features from **LGM-Sim** that are used in various classification models. The proposed method and its derived features
 are robust enough to handle variations in the distribution of toponyms and demonstrate a significant increase in
 interlinking accuracy compared to baseline models widely used in the literature (see `References`_). Indicatively, we
-succeed a 85.6% accuracy with the Gradient Boosting Trees classifier compared to the best baseline model that achieves
-accuracy of 78.6% with Random Forests.
+succeed a 85.4% accuracy with the Gradient Boosting Trees classifier compared to the best baseline model that achieves
+accuracy of 77.3% with Random Forests.
 
 The *data* folder contains the train datasets, which are used to build the classifiers, and files containing frequent
 terms, extracted from train datasets. For evaluation, we used the dataset from
@@ -56,8 +56,8 @@ Change to the **data** folder, download the test dataset and unzip it:
    unzip dataset.zip.fixed
 
 
-How to use
-----------
+Usage
+------
 The input dataset need to be in CSV format. Specifically, a valid dataset should have at least the following
 fields/columns:
 
@@ -129,9 +129,10 @@ measures, is a slightly modified version of the *datasetcreator.py* file used in
 
 References
 ----------
+* Giorgos Giannopoulos, Vassilis Kaffes, Georgios Kostoulas: Learning Advanced Similarities and Training Features for
+  Toponym Interlinking. ECIR (1) 2020: 111-125.
 * Santos, R., Murrieta-Flores, P. and Martins, B., 2018. Learning to combine multiple string similarity metrics for
   effective toponym matching. *International journal of digital earth*, 11(9), pp.913-938.
-
 
 License
 -------
