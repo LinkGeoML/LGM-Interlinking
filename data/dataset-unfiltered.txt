@@ -1,0 +1,107 @@
+Pic de la Font-Negre	Pic de la Font-Nègre	TRUE	3017832	3017832	LATIN	LATIN	AD	AD
+Étang de Font-Nègre	Estany de les Abelletes	TRUE	3017833	3017833	LATIN	LATIN	AD	AD
+Pic de la Font-Negre	Estany de les Abelletes	FALSE	3017832	3017833	LATIN	LATIN	AD	AD
+Port Vieux de la Coume d'Ose	Port Vieux de la Coume d’Ose	TRUE	3023203	3023203	LATIN	LATIN	AD	AD
+Étang de Font-Nègre	Port Vieux de la Coume d’Ose	FALSE	3017833	3023203	LATIN	LATIN	AD	AD
+Port Vieux de Coume d’Ose	Port Vieux de la Coume d’Ose	TRUE	3023203	3023203	LATIN	LATIN	AD	AD
+Estany de les Abelletes	Port Vieux de la Coume d'Ose	FALSE	3017833	3023203	LATIN	LATIN	AD	AD
+Port des Bareytes	Port de Bareites	TRUE	3034945	3034945	LATIN	LATIN	AD	AD
+Port Vieux de la Coume d'Ose	Port de las Bareytes	FALSE	3023203	3034945	LATIN	LATIN	AD	AD
+Port Dret	Port de Bareites	TRUE	3034945	3034945	LATIN	LATIN	AD	AD
+Port Vieux de la Coume d’Ose	Port de Bareites	FALSE	3023203	3034945	LATIN	LATIN	AD	AD
+Coll de Vall Civera	Coll de Valcibera	TRUE	3038870	3038870	LATIN	LATIN	AD	AD
+Port des Bareytes	Coll de Valcibera	FALSE	3034945	3038870	LATIN	LATIN	AD	AD
+Port de Vall Civera	Coll de Valcibera	TRUE	3038870	3038870	LATIN	LATIN	AD	AD
+Port Dret	Port de Vall Civera	FALSE	3034945	3038870	LATIN	LATIN	AD	AD
+Riu Valira d’Orient	Riu Valira d'Orient	TRUE	3038872	3038872	LATIN	LATIN	AD	AD
+Coll de Vall Civera	Riu Valira d’Orient	FALSE	3038870	3038872	LATIN	LATIN	AD	AD
+Rio Balira del Orien	Riu Valira d’Orient	TRUE	3038872	3038872	LATIN	LATIN	AD	AD
+Coll de Valcibera	Riu Valira d'Orient	FALSE	3038870	3038872	LATIN	LATIN	AD	AD
+Riu Valira del Nort	Valira del Norte	TRUE	3038873	3038873	LATIN	LATIN	AD	AD
+Riu Valira d’Orient	Riu Valira d'Ordino	FALSE	3038872	3038873	LATIN	LATIN	AD	AD
+Valira del Nord	Riu Valira del Nort	TRUE	3038873	3038873	LATIN	LATIN	AD	AD
+Rio Balira del Orien	Riu Valira del Nort	FALSE	3038872	3038873	LATIN	LATIN	AD	AD
+Pic de Triatagne	Tristaina	TRUE	3038886	3038886	LATIN	LATIN	AD	AD
+Riu Valira del Nort	Pic de Tristaina	FALSE	3038873	3038886	LATIN	LATIN	AD	AD
+Pic de Tristagne	Tristaina	TRUE	3038886	3038886	LATIN	LATIN	AD	AD
+Valira del Norte	Tristaina	FALSE	3038873	3038886	LATIN	LATIN	AD	AD
+Pic Monturull	Torre dels Soldats	TRUE	3038926	3038926	LATIN	LATIN	AD	AD
+Pic de Triatagne	Torre dels Soldats	FALSE	3038886	3038926	LATIN	LATIN	AD	AD
+Riu de Soplanas	Riu de Soplanars	TRUE	3038992	3038992	LATIN	LATIN	AD	AD
+Torre dels Soldats	Riu de Soplanàs	FALSE	3038926	3038992	LATIN	LATIN	AD	AD
+Bois de Soldeu	Bosc de Soldeu	TRUE	3038998	3038998	LATIN	LATIN	AD	AD
+Riu de Soplanas	Bois de Soldeu	FALSE	3038992	3038998	LATIN	LATIN	AD	AD
+Sola d'Engordany	Solá d’Engordany	TRUE	3039037	3039037	LATIN	LATIN	AD	AD
+Bois de Soldeu	Sola d'Engordany	FALSE	3038998	3039037	LATIN	LATIN	AD	AD
+Solà d’Arcabell	Sola d'Arcavell	TRUE	3039057	3039057	LATIN	LATIN	AD	AD
+Sola d'Engordany	Sola d'Arcabell	FALSE	3039037	3039057	LATIN	LATIN	AD	AD
+Sola d'Arcabell	Sola d'Arcavell	TRUE	3039057	3039057	LATIN	LATIN	AD	AD
+Solá d’Engordany	Sola d'Arcavell	FALSE	3039037	3039057	LATIN	LATIN	AD	AD
+Pico de Siscarou	Siscaró	TRUE	3039081	3039081	LATIN	LATIN	AD	AD
+Solà d’Arcabell	Siscaró	FALSE	3039057	3039081	LATIN	LATIN	AD	AD
+Siscaro	Siscaró	TRUE	3039081	3039081	LATIN	LATIN	AD	AD
+Sola d'Arcabell	Pic de Siscarou	FALSE	3039057	3039081	LATIN	LATIN	AD	AD
+Portella de Setut	Port de Setut	TRUE	3039090	3039090	LATIN	LATIN	AD	AD
+Pico de Siscarou	Portella de Setut	FALSE	3039081	3039090	LATIN	LATIN	AD	AD
+Pic de Serrère	Pic de la Serrera	TRUE	3039101	3039101	LATIN	LATIN	AD	AD
+Portella de Setut	Pic de Serrère	FALSE	3039090	3039101	LATIN	LATIN	AD	AD
+Serrera	Pic de Serrère	TRUE	3039101	3039101	LATIN	LATIN	AD	AD
+Port de Setut	Pic de la Serrera	FALSE	3039090	3039101	LATIN	LATIN	AD	AD
+Ehl Tarter	El Tarter	TRUE	3039154	3039154	LATIN	LATIN	AD	AD
+Pic de Serrère	Ehl Tarter	FALSE	3039101	3039154	LATIN	LATIN	AD	AD
+Sant Julià de Lòria	Сан Жулија де Лорија	TRUE	3039162	3039162	LATIN	CYRILLIC	AD	AD
+Ehl Tarter	Parochia de Sant Julià de Lòria	FALSE	3039154	3039162	LATIN	LATIN	AD	AD
+Սանթ Ժուլիա դե Լորիա	Сан Жулија де Лорија	TRUE	3039162	3039162	ARMENIAN	CYRILLIC	AD	AD
+El Tarter	sant jwlya dr lwrya	FALSE	3039154	3039162	LATIN	LATIN	AD	AD
+Sant-Zhulija-de-Lorija	San Julià	TRUE	3039163	3039163	LATIN	LATIN	AD	AD
+Sant Julià de Lòria	San Julià	FALSE	3039162	3039163	LATIN	LATIN	AD	AD
+Sant Julià de Lòria	Sant-Zhulija-de-Lorija	TRUE	3039163	3039163	LATIN	LATIN	AD	AD
+Սանթ Ժուլիա դե Լորիա	サン・ジュリア・デ・ロリア教区	FALSE	3039162	3039163	ARMENIAN	CJK	AD	AD
+Sant Joan de Caselles	San Joan de Casettas	TRUE	3039166	3039166	LATIN	LATIN	AD	AD
+Sant-Zhulija-de-Lorija	Sant Joan de Casellas	FALSE	3039163	3039166	LATIN	LATIN	AD	AD
+Cap de l'Ovella	Cap de Rep	TRUE	3039297	3039297	LATIN	LATIN	AD	AD
+Sant Joan de Caselles	Cap de Rep	FALSE	3039166	3039297	LATIN	LATIN	AD	AD
+Pic de la Portelleta	Tossa Plana de Lles	TRUE	3039426	3039426	LATIN	LATIN	AD	AD
+Cap de l'Ovella	Pic de la Portelleta	FALSE	3039297	3039426	LATIN	LATIN	AD	AD
+Pic del Pla de l'Estany	Pic des Bareytes	TRUE	3039516	3039516	LATIN	LATIN	AD	AD
+Pic de la Portelleta	Pic del Pla de l’Estany	FALSE	3039426	3039516	LATIN	LATIN	AD	AD
+Pico de Ancla	Pic d’Ós	TRUE	3039547	3039547	LATIN	LATIN	AD	AD
+Pic del Pla de l'Estany	Pic d’Ós	FALSE	3039516	3039547	LATIN	LATIN	AD	AD
+Pic d'Os	Pic d’Ós	TRUE	3039547	3039547	LATIN	LATIN	AD	AD
+Pic des Bareytes	Pico de Ancla	FALSE	3039516	3039547	LATIN	LATIN	AD	AD
+Coll Petit	Collado Pequeño	TRUE	3039551	3039551	LATIN	LATIN	AD	AD
+Pico de Ancla	Collado Pequeno	FALSE	3039547	3039551	LATIN	LATIN	AD	AD
+Pic dels Pessons	Pic de Pessons	TRUE	3039553	3039553	LATIN	LATIN	AD	AD
+Coll Petit	Pic dels Pessons	FALSE	3039551	3039553	LATIN	LATIN	AD	AD
+Percanela	Coma de Percanela	TRUE	3039565	3039565	LATIN	LATIN	AD	AD
+Pic dels Pessons	Coma de Percanela	FALSE	3039553	3039565	LATIN	LATIN	AD	AD
+Pas de la Casa	Пас де ла Каса	TRUE	3039604	3039604	LATIN	CYRILLIC	AD	AD
+Percanela	Пас де ла Каса	FALSE	3039565	3039604	LATIN	CYRILLIC	AD	AD
+Port de L'Ovella	Port de L’Ovella	TRUE	3039643	3039643	LATIN	LATIN	AD	AD
+Pas de la Casa	Port de L'Ovella	FALSE	3039604	3039643	LATIN	LATIN	AD	AD
+Parròquia d'Ordino	awrdynw	TRUE	3039676	3039676	LATIN	LATIN	AD	AD
+Port de L'Ovella	ao er di nuo	FALSE	3039643	3039676	LATIN	LATIN	AD	AD
+Ordinas	awrdynw	TRUE	3039676	3039676	LATIN	LATIN	AD	AD
+Port de L’Ovella	Ордино	FALSE	3039643	3039676	LATIN	CYRILLIC	AD	AD
+オルディノ教区	Ордино	TRUE	3039678	3039678	CJK	CYRILLIC	AD	AD
+Parròquia d'Ordino	Ордино	FALSE	3039676	3039678	LATIN	CYRILLIC	AD	AD
+ao er di nuo	オルディノ教区	TRUE	3039678	3039678	LATIN	CJK	AD	AD
+Ordinas	Ордино	FALSE	3039676	3039678	LATIN	CYRILLIC	AD	AD
+Carretera General Número Duo	Carretera General No. 2	TRUE	3039726	3039726	LATIN	LATIN	AD	AD
+オルディノ教区	Carretera General Numero Duo	FALSE	3039678	3039726	CJK	LATIN	AD	AD
+Pic d’ Escobes	Pic d' Escobes	TRUE	3039731	3039731	LATIN	LATIN	AD	AD
+Carretera General Número Duo	Pic de Noe	FALSE	3039726	3039731	LATIN	LATIN	AD	AD
+Pic de Noé	Pic d’ Escobes	TRUE	3039731	3039731	LATIN	LATIN	AD	AD
+Carretera General No. 2	Pic de Noé	FALSE	3039726	3039731	LATIN	LATIN	AD	AD
+Bony de los Neros	Bony de les Neres	TRUE	3039735	3039735	LATIN	LATIN	AD	AD
+Pic d’ Escobes	Pic de las Neras	FALSE	3039731	3039735	LATIN	LATIN	AD	AD
+Pic de las Neras	Bony de les Neres	TRUE	3039735	3039735	LATIN	LATIN	AD	AD
+Pic de Noé	Bony de las Neras	FALSE	3039731	3039735	LATIN	LATIN	AD	AD
+Pic de Perafita	Pic de la Truita	TRUE	3039781	3039781	LATIN	LATIN	AD	AD
+Bony de los Neros	Pic de Perafita	FALSE	3039735	3039781	LATIN	LATIN	AD	AD
+Pic de Monturull	Pic de Perafita	TRUE	3039781	3039781	LATIN	LATIN	AD	AD
+Bony de les Neres	Pic de la Truita	FALSE	3039735	3039781	LATIN	LATIN	AD	AD
+Coll de Montané	Coll de Montane	TRUE	3039807	3039807	LATIN	LATIN	AD	AD
+Pic de Perafita	Col de Montaner	FALSE	3039781	3039807	LATIN	LATIN	AD	AD
+Col de Montanér	Coll de Montane	TRUE	3039807	3039807	LATIN	LATIN	AD	AD
+Pic de Monturull	Collada de Montaner	FALSE	3039781	3039807	LATIN	LATIN	AD	AD

@@ -6,12 +6,13 @@ verify_ssl = true
 [dev-packages]
 sphinx = "*"
 sphinx-rtd-theme = "*"
+cython = "*"
 
 [packages]
 pycountry-convert = "==0.7.2"
 jellyfish = "==0.6.1"
 alphabet-detector = "==0.0.7"
-pandas = "==0.23.0"
+pandas = "==0.23.1"
 scipy = "*"
 text-unidecode = "==1.2"
 scikit-learn = "*"
@@ -22,6 +23,7 @@ click = "*"
 nltk = "*"
 pycountry = "*"
 langdetect = "*"
+sphinxcontrib-napoleon = "*"
 
 [requires]
 python_version = "3.8"

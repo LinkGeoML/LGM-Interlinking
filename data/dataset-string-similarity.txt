@@ -1,0 +1,16 @@
+Ahur	Ahir	TRUE	325114	325114	LATIN	LATIN	unknown	unknown
+Ahir Koyu	Uadi Badigalen	FALSE	325114	65208	LATIN	LATIN	unknown	unknown
+Ahir Koyu	Ahır Köyü	TRUE	325114	325114	LATIN	LATIN	unknown	unknown
+Ahir	Uadi Badigalen	FALSE	325114	65208	LATIN	LATIN	unknown	unknown
+Kutluova	Ahır	TRUE	325114	325114	LATIN	LATIN	unknown	unknown
+Ahırköy	Baadi Galeen	FALSE	325114	65208	LATIN	LATIN	unknown	unknown
+xin lian	Xinlian	TRUE	8368605	8368605	LATIN	LATIN	unknown	unknown
+Ahır Köyü	Wangjiagou	FALSE	325114	8262446	LATIN	LATIN	unknown	unknown
+Ahir Koyu	Ahır	TRUE	325114	325114	LATIN	LATIN	unknown	unknown
+Ahur	Uadi Badigalen	FALSE	325114	65208	LATIN	LATIN	unknown	unknown
+Ahırköy	Ahır	TRUE	325114	325114	LATIN	LATIN	unknown	unknown
+Kutluova	Baadi Galeen	FALSE	325114	65208	LATIN	LATIN	unknown	unknown
+Kutluova	Ahir Koyu	TRUE	325114	325114	LATIN	LATIN	unknown	unknown
+Ahir Koyu	Wangjiagou	FALSE	325114	8262446	LATIN	LATIN	unknown	unknown
+Ahır Köyü	Ahırköy	TRUE	325114	325114	LATIN	LATIN	unknown	unknown
+Ahır Köyü	Uadi Badigalen	FALSE	325114	65208	LATIN	LATIN	unknown	unknown
