@@ -4,7 +4,7 @@ click==7.1.1
 jellyfish==0.6.1
 langdetect==1.0.8
 nltk==3.5
-numpy==1.18.3
+numpy==1.22.0
 pandas==0.23.0
 pycountry-convert==0.7.2
 pycountry==19.8.18
